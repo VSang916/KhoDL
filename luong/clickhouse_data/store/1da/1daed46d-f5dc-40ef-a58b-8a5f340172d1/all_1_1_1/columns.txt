@@ -1,7 +1,0 @@
-columns format version: 1
-5 columns:
-`date_id` UInt32
-`full_date` Date
-`day` UInt8
-`month` UInt8
-`year` UInt16

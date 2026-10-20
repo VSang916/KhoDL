@@ -1,0 +1,21 @@
+# Dữ liệu sinh ra khi chạy (tái tạo được bằng run_all.sh) - không đưa vào git
+luong/clickhouse_data/
+luong/logs/
+luong/data/
+luong/config/
+luong/plugins/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Sách giáo trình có bản quyền: chỉ để trên máy, không phát tán qua git
+Tai_lieu_tham_khao/*.pdf
+
+# Hệ điều hành / IDE
+.DS_Store
+Thumbs.db
+.vscode/

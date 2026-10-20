@@ -1,7 +1,0 @@
-columns format version: 1
-5 columns:
-`date_id` UInt32
-`first_day` Date
-`year` UInt16
-`quarter` UInt8
-`month` UInt8

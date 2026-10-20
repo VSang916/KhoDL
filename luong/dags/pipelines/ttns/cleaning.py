@@ -9,7 +9,21 @@ import pandas as pd
 
 from pipelines.ttns.schema import columns
 
-BUILD_TABLES = ["dim_product", "dim_market", "dim_date", "price_clean", "fact_price_monthly"]
+BUILD_TABLES = ["dim_product", "dim_market", "dim_price_type", "dim_date", "price_clean", "fact_price_monthly"]
+
+# Phân cấp chiều Địa điểm: tỉnh cũ -> tỉnh mới (sau sáp nhập 2025) -> vùng kinh tế - xã hội
+VUNG = {
+    "Sơn La": "Trung du và miền núi phía Bắc",
+    "TP. Hà Nội": "Đồng bằng sông Hồng", "Hưng Yên": "Đồng bằng sông Hồng",
+    "Tây Ninh": "Đông Nam Bộ",
+    "Đồng Tháp": "Đồng bằng sông Cửu Long", "TP. Cần Thơ": "Đồng bằng sông Cửu Long",
+    "Vĩnh Long": "Đồng bằng sông Cửu Long", "Cà Mau": "Đồng bằng sông Cửu Long", "An Giang": "Đồng bằng sông Cửu Long",
+}
+CAP_GIA_MO_TA = {
+    "Bán lẻ": "giá tới tay người tiêu dùng",
+    "Bán buôn": "giá sỉ giữa các khâu trung gian",
+    "Thu mua": "giá tại nơi sản xuất (vườn, thương lái)",
+}
 
 # Tiêu đề cột trong file Excel -> tên cột sau khi làm sạch
 RAW_COLUMNS = {
@@ -129,7 +143,11 @@ def clean(raw: pd.DataFrame, source_file: str) -> tuple[pd.DataFrame, dict]:
 
 def build_tables(clean_df: pd.DataFrame) -> dict[str, pd.DataFrame]:
     dim_product = clean_df.drop_duplicates("product_id")[columns("dim_product")].sort_values("product_id")
-    dim_market = clean_df.drop_duplicates("market_id")[columns("dim_market")].sort_values("market_id")
+    dim_market = clean_df.drop_duplicates("market_id").assign(
+        vung=lambda x: x["tinh_moi"].map(VUNG).fillna("Khác"))[columns("dim_market")].sort_values("market_id")
+    dim_price_type = (clean_df.drop_duplicates("loai_gia")[["loai_gia", "cap_gia"]]
+                      .assign(mo_ta=lambda x: x["cap_gia"].map(CAP_GIA_MO_TA).fillna(""))
+                      [columns("dim_price_type")].sort_values(["cap_gia", "loai_gia"]))
 
     dates = clean_df.drop_duplicates("date_id")[["date_id", "nam", "thang"]].sort_values("date_id")
     dim_date = pd.DataFrame({
@@ -142,10 +160,12 @@ def build_tables(clean_df: pd.DataFrame) -> dict[str, pd.DataFrame]:
 
     keys = ["product_id", "market_id", "date_id", "loai_gia", "cap_gia", "don_vi_tinh"]
     counts = clean_df.groupby(keys).agg(n_obs=("gia", "size"), n_outliers=("is_outlier", "sum")).reset_index()
+    # sum_price, n_valid: độ đo PHÂN PHỐI ĐƯỢC -> cuộn lên mọi mức (avg = sum_price / n_valid là độ đo ĐẠI SỐ).
+    # median_price là độ đo TOÀN THỂ: chỉ đúng ở đúng độ mịn này, không cộng/gộp lên được (Bài 5).
     prices = (
         clean_df[clean_df["is_outlier"] == 0]
         .groupby(keys)["gia"]
-        .agg(avg_price="mean", median_price="median", min_price="min", max_price="max")
+        .agg(n_valid="size", sum_price="sum", avg_price="mean", median_price="median", min_price="min", max_price="max")
         .reset_index()
     )
     # inner join: nhóm chỉ toàn giá bất thường thì không có giá tin cậy, bỏ khỏi bảng fact
@@ -155,6 +175,7 @@ def build_tables(clean_df: pd.DataFrame) -> dict[str, pd.DataFrame]:
     frames = {
         "dim_product": dim_product,
         "dim_market": dim_market,
+        "dim_price_type": dim_price_type,
         "dim_date": dim_date,
         "price_clean": clean_df,
         "fact_price_monthly": fact,
