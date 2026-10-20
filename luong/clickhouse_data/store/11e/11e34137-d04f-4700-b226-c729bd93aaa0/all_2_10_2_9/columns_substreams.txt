@@ -1,0 +1,41 @@
+columns substreams version: 1
+13 columns:
+1 substreams for column `change_date_id`:
+	change_date_id
+2 substreams for column `item_no`:
+	item_no.size
+	item_no
+1 substreams for column `store_code`:
+	store_code
+2 substreams for column `op`:
+	op.size
+	op
+2 substreams for column `change_type`:
+	change_type.size
+	change_type
+2 substreams for column `old_original_price`:
+	old_original_price.null
+	old_original_price
+2 substreams for column `new_original_price`:
+	new_original_price.null
+	new_original_price
+2 substreams for column `old_selling_price`:
+	old_selling_price.null
+	old_selling_price
+2 substreams for column `new_selling_price`:
+	new_selling_price.null
+	new_selling_price
+3 substreams for column `old_promotion_code`:
+	old_promotion_code.null
+	old_promotion_code.size
+	old_promotion_code
+3 substreams for column `new_promotion_code`:
+	new_promotion_code.null
+	new_promotion_code.size
+	new_promotion_code
+2 substreams for column `old_is_promo`:
+	old_is_promo.null
+	old_is_promo
+2 substreams for column `new_is_promo`:
+	new_is_promo.null
+	new_is_promo

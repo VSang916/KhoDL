@@ -1,0 +1,693 @@
+[2026-10-18T14:18:35.705+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:35.704+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 73)
+[2026-10-18T14:18:35.706+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:35.706+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=73
+[2026-10-18T14:18:35.711+0000] {processor.py:161} INFO - Started process (PID=73) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:18:35.713+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:18:35.714+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:35.714+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:18:35.725+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:35.725+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:18:36.188+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.188+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:18:36.206+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.205+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:18:36.206+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:18:36.209+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.208+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:18:36.209+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.209+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:18:36.224+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.224+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:18:36.231+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.230+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:18:36.235+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.235+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:18:36.241+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.240+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:18:36.244+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.244+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:18:36.248+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.248+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:18:36.264+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.264+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:18:36.266+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.266+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:18:36.306+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:18:36.306+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:18:36.342+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.638 seconds
+[2026-10-18T14:19:06.434+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.433+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 115)
+[2026-10-18T14:19:06.435+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.435+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=115
+[2026-10-18T14:19:06.437+0000] {processor.py:161} INFO - Started process (PID=115) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:06.438+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:19:06.439+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.439+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:06.447+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.447+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:06.706+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.706+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:19:06.716+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.715+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:19:06.716+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:06.718+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.717+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:19:06.718+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.718+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:19:06.728+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.727+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:19:06.731+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.730+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:06.733+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.733+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:06.735+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.735+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:06.737+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.737+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:06.739+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.739+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:06.750+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.750+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:19:06.751+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.751+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:19:06.773+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:06.773+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:19:06.929+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.495 seconds
+[2026-10-18T14:19:37.852+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:37.851+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 134)
+[2026-10-18T14:19:37.853+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:37.853+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=134
+[2026-10-18T14:19:37.857+0000] {processor.py:161} INFO - Started process (PID=134) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:37.858+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:19:37.859+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:37.859+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:37.876+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:37.875+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:38.113+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.112+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:19:38.123+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.122+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:19:38.124+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:19:38.126+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.125+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:19:38.126+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.126+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:19:38.136+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.135+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:19:38.238+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.237+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:38.239+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.239+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:38.241+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.241+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:38.243+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.243+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:38.245+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.245+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:19:38.254+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.254+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:19:38.255+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.254+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:19:38.272+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:19:38.272+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:19:38.289+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.438 seconds
+[2026-10-18T14:20:08.814+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:08.814+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 146)
+[2026-10-18T14:20:08.815+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:08.815+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=146
+[2026-10-18T14:20:08.818+0000] {processor.py:161} INFO - Started process (PID=146) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:08.818+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:20:08.819+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:08.819+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:08.824+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:08.824+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:09.136+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.136+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:20:09.144+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.144+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:20:09.145+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:09.146+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.146+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:20:09.146+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.146+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:20:09.154+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.153+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:20:09.156+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.156+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:09.158+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.158+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:09.160+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.160+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:09.162+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.162+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:09.163+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.163+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:09.171+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.171+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:20:09.172+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.172+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:20:09.189+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:09.189+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:20:09.205+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.392 seconds
+[2026-10-18T14:20:39.467+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.466+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 158)
+[2026-10-18T14:20:39.468+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.468+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=158
+[2026-10-18T14:20:39.471+0000] {processor.py:161} INFO - Started process (PID=158) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:39.472+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:20:39.473+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.472+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:39.478+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.478+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:39.775+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.775+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:20:39.781+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.781+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:20:39.782+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:20:39.783+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.782+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:20:39.783+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.783+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:20:39.790+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.790+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:20:39.793+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.792+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:39.795+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.794+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:39.796+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.796+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:39.798+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.798+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:39.799+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.799+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:20:39.807+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.807+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:20:39.808+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.807+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:20:39.823+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:20:39.823+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:20:39.841+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.375 seconds
+[2026-10-18T14:21:10.155+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.154+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 212)
+[2026-10-18T14:21:10.156+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.156+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=212
+[2026-10-18T14:21:10.159+0000] {processor.py:161} INFO - Started process (PID=212) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:10.160+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:21:10.161+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.161+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:10.168+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.168+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:10.500+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.500+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:21:10.508+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.508+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:21:10.509+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:10.510+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.509+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:21:10.510+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.510+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:21:10.518+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.517+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:21:10.521+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.520+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:10.523+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.523+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:10.526+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.525+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:10.527+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.527+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:10.529+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.529+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:10.540+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.540+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:21:10.541+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.541+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:21:10.561+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:10.561+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:21:10.583+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.429 seconds
+[2026-10-18T14:21:40.950+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:40.950+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 246)
+[2026-10-18T14:21:40.951+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:40.951+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=246
+[2026-10-18T14:21:40.954+0000] {processor.py:161} INFO - Started process (PID=246) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:40.954+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:21:40.955+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:40.955+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:40.962+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:40.962+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:41.326+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.326+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:21:41.334+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.333+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:21:41.334+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:21:41.335+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.335+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:21:41.336+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.336+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:21:41.344+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.344+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:21:41.347+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.346+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:41.349+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.349+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:41.351+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.350+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:41.352+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.352+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:41.354+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.354+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:21:41.366+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.365+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:21:41.367+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.366+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:21:41.385+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:21:41.385+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:21:41.403+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.453 seconds
+[2026-10-18T14:22:12.105+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.104+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 280)
+[2026-10-18T14:22:12.106+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.106+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=280
+[2026-10-18T14:22:12.109+0000] {processor.py:161} INFO - Started process (PID=280) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:12.110+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:22:12.111+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.111+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:12.119+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.119+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:12.473+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.473+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:22:12.481+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.481+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:22:12.482+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:12.483+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.483+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:22:12.484+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.483+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:22:12.493+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.493+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:22:12.496+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.496+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:12.499+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.499+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:12.501+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.501+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:12.503+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.503+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:12.505+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.505+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:12.516+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.516+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:22:12.517+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.517+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:22:12.537+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:12.537+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:22:12.560+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.456 seconds
+[2026-10-18T14:22:42.824+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:42.823+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 292)
+[2026-10-18T14:22:42.824+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:42.824+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=292
+[2026-10-18T14:22:42.827+0000] {processor.py:161} INFO - Started process (PID=292) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:42.828+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:22:42.828+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:42.828+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:42.834+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:42.834+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:43.170+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.170+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:22:43.178+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.178+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:22:43.179+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:22:43.180+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.180+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:22:43.180+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.180+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:22:43.188+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.188+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:22:43.192+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.191+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:43.194+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.193+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:43.195+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.195+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:43.198+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.198+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:43.200+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.200+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:22:43.210+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.210+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:22:43.211+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.210+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:22:43.229+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:22:43.229+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:22:43.251+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.428 seconds
+[2026-10-18T14:23:13.596+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.595+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 304)
+[2026-10-18T14:23:13.597+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.597+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=304
+[2026-10-18T14:23:13.599+0000] {processor.py:161} INFO - Started process (PID=304) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:13.600+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:23:13.601+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.600+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:13.607+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.607+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:13.921+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.921+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:23:13.930+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.929+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:23:13.930+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:13.932+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.931+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:23:13.933+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.932+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:23:13.940+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.940+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:23:13.943+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.943+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:13.945+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.945+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:13.947+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.947+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:13.950+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.949+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:13.952+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.952+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:13.962+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.961+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:23:13.962+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.962+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:23:13.982+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:13.982+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:23:14.003+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.408 seconds
+[2026-10-18T14:23:44.298+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.298+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 316)
+[2026-10-18T14:23:44.299+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.299+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=316
+[2026-10-18T14:23:44.301+0000] {processor.py:161} INFO - Started process (PID=316) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:44.302+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:23:44.303+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.303+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:44.307+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.307+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:44.607+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.607+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:23:44.614+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.614+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:23:44.615+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:23:44.616+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.616+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:23:44.616+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.616+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:23:44.623+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.623+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:23:44.626+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.625+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:44.628+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.627+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:44.629+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.629+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:44.631+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.631+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:44.632+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.632+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:23:44.641+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.641+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:23:44.642+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.641+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:23:44.659+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:23:44.659+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:23:44.679+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.381 seconds
+[2026-10-18T14:24:15.002+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.002+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 328)
+[2026-10-18T14:24:15.003+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.003+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=328
+[2026-10-18T14:24:15.006+0000] {processor.py:161} INFO - Started process (PID=328) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:15.007+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:24:15.008+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.007+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:15.014+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.014+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:15.301+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.301+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:24:15.309+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.309+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:24:15.310+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:15.311+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.310+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:24:15.311+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.311+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:24:15.318+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.318+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:24:15.321+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.320+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:15.322+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.322+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:15.324+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.324+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:15.325+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.325+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:15.327+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.327+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:15.336+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.336+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:24:15.337+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.336+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:24:15.353+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:15.352+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:24:15.369+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.367 seconds
+[2026-10-18T14:24:45.711+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.710+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 340)
+[2026-10-18T14:24:45.712+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.711+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=340
+[2026-10-18T14:24:45.714+0000] {processor.py:161} INFO - Started process (PID=340) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:45.715+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:24:45.715+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.715+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:45.721+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.721+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:45.945+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.945+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:24:45.954+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.954+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:24:45.955+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:24:45.957+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.956+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:24:45.957+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.957+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:24:45.966+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.966+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:24:45.969+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.969+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:45.971+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.971+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:45.973+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.973+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:45.975+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.974+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:45.976+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.976+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:24:45.985+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.984+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:24:45.985+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:45.985+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:24:46.005+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:24:46.005+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:24:46.024+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.314 seconds
+[2026-10-18T14:25:16.750+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:16.749+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 352)
+[2026-10-18T14:25:16.751+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:16.751+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=352
+[2026-10-18T14:25:16.755+0000] {processor.py:161} INFO - Started process (PID=352) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:16.757+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:25:16.759+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:16.758+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:16.768+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:16.767+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:17.160+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.160+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:25:17.172+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.172+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:25:17.173+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:17.174+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.174+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:25:17.175+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.174+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:25:17.188+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.187+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:25:17.191+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.190+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:17.193+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.193+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:17.195+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.194+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:17.198+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.197+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:17.201+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.201+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:17.214+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.213+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:25:17.215+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.214+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:25:17.239+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:17.239+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:25:17.266+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.517 seconds
+[2026-10-18T14:25:47.373+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.373+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 364)
+[2026-10-18T14:25:47.374+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.374+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=364
+[2026-10-18T14:25:47.377+0000] {processor.py:161} INFO - Started process (PID=364) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:47.378+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:25:47.379+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.379+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:47.385+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.385+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:47.644+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.644+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:25:47.654+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.654+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:25:47.655+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:25:47.656+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.656+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:25:47.656+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.656+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:25:47.666+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.666+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:25:47.672+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.671+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:47.674+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.674+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:47.677+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.676+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:47.679+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.679+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:47.682+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.681+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:25:47.697+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.697+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:25:47.698+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.697+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:25:47.723+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:25:47.723+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:25:47.747+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.375 seconds
+[2026-10-18T14:26:18.660+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.660+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 376)
+[2026-10-18T14:26:18.661+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.661+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=376
+[2026-10-18T14:26:18.664+0000] {processor.py:161} INFO - Started process (PID=376) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:18.665+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:26:18.665+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.665+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:18.674+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.674+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:18.927+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.927+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:26:18.938+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.938+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:26:18.938+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:18.940+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.940+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:26:18.940+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.940+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:26:18.950+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.949+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:26:18.953+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.953+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:18.955+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.955+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:18.956+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.956+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:18.958+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.958+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:18.960+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.959+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:18.970+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.970+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:26:18.971+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.971+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:26:18.991+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:18.991+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:26:19.018+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.359 seconds
+[2026-10-18T14:26:49.808+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:49.808+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 388)
+[2026-10-18T14:26:49.809+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:49.809+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=388
+[2026-10-18T14:26:49.811+0000] {processor.py:161} INFO - Started process (PID=388) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:49.812+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:26:49.813+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:49.813+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:49.824+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:49.824+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:50.088+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.088+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:26:50.103+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.102+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:26:50.104+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:26:50.106+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.106+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:26:50.107+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.106+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:26:50.120+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.119+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:26:50.123+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.123+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:50.126+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.126+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:50.129+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.129+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:50.131+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.131+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:50.134+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.133+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:26:50.146+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.146+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:26:50.148+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.147+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:26:50.172+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:26:50.172+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:26:50.196+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.388 seconds
+[2026-10-18T14:27:20.477+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.477+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 400)
+[2026-10-18T14:27:20.478+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.478+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=400
+[2026-10-18T14:27:20.481+0000] {processor.py:161} INFO - Started process (PID=400) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:20.481+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:27:20.482+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.482+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:20.497+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.496+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:20.778+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.778+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:27:20.794+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.794+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:27:20.794+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:20.797+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.797+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:27:20.798+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.798+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:27:20.814+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.814+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:27:20.818+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.818+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:20.822+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.821+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:20.824+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.823+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:20.826+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.826+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:20.828+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.828+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:20.844+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.843+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:27:20.847+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.846+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:27:20.875+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:20.875+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:27:20.894+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.417 seconds
+[2026-10-18T14:27:51.188+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.187+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 412)
+[2026-10-18T14:27:51.189+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.189+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=412
+[2026-10-18T14:27:51.192+0000] {processor.py:161} INFO - Started process (PID=412) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:51.193+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:27:51.193+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.193+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:51.201+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.200+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:51.572+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.572+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:27:51.588+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.588+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:27:51.589+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:27:51.591+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.590+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:27:51.591+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.591+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:27:51.605+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.605+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:27:51.610+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.609+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:51.614+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.613+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:51.618+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.618+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:51.621+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.621+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:51.624+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.623+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:27:51.643+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.643+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:27:51.645+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.644+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:27:51.678+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:27:51.677+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:27:51.705+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.518 seconds
+[2026-10-18T14:28:21.970+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:21.969+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 424)
+[2026-10-18T14:28:21.971+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:21.971+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=424
+[2026-10-18T14:28:21.973+0000] {processor.py:161} INFO - Started process (PID=424) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:21.974+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:28:21.975+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:21.975+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:21.982+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:21.981+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:22.203+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.203+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:28:22.211+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.211+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:28:22.212+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:22.213+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.213+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:28:22.214+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.214+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:28:22.223+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.222+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:28:22.226+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.226+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:22.228+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.228+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:22.230+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.230+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:22.232+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.231+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:22.234+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.233+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:22.245+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.245+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:28:22.246+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.246+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:28:22.267+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:22.267+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:28:22.284+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.315 seconds
+[2026-10-18T14:28:52.596+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.595+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 436)
+[2026-10-18T14:28:52.597+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.597+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=436
+[2026-10-18T14:28:52.599+0000] {processor.py:161} INFO - Started process (PID=436) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:52.600+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:28:52.601+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.601+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:52.607+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.607+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:52.856+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.856+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:28:52.865+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.865+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:28:52.866+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:28:52.867+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.867+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:28:52.867+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.867+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:28:52.875+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.875+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:28:52.879+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.878+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:52.881+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.880+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:52.882+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.882+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:52.884+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.884+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:52.885+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.885+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:28:52.895+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.894+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:28:52.895+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:52.895+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:28:53.025+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:28:53.025+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:28:53.044+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.449 seconds
+[2026-10-18T14:29:23.308+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.307+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 448)
+[2026-10-18T14:29:23.309+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.308+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=448
+[2026-10-18T14:29:23.312+0000] {processor.py:161} INFO - Started process (PID=448) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:23.312+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:29:23.313+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.313+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:23.325+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.324+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:23.614+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.613+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:29:23.625+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.625+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:29:23.626+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:23.627+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.627+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:29:23.628+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.628+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:29:23.638+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.637+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:29:23.641+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.641+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:23.643+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.643+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:23.646+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.645+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:23.648+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.647+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:23.650+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.650+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:23.660+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.660+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:29:23.661+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.661+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:29:23.681+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:23.681+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:29:23.702+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.395 seconds
+[2026-10-18T14:29:53.966+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:53.965+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 460)
+[2026-10-18T14:29:53.966+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:53.966+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=460
+[2026-10-18T14:29:53.969+0000] {processor.py:161} INFO - Started process (PID=460) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:53.970+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:29:53.971+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:53.971+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:53.977+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:53.977+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:54.272+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.272+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:29:54.283+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.282+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:29:54.283+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:29:54.284+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.284+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:29:54.285+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.285+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:29:54.294+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.294+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:29:54.297+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.297+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:54.299+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.299+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:54.301+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.301+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:54.303+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.303+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:54.305+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.305+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:29:54.316+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.316+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:29:54.317+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.317+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:29:54.459+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:29:54.459+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:29:54.484+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.520 seconds
+[2026-10-18T14:30:24.738+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:24.737+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 472)
+[2026-10-18T14:30:24.739+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:24.739+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=472
+[2026-10-18T14:30:24.742+0000] {processor.py:161} INFO - Started process (PID=472) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:24.743+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:30:24.745+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:24.744+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:24.754+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:24.754+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:25.081+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.081+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:30:25.089+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.089+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:30:25.090+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:25.091+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.091+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:30:25.091+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.091+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:30:25.100+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.100+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:30:25.103+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.103+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:25.105+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.105+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:25.107+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.107+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:25.109+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.109+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:25.111+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.111+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:25.120+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.119+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:30:25.121+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.121+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:30:25.140+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:25.140+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:30:25.164+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.426 seconds
+[2026-10-18T14:30:55.443+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.442+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 484)
+[2026-10-18T14:30:55.444+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.444+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=484
+[2026-10-18T14:30:55.447+0000] {processor.py:161} INFO - Started process (PID=484) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:55.448+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:30:55.449+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.449+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:55.459+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.459+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:55.789+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.789+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:30:55.797+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.797+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:30:55.798+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:30:55.799+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.799+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:30:55.800+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.799+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:30:55.807+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.807+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:30:55.810+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.809+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:55.812+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.812+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:55.813+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.813+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:55.815+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.815+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:55.817+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.817+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:30:55.828+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.827+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:30:55.829+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.828+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:30:55.848+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:30:55.848+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:30:55.868+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.426 seconds
+[2026-10-18T14:31:26.724+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:26.724+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 496)
+[2026-10-18T14:31:26.725+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:26.725+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=496
+[2026-10-18T14:31:26.728+0000] {processor.py:161} INFO - Started process (PID=496) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:26.729+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:31:26.730+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:26.730+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:26.736+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:26.735+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:27.085+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.084+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:31:27.094+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.094+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:31:27.095+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:27.096+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.096+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:31:27.098+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.097+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:31:27.107+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.107+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:31:27.110+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.110+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:27.112+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.112+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:27.114+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.114+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:27.116+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.116+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:27.119+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.118+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:27.128+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.128+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:31:27.129+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.128+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:31:27.149+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:27.148+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:31:27.169+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.445 seconds
+[2026-10-18T14:31:57.470+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.469+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 508)
+[2026-10-18T14:31:57.472+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.471+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=508
+[2026-10-18T14:31:57.476+0000] {processor.py:161} INFO - Started process (PID=508) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:57.477+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:31:57.478+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.478+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:57.489+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.488+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:57.949+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.948+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:31:57.959+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.958+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:31:57.959+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:31:57.963+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.962+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:31:57.964+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.964+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:31:57.974+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.974+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:31:57.979+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.979+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:57.982+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.981+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:57.984+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.984+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:57.987+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.986+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:57.988+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.988+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:31:57.998+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.997+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:31:57.999+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:57.998+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:31:58.022+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:31:58.022+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:31:58.043+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.574 seconds
+[2026-10-18T14:32:28.711+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:28.710+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 520)
+[2026-10-18T14:32:28.712+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:28.712+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=520
+[2026-10-18T14:32:28.716+0000] {processor.py:161} INFO - Started process (PID=520) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:28.717+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:32:28.718+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:28.718+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:28.726+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:28.726+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:29.172+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.172+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:32:29.181+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.181+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:32:29.182+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:29.183+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.183+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:32:29.184+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.183+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:32:29.193+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.192+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:32:29.196+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.196+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:29.199+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.199+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:29.201+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.201+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:29.204+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.204+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:29.206+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.206+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:29.224+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.223+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:32:29.224+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.224+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:32:29.247+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:29.247+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:32:29.275+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.565 seconds
+[2026-10-18T14:32:59.558+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.557+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 532)
+[2026-10-18T14:32:59.562+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.561+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=532
+[2026-10-18T14:32:59.565+0000] {processor.py:161} INFO - Started process (PID=532) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:59.566+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:32:59.567+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.567+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:59.577+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.576+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:59.919+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.919+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:32:59.928+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.927+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:32:59.928+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:32:59.929+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.929+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:32:59.930+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.930+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:32:59.938+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.938+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:32:59.941+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.940+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:59.943+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.942+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:59.944+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.944+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:59.947+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.946+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:59.949+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.949+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:32:59.959+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.959+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:32:59.960+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.960+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:32:59.994+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:32:59.993+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:33:00.033+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.476 seconds
+[2026-10-18T14:33:30.322+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.322+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 544)
+[2026-10-18T14:33:30.323+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.323+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=544
+[2026-10-18T14:33:30.326+0000] {processor.py:161} INFO - Started process (PID=544) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:33:30.327+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:33:30.328+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.328+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:33:30.334+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.334+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:33:30.711+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.711+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:33:30.721+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.721+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:33:30.722+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:33:30.724+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.723+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:33:30.724+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.724+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:33:30.738+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.737+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:33:30.743+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.742+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:33:30.747+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.746+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:33:30.750+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.749+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:33:30.754+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.754+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:33:30.758+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.758+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:33:30.769+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.769+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:33:30.770+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.770+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:33:30.792+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:30.792+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:33:30.816+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.495 seconds
+[2026-10-18T14:34:00.871+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:00.871+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 557)
+[2026-10-18T14:34:00.872+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:00.872+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=557
+[2026-10-18T14:34:00.875+0000] {processor.py:161} INFO - Started process (PID=557) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:00.876+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:34:00.877+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:00.876+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:00.883+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:00.882+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:01.223+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.223+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:34:01.231+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.230+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:34:01.231+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:01.232+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.232+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:34:01.233+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.233+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:34:01.240+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.240+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:34:01.243+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.242+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:01.245+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.245+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:01.247+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.247+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:01.249+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.249+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:01.251+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.251+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:01.261+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.260+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:34:01.261+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.261+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:34:01.282+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:01.282+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:34:01.302+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.431 seconds
+[2026-10-18T14:34:31.752+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:31.751+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 570)
+[2026-10-18T14:34:31.753+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:31.753+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=570
+[2026-10-18T14:34:31.757+0000] {processor.py:161} INFO - Started process (PID=570) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:31.758+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:34:31.760+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:31.760+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:31.773+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:31.773+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:32.146+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.146+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:34:32.155+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.154+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:34:32.155+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:34:32.157+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.156+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:34:32.157+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.157+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:34:32.167+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.167+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:34:32.170+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.170+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:32.173+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.172+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:32.175+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.175+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:32.177+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.177+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:32.179+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.179+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:34:32.191+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.190+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:34:32.192+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.191+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:34:32.220+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:32.219+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:34:32.245+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.494 seconds
+[2026-10-18T14:35:02.610+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.609+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 583)
+[2026-10-18T14:35:02.611+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.611+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=583
+[2026-10-18T14:35:02.614+0000] {processor.py:161} INFO - Started process (PID=583) to work on /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:35:02.615+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/winmart_to_minio.py for tasks to queue
+[2026-10-18T14:35:02.617+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.616+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:35:02.643+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.642+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:35:02.938+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.938+0000] {GetText.py:65} DEBUG - /home/airflow/.local/lib/python3.8/site-packages/cron_descriptor/locale/en_US.mo Loaded
+[2026-10-18T14:35:02.958+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.957+0000] {dagbag.py:506} DEBUG - Loaded DAG <DAG: winmart_to_minio>
+[2026-10-18T14:35:02.959+0000] {processor.py:840} INFO - DAG(s) 'winmart_to_minio' retrieved from /opt/airflow/dags/winmart_to_minio.py
+[2026-10-18T14:35:02.962+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.961+0000] {dagbag.py:662} DEBUG - Running dagbag.sync_to_db with retries. Try 1 of 3
+[2026-10-18T14:35:02.963+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.963+0000] {dagbag.py:667} DEBUG - Calling the DAG.bulk_sync_to_db method
+[2026-10-18T14:35:02.974+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.974+0000] {serialized_dag.py:165} DEBUG - Checking if DAG (winmart_to_minio) changed
+[2026-10-18T14:35:02.978+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.978+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:35:02.981+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.981+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:35:02.984+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.984+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:35:02.987+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.987+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:35:02.990+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:02.990+0000] {serialized_objects.py:529} DEBUG - Cast type <class 'airflow.models.param.ParamsDict'> to str in serialization.
+[2026-10-18T14:35:03.003+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:03.003+0000] {serialized_dag.py:176} DEBUG - Serialized DAG (winmart_to_minio) is unchanged. Skipping writing to DB
+[2026-10-18T14:35:03.004+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:03.004+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2026-10-18T14:35:03.029+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:03.028+0000] {dag.py:3834} INFO - Setting next_dagrun for winmart_to_minio to 2026-10-18 00:00:00+00:00, run_after=2026-10-19 00:00:00+00:00
+[2026-10-18T14:35:03.061+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/winmart_to_minio.py took 0.452 seconds

@@ -1,0 +1,12 @@
+[2026-10-18T14:53:09.046+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18, 'replay_dt': '2026-10-18'}) with DagRun.conf ({'replay_dt': '2026-10-18'})
+[2026-10-18T14:53:09.054+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:53:09.074+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-18T14:53:09.082+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18, 'replay_dt': '2026-10-18'}) with DagRun.conf ({'replay_dt': '2026-10-18'})
+[2026-10-18T14:53:09.091+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:53:09.101+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-18T14:53:09.116+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-18T14:53:09.117+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-18T14:53:09.123+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Task Instance State' PASSED: False, Task is in the 'success' state.
+[2026-10-18T14:53:09.124+0000] {taskinstance.py:1969} INFO - Dependencies not met for <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-18T14:53:05.397656+00:00 [success]>, dependency 'Task Instance State' FAILED: Task is in the 'success' state.
+[2026-10-18T14:53:09.124+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-18T14:53:09.126+0000] {local_task_job_runner.py:160} INFO - Task is not able to be run

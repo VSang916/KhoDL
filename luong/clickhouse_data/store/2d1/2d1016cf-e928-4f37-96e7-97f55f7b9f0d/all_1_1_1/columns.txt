@@ -1,0 +1,6 @@
+columns format version: 1
+4 columns:
+`product_code` String
+`product_name` String
+`category` String
+`standard_unit` String

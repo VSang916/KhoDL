@@ -1,0 +1,63 @@
+[2026-10-19T14:27:39.607+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-19T14:27:39.626+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-19T14:27:39.638+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-19T14:27:39.644+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-19T14:27:39.658+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-19T14:27:39.658+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-19T14:27:39.659+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-19T14:27:39.659+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-19T14:27:39.664+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]>
+[2026-10-19T14:27:39.665+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-19T14:27:39.672+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-19T14:27:39.672+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-19T14:27:39.674+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-19T14:27:39.675+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [queued]>
+[2026-10-19T14:27:39.675+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-10-19T14:27:39.685+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): cdc> on 2026-10-18 00:00:00+00:00
+[2026-10-19T14:27:39.691+0000] {standard_task_runner.py:60} INFO - Started process 88 to run task
+[2026-10-19T14:27:39.693+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_api_pipeline', 'cdc', 'scheduled__2026-10-18T00:00:00+00:00', '--job-id', '98', '--raw', '--subdir', 'DAGS_FOLDER/winmart_api_pipeline.py', '--cfg-path', '/tmp/tmpryyd_d2j']
+[2026-10-19T14:27:39.695+0000] {standard_task_runner.py:88} INFO - Job 98: Subtask cdc
+[2026-10-19T14:27:39.696+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fb2187d7dc0>]
+[2026-10-19T14:27:39.732+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-19T14:27:39.740+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_api_pipeline.cdc scheduled__2026-10-18T00:00:00+00:00 [running]> on host 2ad598f4dc60
+[2026-10-19T14:27:39.741+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 88)
+[2026-10-19T14:27:39.742+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 88)
+[2026-10-19T14:27:39.742+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-19T14:27:39.773+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-19T14:27:39.894+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-19T14:27:39.905+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-19T14:27:39.920+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-19T14:27:39.927+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_api_pipeline' AIRFLOW_CTX_TASK_ID='cdc' AIRFLOW_CTX_EXECUTION_DATE='2026-10-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-18T00:00:00+00:00'
+[2026-10-19T14:27:39.928+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-19T14:27:39.928+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-19T14:27:39.962+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): minio:9000
+[2026-10-19T14:27:39.964+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /processed-data?location= HTTP/1.1" 200 128
+[2026-10-19T14:27:39.966+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /processed-data/winmart_api/dt%3D2026-10-19/fact_price.csv HTTP/1.1" 200 9759
+[2026-10-19T14:27:39.975+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /processed-data?delimiter=&encoding-type=url&list-type=2&max-keys=1000&prefix=winmart_api%2F_cdc%2Fall%2F HTTP/1.1" 200 1266
+[2026-10-19T14:27:39.979+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /processed-data/winmart_api/_cdc/all/dt%3D2026-10-18/snapshot.csv HTTP/1.1" 200 12215
+[2026-10-19T14:27:40.027+0000] {winmart_api_pipeline.py:147} INFO - CDC so với mốc 2026-10-18: {'initial': False, 'today': 139, 'partial_fetch': False, 'coverage': 0.909, 'pending_missing': 15, 'removed': 11, 'new_item': 9}
+[2026-10-19T14:27:40.032+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart_api/dt%3D2026-10-19/price_changes.csv HTTP/1.1" 200 0
+[2026-10-19T14:27:40.033+0000] {minio_helper.py:29} INFO - Đã ghi s3://processed-data/winmart_api/dt=2026-10-19/price_changes.csv (1318 bytes)
+[2026-10-19T14:27:40.042+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart_api/_cdc/all/dt%3D2026-10-19/snapshot.csv HTTP/1.1" 200 0
+[2026-10-19T14:27:40.043+0000] {minio_helper.py:29} INFO - Đã ghi s3://processed-data/winmart_api/_cdc/all/dt=2026-10-19/snapshot.csv (12059 bytes)
+[2026-10-19T14:27:40.044+0000] {python.py:202} INFO - Done. Returned value was: {'date': '2026-10-19', 'prefix': 'winmart_api/dt=2026-10-19', 'date_id': 20261019, 'rows': {'dim_product': 139, 'dim_market': 1, 'dim_date': 1, 'fact_price': 139}, 'raw_keys': ['winmart_api/dt=2026-10-19/store=1535/rau-cu-trai-cay--c02.json'], 'cdc': {'base_dt': '2026-10-18', 'stats': {'initial': False, 'today': 139, 'partial_fetch': False, 'coverage': 0.909, 'pending_missing': 15, 'removed': 11, 'new_item': 9}, 'changes': 20, 'snapshot_rows': 154}}
+[2026-10-19T14:27:40.120+0000] {__init__.py:73} DEBUG - Lineage called with inlets: [], outlets: []
+[2026-10-19T14:27:40.128+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-19T14:27:40.129+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=winmart_api_pipeline, task_id=cdc, execution_date=20261018T000000, start_date=20261019T142739, end_date=20261019T142740
+[2026-10-19T14:27:40.129+0000] {taskinstance.py:527} DEBUG - Task Duration set to 0.463987
+[2026-10-19T14:27:40.138+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-19T14:27:40.147+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-10-19T14:27:40.163+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_api_pipeline @ 2026-10-18 00:00:00+00:00: scheduled__2026-10-18T00:00:00+00:00, state:running, queued_at: 2026-10-19 14:27:17.720135+00:00. externally triggered: False>: 4 task(s)
+[2026-10-19T14:27:40.164+0000] {dagrun.py:897} DEBUG - number of scheduleable tasks for <DagRun winmart_api_pipeline @ 2026-10-18 00:00:00+00:00: scheduled__2026-10-18T00:00:00+00:00, state:running, queued_at: 2026-10-19 14:27:17.720135+00:00. externally triggered: False>: 3 task(s)
+[2026-10-19T14:27:40.165+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-19T14:27:40.166+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-19T14:27:40.166+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Trigger Rule' PASSED: False, Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=1, skipped=0, failed=0, upstream_failed=0, removed=0, done=1, success_setup=0, skipped_setup=0), upstream_task_ids={'cdc', 'validate'}
+[2026-10-19T14:27:40.167+0000] {taskinstance.py:1969} DEBUG - Dependencies not met for <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-18T00:00:00+00:00 [None]>, dependency 'Trigger Rule' FAILED: Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=1, skipped=0, failed=0, upstream_failed=0, removed=0, done=1, success_setup=0, skipped_setup=0), upstream_task_ids={'cdc', 'validate'}
+[2026-10-19T14:27:40.167+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-19T14:27:40.168+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-19T14:27:40.168+0000] {taskinstance.py:1979} DEBUG - Dependencies all met for dep_context=None ti=<TaskInstance: winmart_api_pipeline.validate scheduled__2026-10-18T00:00:00+00:00 [None]>
+[2026-10-19T14:27:40.168+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.commit_cdc scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-19T14:27:40.169+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.commit_cdc scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-19T14:27:40.169+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.commit_cdc scheduled__2026-10-18T00:00:00+00:00 [None]> dependency 'Trigger Rule' PASSED: False, Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=1, skipped=0, failed=0, upstream_failed=0, removed=0, done=1, success_setup=0, skipped_setup=0), upstream_task_ids={'cdc', 'load_clickhouse'}
+[2026-10-19T14:27:40.170+0000] {taskinstance.py:1969} DEBUG - Dependencies not met for <TaskInstance: winmart_api_pipeline.commit_cdc scheduled__2026-10-18T00:00:00+00:00 [None]>, dependency 'Trigger Rule' FAILED: Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=1, skipped=0, failed=0, upstream_failed=0, removed=0, done=1, success_setup=0, skipped_setup=0), upstream_task_ids={'cdc', 'load_clickhouse'}
+[2026-10-19T14:27:40.176+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

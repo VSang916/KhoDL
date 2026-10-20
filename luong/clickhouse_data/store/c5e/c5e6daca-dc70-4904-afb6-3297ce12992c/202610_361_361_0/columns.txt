@@ -1,0 +1,15 @@
+columns format version: 1
+13 columns:
+`hostname` LowCardinality(String)
+`clickhouse_version` LowCardinality(String)
+`system_processor` LowCardinality(String)
+`event_date` Date
+`event_time` DateTime
+`code` Int32
+`error` LowCardinality(String)
+`value` UInt64
+`remote` UInt8
+`last_error_time` DateTime
+`last_error_message` String
+`last_error_query_id` String
+`last_error_trace` Array(UInt64)

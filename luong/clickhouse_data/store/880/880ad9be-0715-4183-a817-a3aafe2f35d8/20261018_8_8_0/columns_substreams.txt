@@ -1,0 +1,28 @@
+columns substreams version: 1
+10 columns:
+2 substreams for column `item_no`:
+	item_no.size
+	item_no
+1 substreams for column `store_code`:
+	store_code
+1 substreams for column `date_id`:
+	date_id
+1 substreams for column `captured_at`:
+	captured_at
+1 substreams for column `original_price`:
+	original_price
+1 substreams for column `selling_price`:
+	selling_price
+1 substreams for column `stock_quantity`:
+	stock_quantity
+3 substreams for column `promotion_code`:
+	promotion_code.sparse.idx
+	promotion_code.size
+	promotion_code
+3 substreams for column `promotion_type`:
+	promotion_type.sparse.idx
+	promotion_type.size
+	promotion_type
+2 substreams for column `is_promo`:
+	is_promo.sparse.idx
+	is_promo

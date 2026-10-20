@@ -1,0 +1,6 @@
+columns format version: 1
+4 columns:
+`product_id` UInt32
+`nhom_san_pham` String
+`san_pham` String
+`mat_hang` String

@@ -1,0 +1,82 @@
+[2026-10-13T04:31:32.709+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18}) with DagRun.conf ({'page_size': 18})
+[2026-10-13T04:31:32.717+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:31:32.735+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-13T04:31:32.747+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18}) with DagRun.conf ({'page_size': 18})
+[2026-10-13T04:31:32.754+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:31:32.762+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-13T04:31:32.783+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:31:32.792+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-13T04:31:32.793+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:31:32.794+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-13T04:31:32.795+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]>
+[2026-10-13T04:31:32.796+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:31:32.799+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-13T04:31:32.806+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-13T04:31:32.811+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:31:32.811+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [queued]>
+[2026-10-13T04:31:32.812+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 3
+[2026-10-13T04:31:32.825+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): extract> on 2026-10-13 04:26:01+00:00
+[2026-10-13T04:31:32.833+0000] {standard_task_runner.py:60} INFO - Started process 6592 to run task
+[2026-10-13T04:31:32.837+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_api_pipeline', 'extract', 'manual__2026-10-13T04:26:01+00:00', '--job-id', '44', '--raw', '--subdir', 'DAGS_FOLDER/winmart_api_pipeline.py', '--cfg-path', '/tmp/tmp42423e0_']
+[2026-10-13T04:31:32.840+0000] {standard_task_runner.py:88} INFO - Job 44: Subtask extract
+[2026-10-13T04:31:32.842+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fbbef7d7dc0>]
+[2026-10-13T04:31:32.887+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18}) with DagRun.conf ({'page_size': 18})
+[2026-10-13T04:31:32.897+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:31:32.910+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_api_pipeline.extract manual__2026-10-13T04:26:01+00:00 [running]> on host 2ad598f4dc60
+[2026-10-13T04:31:32.911+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 6592)
+[2026-10-13T04:31:32.913+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 6592)
+[2026-10-13T04:31:32.914+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-13T04:31:32.945+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18}) with DagRun.conf ({'page_size': 18})
+[2026-10-13T04:31:32.958+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:31:32.962+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-13T04:31:32.968+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-13T04:31:33.150+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-13T04:31:33.164+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_api_pipeline' AIRFLOW_CTX_TASK_ID='extract' AIRFLOW_CTX_EXECUTION_DATE='2026-10-13T04:26:01+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-10-13T04:26:01+00:00'
+[2026-10-13T04:31:33.166+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-13T04:31:33.167+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-13T04:31:33.223+0000] {connectionpool.py:1019} DEBUG - Starting new HTTPS connection (1): api-crownx.winmart.vn:443
+[2026-10-13T04:31:33.629+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=1&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:33.632+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 1: 18 item (18 mới)
+[2026-10-13T04:31:34.194+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=2&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:34.196+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 2: 18 item (18 mới)
+[2026-10-13T04:31:34.744+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=3&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:34.748+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 3: 18 item (18 mới)
+[2026-10-13T04:31:35.285+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=4&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:35.287+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 4: 18 item (18 mới)
+[2026-10-13T04:31:35.830+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=5&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:35.832+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 5: 18 item (18 mới)
+[2026-10-13T04:31:36.379+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=6&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:36.381+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 6: 18 item (18 mới)
+[2026-10-13T04:31:36.918+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=7&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:36.921+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 7: 18 item (18 mới)
+[2026-10-13T04:31:37.452+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=8&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 None
+[2026-10-13T04:31:37.454+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 8: 15 item (15 mới)
+[2026-10-13T04:31:37.894+0000] {job.py:209} DEBUG - [heartbeat]
+[2026-10-13T04:31:37.980+0000] {connectionpool.py:474} DEBUG - https://api-crownx.winmart.vn:443 "GET /it/api/web/v3/item/category?pageNumber=9&pageSize=18&slug=rau-cu-trai-cay--c02&storeCode=1535&storeGroupCode=1998 HTTP/1.1" 200 50
+[2026-10-13T04:31:37.981+0000] {winmart_api_pipeline.py:187} INFO - store=1535 slug=rau-cu-trai-cay--c02 trang 9: 0 item (0 mới)
+[2026-10-13T04:31:37.986+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): minio:9000
+[2026-10-13T04:31:37.989+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /raw-data?location= HTTP/1.1" 200 128
+[2026-10-13T04:31:38.000+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /raw-data/winmart_api/dt%3D2026-10-13/store%3D1535/rau-cu-trai-cay--c02.json HTTP/1.1" 200 0
+[2026-10-13T04:31:38.001+0000] {winmart_api_pipeline.py:122} INFO - Đã ghi s3://raw-data/winmart_api/dt=2026-10-13/store=1535/rau-cu-trai-cay--c02.json (340726 bytes)
+[2026-10-13T04:31:38.002+0000] {winmart_api_pipeline.py:327} INFO - winmart_api/dt=2026-10-13/store=1535/rau-cu-trai-cay--c02.json: 141 sản phẩm
+[2026-10-13T04:31:38.005+0000] {python.py:202} INFO - Done. Returned value was: {'date': '2026-10-13', 'keys': ['winmart_api/dt=2026-10-13/store=1535/rau-cu-trai-cay--c02.json']}
+[2026-10-13T04:31:38.044+0000] {__init__.py:73} DEBUG - Lineage called with inlets: [], outlets: []
+[2026-10-13T04:31:38.053+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-13T04:31:38.053+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=winmart_api_pipeline, task_id=extract, execution_date=20261013T042601, start_date=20261013T043132, end_date=20261013T043138
+[2026-10-13T04:31:38.054+0000] {taskinstance.py:527} DEBUG - Task Duration set to 5.25767
+[2026-10-13T04:31:38.065+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-13T04:31:38.108+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-10-13T04:31:38.124+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_api_pipeline @ 2026-10-13 04:26:01+00:00: manual__2026-10-13T04:26:01+00:00, state:running, queued_at: 2026-10-13 04:30:42.868277+00:00. externally triggered: True>: 4 task(s)
+[2026-10-13T04:31:38.126+0000] {dagrun.py:897} DEBUG - number of scheduleable tasks for <DagRun winmart_api_pipeline @ 2026-10-13 04:26:01+00:00: manual__2026-10-13T04:26:01+00:00, state:running, queued_at: 2026-10-13 04:30:42.868277+00:00. externally triggered: True>: 3 task(s)
+[2026-10-13T04:31:38.127+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:31:38.128+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:31:38.129+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Trigger Rule' PASSED: False, Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 2 non-success(es). upstream_states=_UpstreamTIStates(success=0, skipped=0, failed=0, upstream_failed=0, removed=0, done=0, success_setup=0, skipped_setup=0), upstream_task_ids={'transform', 'validate'}
+[2026-10-13T04:31:38.131+0000] {taskinstance.py:1969} DEBUG - Dependencies not met for <TaskInstance: winmart_api_pipeline.load_clickhouse manual__2026-10-13T04:26:01+00:00 [None]>, dependency 'Trigger Rule' FAILED: Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 2 non-success(es). upstream_states=_UpstreamTIStates(success=0, skipped=0, failed=0, upstream_failed=0, removed=0, done=0, success_setup=0, skipped_setup=0), upstream_task_ids={'transform', 'validate'}
+[2026-10-13T04:31:38.132+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:31:38.132+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:31:38.133+0000] {taskinstance.py:1979} DEBUG - Dependencies all met for dep_context=None ti=<TaskInstance: winmart_api_pipeline.transform manual__2026-10-13T04:26:01+00:00 [None]>
+[2026-10-13T04:31:38.134+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:31:38.134+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:31:38.135+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-13T04:26:01+00:00 [None]> dependency 'Trigger Rule' PASSED: False, Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=0, skipped=0, failed=0, upstream_failed=0, removed=0, done=0, success_setup=0, skipped_setup=0), upstream_task_ids={'transform'}
+[2026-10-13T04:31:38.136+0000] {taskinstance.py:1969} DEBUG - Dependencies not met for <TaskInstance: winmart_api_pipeline.validate manual__2026-10-13T04:26:01+00:00 [None]>, dependency 'Trigger Rule' FAILED: Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=0, skipped=0, failed=0, upstream_failed=0, removed=0, done=0, success_setup=0, skipped_setup=0), upstream_task_ids={'transform'}
+[2026-10-13T04:31:38.143+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

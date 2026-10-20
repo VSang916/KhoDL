@@ -1,0 +1,12 @@
+columns substreams version: 1
+5 columns:
+1 substreams for column `date_id`:
+	date_id
+1 substreams for column `full_date`:
+	full_date
+1 substreams for column `day`:
+	day
+1 substreams for column `month`:
+	month
+1 substreams for column `year`:
+	year

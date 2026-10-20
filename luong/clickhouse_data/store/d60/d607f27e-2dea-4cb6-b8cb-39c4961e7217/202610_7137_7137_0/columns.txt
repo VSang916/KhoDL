@@ -1,0 +1,10 @@
+columns format version: 1
+8 columns:
+`hostname` LowCardinality(String)
+`clickhouse_version` LowCardinality(String)
+`system_processor` LowCardinality(String)
+`event_date` Date
+`event_time` DateTime
+`metric` LowCardinality(String)
+`key` LowCardinality(String)
+`value` Float64

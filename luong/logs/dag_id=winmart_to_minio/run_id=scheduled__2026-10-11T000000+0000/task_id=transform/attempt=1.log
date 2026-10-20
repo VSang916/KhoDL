@@ -1,0 +1,58 @@
+[2026-10-12T16:13:55.582+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-12T16:13:55.596+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-12T16:13:55.607+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-12T16:13:55.612+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-12T16:13:55.627+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-12T16:13:55.633+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-12T16:13:55.634+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-12T16:13:55.634+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-12T16:13:55.635+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]>
+[2026-10-12T16:13:55.635+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-12T16:13:55.638+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-12T16:13:55.641+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-12T16:13:55.643+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-12T16:13:55.644+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [queued]>
+[2026-10-12T16:13:55.645+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-10-12T16:13:55.655+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): transform> on 2026-10-11 00:00:00+00:00
+[2026-10-12T16:13:55.660+0000] {standard_task_runner.py:60} INFO - Started process 256 to run task
+[2026-10-12T16:13:55.663+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_to_minio', 'transform', 'scheduled__2026-10-11T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/winmart_to_minio.py', '--cfg-path', '/tmp/tmprzwn_mx_']
+[2026-10-12T16:13:55.667+0000] {standard_task_runner.py:88} INFO - Job 6: Subtask transform
+[2026-10-12T16:13:55.668+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fbbef7d7dc0>]
+[2026-10-12T16:13:55.703+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-12T16:13:55.709+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_to_minio.transform scheduled__2026-10-11T00:00:00+00:00 [running]> on host 2ad598f4dc60
+[2026-10-12T16:13:55.709+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 256)
+[2026-10-12T16:13:55.710+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 256)
+[2026-10-12T16:13:55.710+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-12T16:13:55.739+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-12T16:13:55.740+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-12T16:13:55.877+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-12T16:13:55.897+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-12T16:13:55.906+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_to_minio' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2026-10-11T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-11T00:00:00+00:00'
+[2026-10-12T16:13:55.906+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-12T16:13:55.907+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-12T16:13:55.944+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): minio:9000
+[2026-10-12T16:13:55.948+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /raw-data?location= HTTP/1.1" 200 128
+[2026-10-12T16:13:55.950+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /raw-data/winmart/dt%3D2026-10-12/raw_winmart_hanoi.json HTTP/1.1" 200 11410
+[2026-10-12T16:13:55.958+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /processed-data?location= HTTP/1.1" 200 128
+[2026-10-12T16:13:55.963+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart/dt%3D2026-10-12/dim_product.csv HTTP/1.1" 200 0
+[2026-10-12T16:13:55.964+0000] {winmart_to_minio.py:99} INFO - Đã ghi s3://processed-data/winmart/dt=2026-10-12/dim_product.csv (1316 bytes)
+[2026-10-12T16:13:55.969+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart/dt%3D2026-10-12/dim_market.csv HTTP/1.1" 200 0
+[2026-10-12T16:13:55.969+0000] {winmart_to_minio.py:99} INFO - Đã ghi s3://processed-data/winmart/dt=2026-10-12/dim_market.csv (121 bytes)
+[2026-10-12T16:13:55.974+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart/dt%3D2026-10-12/dim_date.csv HTTP/1.1" 200 0
+[2026-10-12T16:13:55.975+0000] {winmart_to_minio.py:99} INFO - Đã ghi s3://processed-data/winmart/dt=2026-10-12/dim_date.csv (67 bytes)
+[2026-10-12T16:13:55.980+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart/dt%3D2026-10-12/fact_price.csv HTTP/1.1" 200 0
+[2026-10-12T16:13:55.980+0000] {winmart_to_minio.py:99} INFO - Đã ghi s3://processed-data/winmart/dt=2026-10-12/fact_price.csv (831 bytes)
+[2026-10-12T16:13:55.981+0000] {winmart_to_minio.py:349} INFO - Số dòng mỗi bảng: {'dim_product': 19, 'dim_market': 1, 'dim_date': 1, 'fact_price': 19}
+[2026-10-12T16:13:55.981+0000] {python.py:202} INFO - Done. Returned value was: {'prefix': 'winmart/dt=2026-10-12', 'rows': {'dim_product': 19, 'dim_market': 1, 'dim_date': 1, 'fact_price': 19}}
+[2026-10-12T16:13:56.011+0000] {__init__.py:73} DEBUG - Lineage called with inlets: [], outlets: []
+[2026-10-12T16:13:56.018+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-12T16:13:56.019+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=winmart_to_minio, task_id=transform, execution_date=20261011T000000, start_date=20261012T161355, end_date=20261012T161356
+[2026-10-12T16:13:56.020+0000] {taskinstance.py:527} DEBUG - Task Duration set to 0.383867
+[2026-10-12T16:13:56.028+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-12T16:13:56.076+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-10-12T16:13:56.090+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_to_minio @ 2026-10-11 00:00:00+00:00: scheduled__2026-10-11T00:00:00+00:00, state:running, queued_at: 2026-10-12 16:13:52.380346+00:00. externally triggered: False>: 2 task(s)
+[2026-10-12T16:13:56.091+0000] {dagrun.py:897} DEBUG - number of scheduleable tasks for <DagRun winmart_to_minio @ 2026-10-11 00:00:00+00:00: scheduled__2026-10-11T00:00:00+00:00, state:running, queued_at: 2026-10-12 16:13:52.380346+00:00. externally triggered: False>: 1 task(s)
+[2026-10-12T16:13:56.092+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.validate scheduled__2026-10-11T00:00:00+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-12T16:13:56.092+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.validate scheduled__2026-10-11T00:00:00+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-12T16:13:56.093+0000] {taskinstance.py:1979} DEBUG - Dependencies all met for dep_context=None ti=<TaskInstance: winmart_to_minio.validate scheduled__2026-10-11T00:00:00+00:00 [None]>
+[2026-10-12T16:13:56.096+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,12 @@
+[2026-10-18T14:53:07.899+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18, 'replay_dt': '2026-10-18'}) with DagRun.conf ({'replay_dt': '2026-10-18'})
+[2026-10-18T14:53:07.914+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:53:07.941+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-18T14:53:07.953+0000] {param.py:355} DEBUG - Updating task params ({'page_size': 18, 'replay_dt': '2026-10-18'}) with DagRun.conf ({'replay_dt': '2026-10-18'})
+[2026-10-18T14:53:07.960+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:53:07.969+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-18T14:53:07.987+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-18T14:53:07.988+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-18T14:53:07.996+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Task Instance State' PASSED: False, Task is in the 'success' state.
+[2026-10-18T14:53:07.997+0000] {taskinstance.py:1969} INFO - Dependencies not met for <TaskInstance: winmart_api_pipeline.validate manual__2026-10-18T14:53:05.397656+00:00 [success]>, dependency 'Task Instance State' FAILED: Task is in the 'success' state.
+[2026-10-18T14:53:07.997+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.validate manual__2026-10-18T14:53:05.397656+00:00 [success]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-18T14:53:07.999+0000] {local_task_job_runner.py:160} INFO - Task is not able to be run

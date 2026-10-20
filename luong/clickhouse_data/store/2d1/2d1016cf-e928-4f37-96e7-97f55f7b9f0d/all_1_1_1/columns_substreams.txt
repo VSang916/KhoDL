@@ -1,0 +1,14 @@
+columns substreams version: 1
+4 columns:
+2 substreams for column `product_code`:
+	product_code.size
+	product_code
+2 substreams for column `product_name`:
+	product_name.size
+	product_name
+2 substreams for column `category`:
+	category.size
+	category
+2 substreams for column `standard_unit`:
+	standard_unit.size
+	standard_unit

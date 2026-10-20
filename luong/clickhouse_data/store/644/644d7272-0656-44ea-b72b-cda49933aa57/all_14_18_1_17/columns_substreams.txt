@@ -1,0 +1,43 @@
+columns substreams version: 1
+15 columns:
+1 substreams for column `run_date`:
+	run_date
+2 substreams for column `scope`:
+	scope.size
+	scope
+1 substreams for column `product_id`:
+	product_id
+1 substreams for column `market_id`:
+	market_id
+1 substreams for column `date_id`:
+	date_id
+2 substreams for column `loai_gia`:
+	loai_gia.size
+	loai_gia
+2 substreams for column `don_vi_tinh`:
+	don_vi_tinh.size
+	don_vi_tinh
+2 substreams for column `op`:
+	op.size
+	op
+2 substreams for column `change_kind`:
+	change_kind.size
+	change_kind
+2 substreams for column `old_n_obs`:
+	old_n_obs.null
+	old_n_obs
+2 substreams for column `new_n_obs`:
+	new_n_obs.null
+	new_n_obs
+2 substreams for column `old_avg_price`:
+	old_avg_price.null
+	old_avg_price
+2 substreams for column `new_avg_price`:
+	new_avg_price.null
+	new_avg_price
+2 substreams for column `old_median_price`:
+	old_median_price.null
+	old_median_price
+2 substreams for column `new_median_price`:
+	new_median_price.null
+	new_median_price

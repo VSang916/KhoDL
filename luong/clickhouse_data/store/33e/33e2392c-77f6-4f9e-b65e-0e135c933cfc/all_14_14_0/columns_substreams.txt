@@ -1,0 +1,47 @@
+columns substreams version: 1
+17 columns:
+1 substreams for column `product_id`:
+	product_id
+1 substreams for column `market_id`:
+	market_id
+1 substreams for column `date_id`:
+	date_id
+2 substreams for column `nhom_san_pham`:
+	nhom_san_pham.size
+	nhom_san_pham
+2 substreams for column `san_pham`:
+	san_pham.size
+	san_pham
+2 substreams for column `mat_hang`:
+	mat_hang.size
+	mat_hang
+1 substreams for column `nam`:
+	nam
+1 substreams for column `thang`:
+	thang
+2 substreams for column `tinh_cu`:
+	tinh_cu.size
+	tinh_cu
+2 substreams for column `tinh_moi`:
+	tinh_moi.size
+	tinh_moi
+2 substreams for column `loai_gia`:
+	loai_gia.size
+	loai_gia
+2 substreams for column `cap_gia`:
+	cap_gia.size
+	cap_gia
+2 substreams for column `don_vi_tinh`:
+	don_vi_tinh.size
+	don_vi_tinh
+1 substreams for column `gia`:
+	gia
+2 substreams for column `is_outlier`:
+	is_outlier.sparse.idx
+	is_outlier
+2 substreams for column `nguon`:
+	nguon.size
+	nguon
+2 substreams for column `source_file`:
+	source_file.size
+	source_file

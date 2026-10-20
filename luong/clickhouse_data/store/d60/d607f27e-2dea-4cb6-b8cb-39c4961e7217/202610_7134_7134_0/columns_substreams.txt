@@ -1,0 +1,28 @@
+columns substreams version: 1
+8 columns:
+3 substreams for column `hostname`:
+	hostname.dict_prefix
+	hostname.dict
+	hostname
+3 substreams for column `clickhouse_version`:
+	clickhouse_version.dict_prefix
+	clickhouse_version.dict
+	clickhouse_version
+3 substreams for column `system_processor`:
+	system_processor.dict_prefix
+	system_processor.dict
+	system_processor
+1 substreams for column `event_date`:
+	event_date
+1 substreams for column `event_time`:
+	event_time
+3 substreams for column `metric`:
+	metric.dict_prefix
+	metric.dict
+	metric
+3 substreams for column `key`:
+	key.dict_prefix
+	key.dict
+	key
+1 substreams for column `value`:
+	value

@@ -1,0 +1,36 @@
+# Airflow core
+apache-airflow==2.8.2
+
+# Database providers
+apache-airflow-providers-postgres==5.7.1
+apache-airflow-providers-mysql==5.4.0
+apache-airflow-providers-mongo==4.1.0
+
+# Data processing - Sử dụng phiên bản tương thích Python 3.8
+pandas==1.5.3
+pyarrow==12.0.1
+numpy==1.24.3
+
+# File handling
+openpyxl==3.1.2
+xlrd==2.0.1
+
+# HTTP requests
+requests==2.31.0
+
+# MongoDB
+pymongo==4.6.0
+
+# MinIO
+minio==7.2.0
+
+# ClickHouse
+clickhouse-connect==0.7.0
+
+# Database drivers
+psycopg2-binary==2.9.9
+sqlalchemy==1.4.53
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3 

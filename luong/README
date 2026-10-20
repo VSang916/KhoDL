@@ -1,0 +1,261 @@
+dags/
+  .airflowignore              # "pipelines/" -> scheduler không quét package này như DAG
+  winmart_api_pipeline.py     # cấu hình (STORES, CATEGORY_SLUGS) + luồng task
+  ttns_price_pipeline.py      # luồng task
+  pipelines/
+    common/
+      config.py               # endpoint, user và password của MinIO và ClickHouse, bucket, TZ
+      minio_helper.py         # client, ensure_buckets, put/get bytes, put/get csv, list_keys
+      clickhouse_helper.py    # query, ensure_schema (bảng + view, migrate bảng rebuildable), load_csv_from_s3, count
+      http_helper.py          # new_session (retry/backoff tuỳ chỉnh theo nguồn)
+      cdc.py                  # row_hash, diff_snapshots (I/U/D), lưu/đọc snapshot + commit trên MinIO
+    winmart/
+      api.py                  # fetch_category: gọi API có phân trang
+      transform.py            # build_tables: JSON -> star schema
+      cdc.py                  # CDC trạng thái giá theo item_no (grace period khi biến mất, chống lấy thiếu)
+      schema.py               # bảng và view ClickHouse của database winmart
+    ttns/
+      scraper.py              # postback ASP.NET -> file xlsx
+      cleaning.py             # clean, build_tables, NAME_ALIASES, PRICE_LEVEL, OUTLIER_RATIO
+      cdc.py                  # CDC fact theo khoá tháng (new_month/backfill/revision/removed) + CDC nhóm price_clean
+      schema.py               # bảng và view ClickHouse của database ttns
+tests/                        # pytest, không cần Airflow:  python -m pytest tests
+  test_ttns_cleaning.py
+  test_winmart_transform.py
+  test_cdc.py
+ml/
+  DeThucHanh01_GiaNongSan.ipynb # ★ bài thực hành theo cấu trúc Đề 01 (EDA, tiền xử lý, hồi quy LR/DT/RF, K-Means, DBSCAN)
+                                #   mã nguồn dạng .py cùng tên; biểu đồ ở figures/dt01/
+  KET_QUA.md                  # tổng hợp phân tích chuỗi thời gian (dự báo nhiều bước, khoảng giá, mùa vụ)
+  phan_tich_gia_nong_san.ipynb  # notebook đầy đủ (đã chạy, có biểu đồ); mã nguồn dạng .py cùng tên (jupytext)
+  figures/                    # 11 biểu đồ PNG cho báo cáo
+  outputs/                    # bảng kết quả CSV (backtest, mùa vụ, cụm, khoảng giá, giá bất thường, chênh lệch)
+  data/ttns_v_price_monthly.csv # dữ liệu chụp từ ClickHouse để chạy lại cho cùng kết quả
+  forecast_lgbm.py            # thử nghiệm đầu tiên (chỉ h = 1)
+
+
+================================================================ LUỒNG WINMART (winmart_api_pipeline, 7h hằng ngày)
+Nguồn: API trả TRẠNG THÁI HIỆN TẠI (giá, khuyến mãi). Không có lịch sử -> ngày nào không chạy là mất ngày đó.
+
+ensure_buckets -> extract -> transform -> cdc -> validate -> load_clickhouse -> commit_cdc
+
+extract     API (hoặc replay_dt: dùng lại raw đã lưu)   -> raw-data/winmart_api/dt=D/store=../<slug>.json
+transform   JSON -> 4 bảng                              -> processed-data/winmart_api/dt=D/{dim_*,fact_price}.csv
+cdc         so fact_price hôm nay với snapshot đã commit gần nhất trước ngày D, khoá (item_no, store_code),
+            hash (original_price, selling_price, promotion_code, is_promo) - không hash tồn kho
+              -> processed-data/winmart_api/dt=D/price_changes.csv
+              -> processed-data/winmart_api/_cdc/all/dt=D/snapshot.csv
+            change_type: initial | new_item | price_up | price_down | promo_start | promo_end | other | removed
+            removed chỉ khi vắng 2 lần liên tiếp; lấy được < 80% sản phẩm so với hôm trước -> không đếm vắng
+load        fact_price: DROP PARTITION ngày D rồi nạp lại; price_changes: DELETE ngày D rồi nạp lại
+commit_cdc  ghi _meta.json -> snapshot ngày D thành mốc cho lần sau
+
+ClickHouse winmart: dim_product, dim_market, dim_date, fact_price, price_changes,
+                    v_price_daily, v_price_history (SCD2: valid_from / valid_to / is_current)
+
+
+================================================================ LUỒNG TTNS (ttns_price_pipeline, 6h thứ Hai)
+Nguồn: mỗi lần xuất là TOÀN BỘ lịch sử, không có khoá, dòng trùng hợp lệ, số liệu tháng cũ có thể bị sửa.
+
+ensure_buckets -> extract -> check_changed -> transform -> prepare_clickhouse -> cdc -> validate -> load_clickhouse -> commit_cdc
+
+extract        web (hoặc replay_dt) -> raw-data/ttns/dt=D/cat102_item6_<all|sp>.xlsx ; tính md5 DỮ LIỆU
+               (không md5 file: web nén zip lại mỗi lần nên byte luôn khác)
+check_changed  md5 bằng lần commit gần nhất -> dừng, mọi task sau bị skip (force=true để chạy tiếp)
+transform      làm sạch -> processed-data/ttns/dt=D/{dim_*,price_clean,fact_price_monthly}.csv
+prepare_ch     tạo/migrate bảng; kho trống -> lần này nạp lại toàn bộ
+cdc            1) fact_price_monthly: khoá (product_id, market_id, date_id, loai_gia, don_vi_tinh),
+                  hash (n_obs, n_outliers, avg/median/min/max) -> cdc_log.csv + fact_upsert.csv
+                  change_kind: initial | new_month | backfill | revision (sửa quá khứ) | removed
+               2) price_clean: hash theo NHÓM khoá -> price_clean_changed_keys.csv + price_clean_upsert.csv
+               snapshot -> processed-data/ttns/_cdc/<scope>/dt=D/{snapshot,snapshot_clean}.csv
+validate       > 20% khoá biến mất -> dừng (nghi export lỗi / đổi tên), force=true để chấp nhận
+load           fact: INSERT dòng đổi vào ReplacingMergeTree(version, is_deleted) - D có is_deleted=1
+               price_clean: DELETE nhóm đổi rồi INSERT lại ; cdc_log: DELETE (ngày D, scope) rồi INSERT
+               đối soát: số dòng trong kho == snapshot mới (trong phạm vi sản phẩm của lần chạy)
+commit_cdc     ghi _meta.json (kèm md5) -> mốc cho lần sau
+
+ClickHouse ttns: dim_product, dim_market, dim_date, price_clean, fact_price_monthly (đọc FINAL), cdc_log,
+                 v_price_monthly, v_changes (thay đổi kèm tên mặt hàng / tỉnh / % đổi giá)
+
+
+================================================================ NGUYÊN TẮC CDC CHUNG (pipelines/common/cdc.py)
+- So với snapshot ĐÃ COMMIT gần nhất có dt < D (không phải lần chạy trước) -> chạy lại cùng ngày cho cùng kết quả.
+- Chỉ commit sau khi load thành công -> lần lỗi không làm mất thay đổi, lần sau tự so với mốc cũ hơn.
+- replay_dt: xử lý lại raw đã lưu trên MinIO mà không gọi nguồn (backfill, sửa lỗi code rồi chạy lại).
+
+
+================================================================ DỮ LIỆU TRONG CLICKHOUSE
+Số liệu dưới đây đo ngày 19/10/2026. Kết nối: http://localhost:8123 (user default / mypassword),
+hoặc  docker exec -it clickhouse clickhouse-client --password mypassword
+
+---------------------------------------------------------------- database ttns  (thitruongnongsan.gov.vn)
+Nội dung : giá rau quả trong nước do cộng tác viên địa phương báo, THEO THÁNG.
+Thời gian: 04/2021 → 12/2025 = 57 tháng (2021 chỉ có 9 tháng; 2022-2025 đủ 12 tháng).
+Quy mô   : 73 sản phẩm / 209 mặt hàng / 15 tỉnh cũ (= 9 tỉnh mới sau sáp nhập 2025) / 40.575 lần báo giá.
+
+Bảng / view          Độ chi tiết (1 dòng = ...)                                    Số dòng   Dùng cho
+v_price_monthly  ★   1 mặt hàng × 1 tỉnh × 1 tháng × 1 loại giá × 1 đơn vị          7.337    PHÂN TÍCH, HỌC MÁY
+fact_price_monthly   như trên, dạng khoá id (đọc bằng FINAL WHERE is_deleted = 0)    7.337    join tự viết
+price_clean          1 lần báo giá (không có ngày cụ thể, chỉ có tháng)             40.575    xem phân bố trong tháng
+dim_product          1 mặt hàng (nhom_san_pham, san_pham, mat_hang)                   209
+dim_market           1 tỉnh cũ (tinh_cu → tinh_moi)                                    15
+dim_date             1 tháng (date_id = YYYYMM)                                        57
+cdc_log / v_changes  1 khoá tháng bị thêm / sửa / xoá ở nguồn trong 1 lần chạy           -    theo dõi nguồn sửa số liệu
+
+Cột của v_price_monthly
+  month           Date     ngày đầu tháng (2025-07-01)        year, quarter, month_no: tách từ month
+  nhom_san_pham   String   Trái cây | Rau củ quả
+  san_pham        String   loại: Xoài, Bưởi, Cà chua...  (73 giá trị, đã gộp hoa thường + NAME_ALIASES)
+  mat_hang        String   giống cụ thể: Xoài cát Hòa Lộc, Bưởi năm roi (loại 1)...  (209 giá trị)
+  tinh_cu         String   tỉnh khi báo giá: Tiền Giang, Bến Tre...
+  tinh_moi        String   tỉnh sau sáp nhập 2025: Đồng Tháp, Vĩnh Long...
+  loai_gia        String   gốc: Bán lẻ, Thu mua, Bán buôn, Thương lái thu mua, Tại chợ, Tại vườn, Tại vựa
+  cap_gia         String   gộp còn 3 cấp: Bán lẻ (người tiêu dùng) | Bán buôn | Thu mua (tại nơi sản xuất)
+  don_vi_tinh     String   VNĐ/kg (95%), VNĐ/mớ, VNĐ/chục quả, VNĐ/quả, VNĐ/củ, VNĐ/cây
+  median_price    Float64  ★ giá trung vị trong tháng (nên dùng: ít bị ảnh hưởng bởi giá lạ)
+  avg_price, min_price, max_price   Float64   trung bình / thấp nhất / cao nhất trong tháng
+  n_obs           UInt32   số lần báo giá trong tháng (độ tin cậy của giá tháng)
+  n_outliers      UInt32   số lần báo giá bị loại vì lệch > 5 lần trung vị (không tính vào giá ở trên)
+
+LƯU Ý KHI DÙNG
+  • Không bao giờ trộn đơn vị hay cấp giá: luôn lọc  don_vi_tinh = 'VNĐ/kg' AND cap_gia = '...'
+  • 1 CHUỖI GIÁ = (nhom_san_pham, san_pham, mat_hang, tinh_cu, loai_gia, don_vi_tinh).
+    Phải có nhom_san_pham: nguồn xếp 6 mặt hàng vào cả 2 nhóm (Cam sành, Cam Cao Phong, Đu đủ, Đậu cove,
+    Ngọn su su, Bồn bồn) -> thiếu nhom_san_pham sẽ ra 2 dòng cùng tháng.
+  • 450 chuỗi, nhưng ngắn: trung bình 16 tháng; 223 chuỗi ≥ 12 tháng, 132 chuỗi ≥ 24, 51 chuỗi ≥ 36.
+    Có tháng trống (độ phủ trung bình 80%) -> khi làm chuỗi thời gian phải dựng lưới tháng đầy đủ.
+  • Giá lẻ và giá thu mua đến từ VÙNG KHÁC NHAU: bán lẻ chủ yếu ở Hà Nội, Sơn La, Hưng Yên; thu mua ở miền Tây
+    (Đồng Tháp, Vĩnh Long, Cần Thơ, An Giang, Tây Ninh). Cùng mặt hàng + tỉnh + tháng có cả 2 giá chỉ 14 trường hợp;
+    so ở mức san_pham (mọi tỉnh) thì có 801 tháng / 28 sản phẩm.
+  • Biến động: giá tháng sau so với tháng trước thay đổi trung vị 6,7%; 10% trường hợp đổi > 33%.
+  • Trong price_clean, các dòng trùng hệt nhau là HỢP LỆ (nhiều lần báo giá trong tháng), đừng xoá.
+
+Truy vấn mẫu
+  -- giá vải bán lẻ theo tháng và tỉnh
+  SELECT month, tinh_moi, median_price, n_obs FROM ttns.v_price_monthly
+  WHERE san_pham = 'Vải' AND cap_gia = 'Bán lẻ' AND don_vi_tinh = 'VNĐ/kg' ORDER BY month;
+  -- chênh lệch bán lẻ / thu mua theo sản phẩm (mọi tỉnh)
+  SELECT san_pham, month,
+         medianIf(median_price, cap_gia = 'Bán lẻ') / medianIf(median_price, cap_gia = 'Thu mua') AS he_so
+  FROM ttns.v_price_monthly WHERE don_vi_tinh = 'VNĐ/kg' GROUP BY 1, 2 HAVING he_so > 0 ORDER BY 1, 2;
+  -- nguồn đã sửa số liệu quá khứ những gì
+  SELECT * FROM ttns.v_changes WHERE change_kind = 'revision' ORDER BY run_date DESC;
+
+---------------------------------------------------------------- database winmart  (API Winmart)
+Nội dung : giá bán tại 1 siêu thị (store 1535) mỗi ngày, danh mục rau - củ - trái cây.
+Thời gian: mới từ 13/10/2026 (3 ngày chạy: 13, 18, 19/10). Quy mô: 165 sản phẩm, ~140 sản phẩm / ngày.
+
+Bảng / view          Độ chi tiết                                           Dùng cho
+v_price_daily    ★   1 sản phẩm × 1 ngày chạy                               giá theo ngày
+v_price_history  ★   1 mức giá liên tục của 1 sản phẩm (SCD loại 2)         thời gian giữ giá, khuyến mãi kéo dài bao lâu
+price_changes        1 lần thay đổi (new_item, price_up/down, promo_start/end, removed)
+fact_price           như v_price_daily, dạng khoá
+dim_product          1 sản phẩm: product_name, brand_name, category_name, mch3/4/5_name (phân loại),
+                     uom_name (đơn vị BÁN: Kg, Gói, Hộp, Khay, Bó, Quả... -> giá KHÔNG quy về /kg được)
+
+Cột chính của v_price_daily: date, item_no, product_name, mch4_name (Trái cây nội địa / nhập khẩu, Rau ăn lá,
+Rau gia vị, Nấm...), uom_name, original_price (giá gốc), selling_price (giá bán thực tế), is_promo,
+discount_pct, stock_quantity (tồn kho lúc gọi API), captured_at.
+Giá bán: 3.500đ → 259.000đ, trung vị 34.900đ; ~6% sản phẩm đang khuyến mãi.
+
+
+================================================================ HỌC MÁY / DỰ ĐOÁN
+Tóm tắt: dữ liệu đủ cho dự báo giá tháng (ttns) ở dạng KHOẢNG GIÁ, phát hiện bất thường, phân cụm mùa vụ và phân tích
+chênh lệch giá. Winmart CHƯA đủ dữ liệu (3 ngày) - cần chạy DAG tích luỹ vài tháng.
+
+>>> Kết quả đầy đủ (7 phương pháp, tầm 1-6 tháng, khoảng giá, phân loại chiều, mùa vụ, bất thường, chênh lệch):
+    ml/KET_QUA.md. Điểm chính: tầm 1 tháng naive tốt nhất (14,4%); từ 3 tháng trở đi LightGBM tốt nhất
+    (giảm sai số 7-11% so với naive); khoảng 80% conformal phủ 74-78%; đoán chiều giá đúng 47,6% (đoán bừa 36,1%).
+
+---------------------------------------------------------------- 0. Thử nghiệm đầu tiên (ml/forecast_lgbm.py, chỉ h = 1)
+Bài toán: dự báo median_price tháng t+1 cho từng chuỗi, test trên 12 tháng của 2025 (1.881 điểm), mỗi tháng test
+chỉ train bằng dữ liệu trước đó (rolling-origin).
+
+  Phương pháp                                   MAPE    ghi chú
+  naive: giá tháng sau = giá tháng này          13,4%   ← MỐC PHẢI THẮNG
+  trung bình 3 tháng gần nhất                   17,3%   (đo trên 6 tháng cuối)
+  seasonal naive: = cùng tháng năm trước        31,2%   (đo trên 6 tháng cuối) mức giá năm nay khác năm trước nhiều
+  LightGBM global (lag, mùa vụ, thị trường)     13,5%   đoán đúng chiều tăng/giảm 41% (naive 35%)
+
+=> Chỉ với lịch sử giá theo tháng, giá gần như "bước ngẫu nhiên": KHÔNG mô hình nào thắng rõ naive.
+   Đây là kết quả bình thường với giá nông sản - đừng báo cáo MAPE của mô hình mà không so với naive.
+   Điều làm ĐƯỢC ngay: khoảng giá. Lấy phân vị 10%-90% của % thay đổi trong quá khứ quanh giá tháng này:
+     Bán lẻ : tháng sau nằm trong  -20% → +25%  giá tháng này, độ phủ thực tế 85% (mục tiêu 80%)
+     Thu mua: tháng sau nằm trong  -20% → +20%  giá tháng này, độ phủ thực tế 77%
+
+---------------------------------------------------------------- 1. Dự báo giá tháng tới (bài chính)
+Đầu vào : ttns.v_price_monthly, chuỗi = 6 cột ở phần LƯU Ý, giá = median_price, lọc don_vi_tinh = 'VNĐ/kg'.
+Chuẩn bị: dựng lưới tháng đầy đủ cho từng chuỗi (tháng thiếu = NaN, KHÔNG nội suy khi đánh giá);
+          bỏ chuỗi < 24 tháng nếu dùng mô hình từng chuỗi (ETS/ARIMA cần ≥ 2 chu kỳ mùa vụ).
+Target  : log(giá_t) - log(giá_t-1)  (% thay đổi) thay vì mức giá -> 1 mô hình dùng được cho cả xoài 60.000đ
+          lẫn rau 5.000đ; dự báo giá = giá_t-1 × exp(dự báo).
+Mô hình, theo thứ tự nên thử:
+  a) Mốc: naive, seasonal naive, trung bình 3 tháng. Luôn báo cáo kèm.
+  b) Từng chuỗi (statsforecast): AutoETS, AutoARIMA, AutoTheta, season_length = 12, chỉ cho chuỗi ≥ 24 tháng.
+     Nhanh, có sẵn khoảng tin cậy. Prophet cũng chạy được nhưng yếu với chuỗi ngắn và có tháng trống.
+  c) Global model LightGBM (đã thử, ml/forecast_lgbm.py): 1 mô hình cho mọi chuỗi, học được cả chuỗi ngắn.
+     Feature (chỉ dùng quá khứ): lag 1,2,3,6,12 của log giá (tương đối so với lag1), % đổi tháng trước,
+     so với cùng kỳ, trung bình / độ lệch chuẩn trượt, sin/cos tháng, tuổi chuỗi, n_obs tháng trước,
+     % đổi cùng tháng năm trước, % đổi trung bình của cùng sản phẩm ở nơi khác tháng trước,
+     categorical: nhom_san_pham, san_pham, tinh_moi, cap_gia, don_vi_tinh. objective = 'l1' (bền với giá lạ).
+  d) Khoảng giá: LightGBM objective='quantile' (alpha 0.1 và 0.9) hoặc conformal (phân vị sai số trên tập
+     hiệu chỉnh như mục 0). Đánh giá bằng độ phủ thực tế và độ rộng khoảng.
+  e) Dự báo 2-3 tháng: dự báo trực tiếp (1 mô hình / horizon, target = log giá_t+h - log giá_t) tốt hơn đệ quy.
+Đánh giá: rolling-origin (KHÔNG chia ngẫu nhiên, không shuffle), MAPE + MASE (so với naive) + độ phủ khoảng;
+          báo cáo riêng theo cap_gia vì thu mua biến động mạnh hơn bán lẻ.
+Muốn THẮNG naive phải thêm dữ liệu ngoài, đưa vào làm feature theo tháng:
+  • lịch: Tết âm lịch (tháng nào), rằm tháng 7, mùa cưới  • thời tiết theo tỉnh: mưa, nhiệt độ, bão, hạn mặn miền Tây
+  • xuất khẩu rau quả sang Trung Quốc (trang này có mục 7 "Giá trị và thị trường xuất khẩu", mục 9 "Giá rau quả
+    Trung Quốc" - có thể thử bằng scraper.py với ITEM_NO khác, cần kiểm tra lại bộ lọc của từng mục)
+  • giá xăng dầu (chi phí vận chuyển), CPI.
+Không nên: LSTM / Transformer / mạng nơ-ron - 7.337 điểm, chuỗi trung bình 16 tháng là quá ít.
+
+---------------------------------------------------------------- 2. Dự đoán CHIỀU giá tháng tới (phân loại)
+Nhãn: tăng (> +2%) / giảm (< -2%) / đi ngang. Phân bố 6 tháng cuối 2025: tăng 39%, giảm 24%, ngang 37%.
+Mô hình: LGBMClassifier, cùng feature với mục 1c. Đo bằng macro-F1, so với "luôn đoán lớp nhiều nhất" (39%).
+Hiện LightGBM (hồi quy) đúng chiều 41% -> chỉ nhỉnh hơn đoán bừa; dễ trình bày hơn MAPE nhưng cũng cần dữ liệu ngoài.
+
+---------------------------------------------------------------- 3. Phát hiện giá bất thường
+Đã có: is_outlier (lệch > 5 lần trung vị cùng mặt hàng / đơn vị / cấp giá) trong price_clean.
+Nâng cấp:
+  • theo thời gian: robust z-score của % đổi giá so với 6-12 tháng trước của chính chuỗi đó (median, MAD);
+    hoặc STL tách xu hướng + mùa vụ rồi xét phần dư > 3 MAD.
+  • nhiều chiều: IsolationForest trên (% đổi giá, độ lệch so với các tỉnh khác cùng tháng, n_obs, độ rộng max-min)
+    -> phát hiện "giá ở 1 tỉnh lệch hẳn các tỉnh khác".
+  • trên cdc_log: revision làm đổi giá > 30% hoặc removed hàng loạt -> cảnh báo chất lượng nguồn.
+Ứng dụng: lọc dữ liệu trước khi train mục 1, cảnh báo trên dashboard Superset.
+
+---------------------------------------------------------------- 4. Phân cụm mặt hàng theo mùa vụ
+Mỗi chuỗi ≥ 24 tháng -> hồ sơ 12 tháng: trung bình log giá theo tháng trong năm, trừ đi trung bình của chuỗi
+(chỉ giữ hình dạng). KMeans (k = 3-6, chọn bằng silhouette) hoặc phân cụm phân cấp (Ward).
+Kết quả mong đợi: nhóm "rẻ giữa năm, đắt cuối năm", nhóm "đắt quanh Tết", nhóm "ít mùa vụ" (vd thanh long bán lẻ
+dao động hẹp 27.000 - 32.600đ/kg theo tháng trong năm). Dùng cho: gợi ý thời điểm mua / bán, và làm feature
+'cluster' cho mục 1.
+
+---------------------------------------------------------------- 5. Chênh lệch giá bán lẻ - thu mua
+Ở mức san_pham (mọi tỉnh): 801 tháng / 28 sản phẩm có cả 2 giá.
+  • hệ số = giá lẻ / giá thu mua theo tháng (truy vấn mẫu ở trên) -> xu hướng, sản phẩm nào biên trung gian cao.
+  • độ trễ truyền dẫn: tương quan chéo giữa % đổi giá thu mua và % đổi giá lẻ ở độ trễ 0-3 tháng, hoặc kiểm định
+    Granger -> "giá thu mua đi trước giá lẻ bao nhiêu tháng". Nếu có trễ, thêm giá thu mua tháng trước làm feature mục 1.
+Lưu ý: 2 giá ở vùng khác nhau (miền Bắc lẻ, miền Tây thu mua) nên hệ số gồm cả chi phí vận chuyển.
+
+---------------------------------------------------------------- 6. Winmart (khi đã tích luỹ đủ dữ liệu)
+Hiện: 3 ngày -> chỉ thống kê mô tả. Sau 3-6 tháng chạy DAG hằng ngày có thể:
+  • 1 đợt khuyến mãi kéo dài bao lâu, sản phẩm nào hay khuyến mãi: phân tích sống sót (Kaplan-Meier,
+    thư viện lifelines) trên v_price_history (valid_from → valid_to).
+  • xác suất sản phẩm đổi giá / vào khuyến mãi tuần tới: phân loại (LightGBM) với feature số ngày giữ giá hiện tại,
+    mch4_name, tháng, giá so với trung vị của chính nó.
+  • so giá siêu thị với giá chợ: ghép product_name (Winmart) với san_pham (ttns) - so khớp mờ (rapidfuzz) + bảng
+    ánh xạ tay; chỉ so được sản phẩm bán theo Kg (uom_name = 'Kg') với ttns bán lẻ Hà Nội.
+
+---------------------------------------------------------------- 7. Đưa vào luồng
+  • DAG ml_forecast_monthly chạy sau ttns_price_pipeline (vd ngày 5 hằng tháng):
+    đọc ttns.v_price_monthly -> train -> ghi kết quả vào ClickHouse:
+      ttns.forecast_monthly (run_date Date, model String, horizon UInt8, target_month Date, khoá chuỗi...,
+                             yhat Float64, yhat_lo Float64, yhat_hi Float64)
+      ttns.forecast_metrics (run_date, model, horizon, cap_gia, mape, mase, coverage)
+    -> Superset vẽ giá thật + dự báo + khoảng; theo dõi sai số thật khi tháng mới về.
+  • Thư viện: lightgbm, scikit-learn (+ statsforecast nếu dùng mục 1b). Image Airflow hiện là Python 3.8 ->
+    kiểm tra phiên bản thư viện còn hỗ trợ 3.8, hoặc chạy ML trong container riêng.
+  • Không ghi đè dự báo cũ (giữ theo run_date) để đánh giá được mô hình theo thời gian.

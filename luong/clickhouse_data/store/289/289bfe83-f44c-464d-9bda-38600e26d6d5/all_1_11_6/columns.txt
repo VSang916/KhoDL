@@ -1,0 +1,5 @@
+columns format version: 1
+3 columns:
+`store_code` UInt32
+`store_group_code` UInt32
+`market_name` String

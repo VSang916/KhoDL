@@ -1,0 +1,7 @@
+columns format version: 1
+5 columns:
+`market_id` UInt32
+`market_name` String
+`market_type` String
+`district` String
+`province` String

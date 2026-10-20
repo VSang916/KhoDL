@@ -1,0 +1,80 @@
+[2026-10-18T14:33:34.574+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:34.574+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 546)
+[2026-10-18T14:33:34.575+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:34.575+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=546
+[2026-10-18T14:33:34.578+0000] {processor.py:161} INFO - Started process (PID=546) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:33:34.578+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:33:34.579+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:34.579+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:33:34.587+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:33:34.586+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:33:34.598+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:33:34.614+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.041 seconds
+[2026-10-18T14:34:04.919+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:04.918+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 559)
+[2026-10-18T14:34:04.920+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:04.920+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=559
+[2026-10-18T14:34:04.923+0000] {processor.py:161} INFO - Started process (PID=559) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:04.923+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:34:04.924+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:04.924+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:04.933+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:04.933+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:04.938+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:04.953+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.035 seconds
+[2026-10-18T14:34:35.249+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:35.248+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 572)
+[2026-10-18T14:34:35.250+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:35.250+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=572
+[2026-10-18T14:34:35.252+0000] {processor.py:161} INFO - Started process (PID=572) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:35.253+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:34:35.254+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:35.254+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:35.265+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:34:35.265+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:35.271+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:34:35.284+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.036 seconds
+[2026-10-18T14:35:05.978+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:05.977+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 585)
+[2026-10-18T14:35:05.979+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:05.979+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=585
+[2026-10-18T14:35:05.982+0000] {processor.py:161} INFO - Started process (PID=585) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:05.982+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:35:05.983+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:05.983+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:05.991+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:05.991+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:05.996+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:06.011+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.034 seconds
+[2026-10-18T14:35:36.728+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:36.727+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 659)
+[2026-10-18T14:35:36.729+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:36.729+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=659
+[2026-10-18T14:35:36.732+0000] {processor.py:161} INFO - Started process (PID=659) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:36.732+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:35:36.733+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:36.733+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:36.744+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:35:36.744+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:36.750+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:35:36.765+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.037 seconds
+[2026-10-18T14:36:06.818+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:06.817+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 696)
+[2026-10-18T14:36:06.818+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:06.818+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=696
+[2026-10-18T14:36:06.821+0000] {processor.py:161} INFO - Started process (PID=696) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:06.822+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:36:06.823+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:06.822+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:06.833+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:06.832+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:06.838+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:06.851+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.034 seconds
+[2026-10-18T14:36:37.613+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:37.612+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 770)
+[2026-10-18T14:36:37.614+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:37.614+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=770
+[2026-10-18T14:36:37.618+0000] {processor.py:161} INFO - Started process (PID=770) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:37.619+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:36:37.620+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:37.619+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:37.631+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:36:37.631+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:37.637+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:36:37.651+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.039 seconds
+[2026-10-18T14:37:08.405+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:08.404+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 824)
+[2026-10-18T14:37:08.406+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:08.406+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=824
+[2026-10-18T14:37:08.409+0000] {processor.py:161} INFO - Started process (PID=824) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:08.409+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:37:08.410+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:08.410+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:08.418+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:08.417+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:08.422+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:08.437+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.032 seconds
+[2026-10-18T14:37:38.722+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:38.721+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 858)
+[2026-10-18T14:37:38.723+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:38.723+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=858
+[2026-10-18T14:37:38.726+0000] {processor.py:161} INFO - Started process (PID=858) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:38.726+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:37:38.727+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:38.727+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:38.737+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:37:38.737+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:38.743+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:37:38.757+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.035 seconds
+[2026-10-18T14:38:09.045+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:38:09.044+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 888)
+[2026-10-18T14:38:09.047+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:38:09.046+0000] {settings.py:350} DEBUG - settings.prepare_engine_args(): Using pool settings. pool_size=5, max_overflow=10, pool_recycle=1800, pid=888
+[2026-10-18T14:38:09.051+0000] {processor.py:161} INFO - Started process (PID=888) to work on /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:38:09.052+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/pipelines/__init__.py for tasks to queue
+[2026-10-18T14:38:09.053+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:38:09.053+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:38:09.068+0000] {logging_mixin.py:188} INFO - [2026-10-18T14:38:09.067+0000] {dagbag.py:332} DEBUG - Importing /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:38:09.082+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/pipelines/__init__.py
+[2026-10-18T14:38:09.101+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/pipelines/__init__.py took 0.057 seconds

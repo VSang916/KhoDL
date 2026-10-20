@@ -1,0 +1,7 @@
+columns format version: 1
+5 columns:
+`product_code` String
+`market_id` UInt32
+`date_id` UInt32
+`original_price` Float64
+`selling_price` Float64

@@ -1,0 +1,141 @@
+[2026-10-13T02:52:50.898+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T02:52:50.923+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-13T02:52:50.939+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T02:52:50.948+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-13T02:52:50.966+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T02:52:50.974+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-13T02:52:50.975+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T02:52:50.975+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-13T02:52:50.976+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]>
+[2026-10-13T02:52:50.976+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T02:52:50.979+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-13T02:52:50.985+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-13T02:52:50.989+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T02:52:50.990+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]>
+[2026-10-13T02:52:50.990+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-10-13T02:52:51.003+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): load_clickhouse> on 2026-10-12 00:00:00+00:00
+[2026-10-13T02:52:51.010+0000] {standard_task_runner.py:60} INFO - Started process 5040 to run task
+[2026-10-13T02:52:51.013+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_to_minio', 'load_clickhouse', 'scheduled__2026-10-12T00:00:00+00:00', '--job-id', '21', '--raw', '--subdir', 'DAGS_FOLDER/winmart_to_minio.py', '--cfg-path', '/tmp/tmpr5_rzl_a']
+[2026-10-13T02:52:51.016+0000] {standard_task_runner.py:88} INFO - Job 21: Subtask load_clickhouse
+[2026-10-13T02:52:51.017+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fbbef7d7dc0>]
+[2026-10-13T02:52:51.058+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T02:52:51.068+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [running]> on host 2ad598f4dc60
+[2026-10-13T02:52:51.069+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 5040)
+[2026-10-13T02:52:51.070+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 5040)
+[2026-10-13T02:52:51.071+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-13T02:52:51.109+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T02:52:51.261+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-13T02:52:51.275+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-13T02:52:51.295+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-13T02:52:51.306+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_to_minio' AIRFLOW_CTX_TASK_ID='load_clickhouse' AIRFLOW_CTX_EXECUTION_DATE='2026-10-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-12T00:00:00+00:00'
+[2026-10-13T02:52:51.307+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-13T02:52:51.308+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-13T02:52:51.311+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T02:52:51.317+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T02:52:51.320+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T02:52:51.324+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T02:52:51.326+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T02:52:51.329+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T02:52:51.331+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T02:52:51.333+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T02:52:51.336+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T02:52:51.339+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T02:52:51.341+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T02:52:51.412+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 500 None
+[2026-10-13T02:52:51.414+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 241, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/winmart_to_minio.py", line 422, in load_clickhouse
+    _ch(ddl)
+  File "/opt/airflow/dags/winmart_to_minio.py", line 138, in _ch
+    raise RuntimeError(f"ClickHouse lỗi {resp.status_code}: {resp.text[:500]}")
+RuntimeError: ClickHouse lỗi 500: Code: 1. DB::Exception: System call renameat2() is not supported. (UNSUPPORTED_METHOD) (version 26.9.16.11 (official build))
+
+[2026-10-13T02:52:51.427+0000] {taskinstance.py:527} DEBUG - Task Duration set to 0.450695
+[2026-10-13T02:52:51.428+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-13T02:52:51.429+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=winmart_to_minio, task_id=load_clickhouse, execution_date=20261012T000000, start_date=20261013T025250, end_date=20261013T025251
+[2026-10-13T02:52:51.443+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-13T02:52:51.444+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 21 for task load_clickhouse (ClickHouse lỗi 500: Code: 1. DB::Exception: System call renameat2() is not supported. (UNSUPPORTED_METHOD) (version 26.9.16.11 (official build))
+; 5040)
+[2026-10-13T02:52:51.466+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-10-13T02:52:51.484+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_to_minio @ 2026-10-12 00:00:00+00:00: scheduled__2026-10-12T00:00:00+00:00, state:running, queued_at: 2026-10-13 02:52:38.662861+00:00. externally triggered: False>: 0 task(s)
+[2026-10-13T02:52:51.485+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-10-13T05:28:58.433+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T05:28:58.449+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-13T05:28:58.461+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T05:28:58.468+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-13T05:28:58.482+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T05:28:58.490+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-13T05:28:58.491+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T05:28:58.493+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-13T05:28:58.493+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]>
+[2026-10-13T05:28:58.494+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T05:28:58.497+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-13T05:28:58.502+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-13T05:28:58.505+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T05:28:58.505+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [queued]>
+[2026-10-13T05:28:58.506+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-10-13T05:28:58.518+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): load_clickhouse> on 2026-10-12 00:00:00+00:00
+[2026-10-13T05:28:58.523+0000] {standard_task_runner.py:60} INFO - Started process 7499 to run task
+[2026-10-13T05:28:58.525+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_to_minio', 'load_clickhouse', 'scheduled__2026-10-12T00:00:00+00:00', '--job-id', '59', '--raw', '--subdir', 'DAGS_FOLDER/winmart_to_minio.py', '--cfg-path', '/tmp/tmpel9omw03']
+[2026-10-13T05:28:58.527+0000] {standard_task_runner.py:88} INFO - Job 59: Subtask load_clickhouse
+[2026-10-13T05:28:58.528+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fbbef7d7dc0>]
+[2026-10-13T05:28:58.561+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T05:28:58.569+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_to_minio.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [running]> on host 2ad598f4dc60
+[2026-10-13T05:28:58.570+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 7499)
+[2026-10-13T05:28:58.571+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 7499)
+[2026-10-13T05:28:58.571+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-13T05:28:58.602+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T05:28:58.719+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-13T05:28:58.730+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-13T05:28:58.746+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-13T05:28:58.756+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_to_minio' AIRFLOW_CTX_TASK_ID='load_clickhouse' AIRFLOW_CTX_EXECUTION_DATE='2026-10-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-12T00:00:00+00:00'
+[2026-10-13T05:28:58.757+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-13T05:28:58.758+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-13T05:28:58.760+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:58.788+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:58.790+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:58.865+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:58.871+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:58.950+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:58.952+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.001+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.003+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.102+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.104+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.160+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.162+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.165+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.167+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.236+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.237+0000] {winmart_to_minio.py:436} INFO - Đã nạp dim_product vào ClickHouse
+[2026-10-13T05:28:59.238+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.310+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.311+0000] {winmart_to_minio.py:436} INFO - Đã nạp dim_market vào ClickHouse
+[2026-10-13T05:28:59.313+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.372+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.374+0000] {winmart_to_minio.py:436} INFO - Đã nạp dim_date vào ClickHouse
+[2026-10-13T05:28:59.375+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.444+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.445+0000] {winmart_to_minio.py:436} INFO - Đã nạp fact_price vào ClickHouse
+[2026-10-13T05:28:59.446+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-13T05:28:59.456+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-13T05:28:59.457+0000] {winmart_to_minio.py:443} INFO - ✅ ClickHouse OK: 19 dòng fact_price cho date_id=20261013
+[2026-10-13T05:28:59.458+0000] {python.py:202} INFO - Done. Returned value was: None
+[2026-10-13T05:28:59.458+0000] {__init__.py:73} DEBUG - Lineage called with inlets: [], outlets: []
+[2026-10-13T05:28:59.465+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-13T05:28:59.466+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=winmart_to_minio, task_id=load_clickhouse, execution_date=20261012T000000, start_date=20261013T052858, end_date=20261013T052859
+[2026-10-13T05:28:59.466+0000] {taskinstance.py:527} DEBUG - Task Duration set to 0.971444
+[2026-10-13T05:28:59.475+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-13T05:28:59.501+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-10-13T05:28:59.512+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_to_minio @ 2026-10-12 00:00:00+00:00: scheduled__2026-10-12T00:00:00+00:00, state:running, queued_at: 2026-10-13 05:28:52.611437+00:00. externally triggered: False>: 0 task(s)
+[2026-10-13T05:28:59.513+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,60 @@
+[2026-10-13T04:26:25.592+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:26:25.610+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-13T04:26:25.626+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:26:25.634+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-13T04:26:25.655+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:26:25.662+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-13T04:26:25.663+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:26:25.663+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-13T04:26:25.664+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]>
+[2026-10-13T04:26:25.664+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:26:25.667+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-13T04:26:25.673+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-13T04:26:25.676+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:26:25.677+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [queued]>
+[2026-10-13T04:26:25.677+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-10-13T04:26:25.689+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): transform> on 2026-10-12 00:00:00+00:00
+[2026-10-13T04:26:25.696+0000] {standard_task_runner.py:60} INFO - Started process 6484 to run task
+[2026-10-13T04:26:25.700+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_api_pipeline', 'transform', 'scheduled__2026-10-12T00:00:00+00:00', '--job-id', '34', '--raw', '--subdir', 'DAGS_FOLDER/winmart_api_pipeline.py', '--cfg-path', '/tmp/tmpwp6s8p9_']
+[2026-10-13T04:26:25.702+0000] {standard_task_runner.py:88} INFO - Job 34: Subtask transform
+[2026-10-13T04:26:25.703+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fbbef7d7dc0>]
+[2026-10-13T04:26:25.755+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:26:25.781+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_api_pipeline.transform scheduled__2026-10-12T00:00:00+00:00 [running]> on host 2ad598f4dc60
+[2026-10-13T04:26:25.782+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 6484)
+[2026-10-13T04:26:25.785+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 6484)
+[2026-10-13T04:26:25.786+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-13T04:26:25.826+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-13T04:26:25.828+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-13T04:26:25.991+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-13T04:26:26.016+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-13T04:26:26.028+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_api_pipeline' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2026-10-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-12T00:00:00+00:00'
+[2026-10-13T04:26:26.028+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-13T04:26:26.029+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-13T04:26:26.072+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): minio:9000
+[2026-10-13T04:26:26.075+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /raw-data?location= HTTP/1.1" 200 128
+[2026-10-13T04:26:26.081+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /raw-data/winmart_api/dt%3D2026-10-13/store%3D1535/rau-cu-trai-cay--c02.json HTTP/1.1" 200 340726
+[2026-10-13T04:26:26.092+0000] {winmart_api_pipeline.py:332} INFO - Thống kê làm sạch: {'items_seen': 141, 'skipped_no_price': 0, 'sale_gt_price': 0}
+[2026-10-13T04:26:26.097+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "GET /processed-data?location= HTTP/1.1" 200 128
+[2026-10-13T04:26:26.102+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart_api/dt%3D2026-10-13/dim_product.csv HTTP/1.1" 200 0
+[2026-10-13T04:26:26.102+0000] {winmart_api_pipeline.py:119} INFO - Đã ghi s3://processed-data/winmart_api/dt=2026-10-13/dim_product.csv (18576 bytes)
+[2026-10-13T04:26:26.108+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart_api/dt%3D2026-10-13/dim_market.csv HTTP/1.1" 200 0
+[2026-10-13T04:26:26.109+0000] {winmart_api_pipeline.py:119} INFO - Đã ghi s3://processed-data/winmart_api/dt=2026-10-13/dim_market.csv (63 bytes)
+[2026-10-13T04:26:26.115+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart_api/dt%3D2026-10-13/dim_date.csv HTTP/1.1" 200 0
+[2026-10-13T04:26:26.116+0000] {winmart_api_pipeline.py:119} INFO - Đã ghi s3://processed-data/winmart_api/dt=2026-10-13/dim_date.csv (64 bytes)
+[2026-10-13T04:26:26.123+0000] {connectionpool.py:474} DEBUG - http://minio:9000 "PUT /processed-data/winmart_api/dt%3D2026-10-13/fact_price.csv HTTP/1.1" 200 0
+[2026-10-13T04:26:26.123+0000] {winmart_api_pipeline.py:119} INFO - Đã ghi s3://processed-data/winmart_api/dt=2026-10-13/fact_price.csv (9942 bytes)
+[2026-10-13T04:26:26.124+0000] {winmart_api_pipeline.py:339} INFO - Số dòng mỗi bảng: {'dim_product': 141, 'dim_market': 1, 'dim_date': 1, 'fact_price': 141}
+[2026-10-13T04:26:26.125+0000] {python.py:202} INFO - Done. Returned value was: {'prefix': 'winmart_api/dt=2026-10-13', 'date_id': 20261013, 'rows': {'dim_product': 141, 'dim_market': 1, 'dim_date': 1, 'fact_price': 141}, 'raw_keys': ['winmart_api/dt=2026-10-13/store=1535/rau-cu-trai-cay--c02.json']}
+[2026-10-13T04:26:26.173+0000] {__init__.py:73} DEBUG - Lineage called with inlets: [], outlets: []
+[2026-10-13T04:26:26.181+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-13T04:26:26.181+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=winmart_api_pipeline, task_id=transform, execution_date=20261012T000000, start_date=20261013T042625, end_date=20261013T042626
+[2026-10-13T04:26:26.182+0000] {taskinstance.py:527} DEBUG - Task Duration set to 0.516914
+[2026-10-13T04:26:26.190+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-13T04:26:26.234+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-10-13T04:26:26.279+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_api_pipeline @ 2026-10-12 00:00:00+00:00: scheduled__2026-10-12T00:00:00+00:00, state:running, queued_at: 2026-10-13 04:26:12.195227+00:00. externally triggered: False>: 3 task(s)
+[2026-10-13T04:26:26.280+0000] {dagrun.py:897} DEBUG - number of scheduleable tasks for <DagRun winmart_api_pipeline @ 2026-10-12 00:00:00+00:00: scheduled__2026-10-12T00:00:00+00:00, state:running, queued_at: 2026-10-13 04:26:12.195227+00:00. externally triggered: False>: 1 task(s)
+[2026-10-13T04:26:26.281+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [None]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-13T04:26:26.281+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [None]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-13T04:26:26.283+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [None]> dependency 'Trigger Rule' PASSED: False, Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=1, skipped=0, failed=0, upstream_failed=0, removed=0, done=1, success_setup=0, skipped_setup=0), upstream_task_ids={'transform', 'validate'}
+[2026-10-13T04:26:26.283+0000] {taskinstance.py:1969} DEBUG - Dependencies not met for <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-12T00:00:00+00:00 [None]>, dependency 'Trigger Rule' FAILED: Task's trigger rule 'all_success' requires all upstream tasks to have succeeded, but found 1 non-success(es). upstream_states=_UpstreamTIStates(success=1, skipped=0, failed=0, upstream_failed=0, removed=0, done=1, success_setup=0, skipped_setup=0), upstream_task_ids={'transform', 'validate'}
+[2026-10-13T04:26:26.291+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

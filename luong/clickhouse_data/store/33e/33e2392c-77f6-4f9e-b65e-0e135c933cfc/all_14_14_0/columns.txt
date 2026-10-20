@@ -1,0 +1,19 @@
+columns format version: 1
+17 columns:
+`product_id` UInt32
+`market_id` UInt32
+`date_id` UInt32
+`nhom_san_pham` String
+`san_pham` String
+`mat_hang` String
+`nam` UInt16
+`thang` UInt8
+`tinh_cu` String
+`tinh_moi` String
+`loai_gia` String
+`cap_gia` String
+`don_vi_tinh` String
+`gia` Float64
+`is_outlier` UInt8
+`nguon` String
+`source_file` String

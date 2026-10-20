@@ -1,0 +1,10 @@
+columns substreams version: 1
+3 columns:
+1 substreams for column `market_id`:
+	market_id
+2 substreams for column `tinh_cu`:
+	tinh_cu.size
+	tinh_cu
+2 substreams for column `tinh_moi`:
+	tinh_moi.size
+	tinh_moi

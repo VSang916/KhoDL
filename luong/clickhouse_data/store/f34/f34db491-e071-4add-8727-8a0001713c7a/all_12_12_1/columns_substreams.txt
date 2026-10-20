@@ -1,0 +1,13 @@
+columns substreams version: 1
+4 columns:
+1 substreams for column `product_id`:
+	product_id
+2 substreams for column `nhom_san_pham`:
+	nhom_san_pham.size
+	nhom_san_pham
+2 substreams for column `san_pham`:
+	san_pham.size
+	san_pham
+2 substreams for column `mat_hang`:
+	mat_hang.size
+	mat_hang

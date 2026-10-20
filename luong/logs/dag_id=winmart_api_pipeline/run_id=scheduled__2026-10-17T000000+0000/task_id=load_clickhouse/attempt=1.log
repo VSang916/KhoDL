@@ -1,0 +1,72 @@
+[2026-10-18T14:19:04.562+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:19:04.591+0000] {__init__.py:54} DEBUG - Loading core task runner: StandardTaskRunner
+[2026-10-18T14:19:04.606+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:19:04.625+0000] {base_task_runner.py:72} DEBUG - Planning to run as the  user
+[2026-10-18T14:19:04.643+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Task Instance Not Running' PASSED: True, Task is not in running state.
+[2026-10-18T14:19:04.644+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-18T14:19:04.650+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Task Instance State' PASSED: True, Task state queued was valid.
+[2026-10-18T14:19:04.651+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-18T14:19:04.652+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]>
+[2026-10-18T14:19:04.658+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Pool Slots Available' PASSED: True, There are enough open slots in default_pool to execute the task
+[2026-10-18T14:19:04.658+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Task Concurrency' PASSED: True, Task concurrency is not set.
+[2026-10-18T14:19:04.659+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Not In Retry Period' PASSED: True, The task instance was not marked for retrying.
+[2026-10-18T14:19:04.663+0000] {taskinstance.py:1988} DEBUG - <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]> dependency 'Previous Dagrun State' PASSED: True, The task did not have depends_on_past set.
+[2026-10-18T14:19:04.664+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [queued]>
+[2026-10-18T14:19:04.664+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2026-10-18T14:19:04.678+0000] {taskinstance.py:2214} INFO - Executing <Task(_PythonDecoratedOperator): load_clickhouse> on 2026-10-17 00:00:00+00:00
+[2026-10-18T14:19:04.683+0000] {standard_task_runner.py:60} INFO - Started process 136 to run task
+[2026-10-18T14:19:04.686+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'winmart_api_pipeline', 'load_clickhouse', 'scheduled__2026-10-17T00:00:00+00:00', '--job-id', '80', '--raw', '--subdir', 'DAGS_FOLDER/winmart_api_pipeline.py', '--cfg-path', '/tmp/tmpnljftuxz']
+[2026-10-18T14:19:04.688+0000] {standard_task_runner.py:88} INFO - Job 80: Subtask load_clickhouse
+[2026-10-18T14:19:04.689+0000] {cli_action_loggers.py:67} DEBUG - Calling callbacks: [<function default_action_log at 0x7fbc22d27dc0>]
+[2026-10-18T14:19:04.724+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:19:04.732+0000] {task_command.py:423} INFO - Running <TaskInstance: winmart_api_pipeline.load_clickhouse scheduled__2026-10-17T00:00:00+00:00 [running]> on host 2ad598f4dc60
+[2026-10-18T14:19:04.732+0000] {settings.py:386} DEBUG - Disposing DB connection pool (PID 136)
+[2026-10-18T14:19:04.733+0000] {settings.py:249} DEBUG - Setting up DB connection pool (PID 136)
+[2026-10-18T14:19:04.733+0000] {settings.py:318} DEBUG - settings.prepare_engine_args(): Using NullPool
+[2026-10-18T14:19:04.768+0000] {taskinstance.py:991} DEBUG - previous_execution_date was called
+[2026-10-18T14:19:04.896+0000] {taskinstance.py:1769} DEBUG - Clearing XCom data
+[2026-10-18T14:19:04.908+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields.write with retries. Try 1 of 3
+[2026-10-18T14:19:04.924+0000] {retries.py:93} DEBUG - Running RenderedTaskInstanceFields._do_delete_old_records with retries. Try 1 of 3
+[2026-10-18T14:19:04.933+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='winmart_api_pipeline' AIRFLOW_CTX_TASK_ID='load_clickhouse' AIRFLOW_CTX_EXECUTION_DATE='2026-10-17T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-10-17T00:00:00+00:00'
+[2026-10-18T14:19:04.933+0000] {__init__.py:115} DEBUG - Preparing lineage inlets and outlets
+[2026-10-18T14:19:04.934+0000] {__init__.py:154} DEBUG - inlets: [], outlets: []
+[2026-10-18T14:19:04.936+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:04.939+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:04.941+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:04.944+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:04.946+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:04.948+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:04.950+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:04.953+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:04.955+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:04.958+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:04.960+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:04.967+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:04.970+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.000+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.003+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.008+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.011+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.206+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.211+0000] {winmart_api_pipeline.py:360} INFO - Đã nạp dim_product vào ClickHouse
+[2026-10-18T14:19:05.214+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.475+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.477+0000] {winmart_api_pipeline.py:360} INFO - Đã nạp dim_market vào ClickHouse
+[2026-10-18T14:19:05.479+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.581+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.584+0000] {winmart_api_pipeline.py:360} INFO - Đã nạp dim_date vào ClickHouse
+[2026-10-18T14:19:05.588+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.660+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.662+0000] {winmart_api_pipeline.py:360} INFO - Đã nạp fact_price vào ClickHouse
+[2026-10-18T14:19:05.664+0000] {connectionpool.py:246} DEBUG - Starting new HTTP connection (1): clickhouse:8123
+[2026-10-18T14:19:05.668+0000] {connectionpool.py:474} DEBUG - http://clickhouse:8123 "POST / HTTP/1.1" 200 None
+[2026-10-18T14:19:05.669+0000] {winmart_api_pipeline.py:366} INFO - ✅ ClickHouse OK: 143 dòng fact_price cho date_id=20261018
+[2026-10-18T14:19:05.670+0000] {python.py:202} INFO - Done. Returned value was: None
+[2026-10-18T14:19:05.670+0000] {__init__.py:73} DEBUG - Lineage called with inlets: [], outlets: []
+[2026-10-18T14:19:05.679+0000] {taskinstance.py:549} DEBUG - Clearing next_method and next_kwargs.
+[2026-10-18T14:19:05.680+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=winmart_api_pipeline, task_id=load_clickhouse, execution_date=20261017T000000, start_date=20261018T141904, end_date=20261018T141905
+[2026-10-18T14:19:05.681+0000] {taskinstance.py:527} DEBUG - Task Duration set to 1.02779
+[2026-10-18T14:19:05.692+0000] {cli_action_loggers.py:85} DEBUG - Calling callbacks: []
+[2026-10-18T14:19:05.742+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-10-18T14:19:05.755+0000] {dagrun.py:876} DEBUG - number of tis tasks for <DagRun winmart_api_pipeline @ 2026-10-17 00:00:00+00:00: scheduled__2026-10-17T00:00:00+00:00, state:running, queued_at: 2026-10-18 14:18:34.697543+00:00. externally triggered: False>: 0 task(s)
+[2026-10-18T14:19:05.756+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
