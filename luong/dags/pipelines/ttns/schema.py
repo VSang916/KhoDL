@@ -13,9 +13,15 @@ TABLES = {
         "product_id UInt32, nhom_san_pham String, san_pham String, mat_hang String",
         "ENGINE = ReplacingMergeTree ORDER BY product_id",
     ),
+    # phân cấp Địa điểm: tinh_cu -> tinh_moi -> vung
     "dim_market": (
-        "market_id UInt32, tinh_cu String, tinh_moi String",
+        "market_id UInt32, tinh_cu String, tinh_moi String, vung String",
         "ENGINE = ReplacingMergeTree ORDER BY market_id",
+    ),
+    # chiều Loại giá, phân cấp: loai_gia (7 giá trị) -> cap_gia (3 giá trị). Khoá tự nhiên loai_gia.
+    "dim_price_type": (
+        "loai_gia String, cap_gia String, mo_ta String",
+        "ENGINE = ReplacingMergeTree ORDER BY loai_gia",
     ),
     "dim_date": (
         "date_id UInt32, first_day Date, year UInt16, quarter UInt8, month UInt8",
@@ -31,8 +37,8 @@ TABLES = {
     # dòng is_deleted=1 bị ẩn khi đọc FINAL.
     "fact_price_monthly": (
         "product_id UInt32, market_id UInt32, date_id UInt32, loai_gia String, cap_gia String, "
-        "don_vi_tinh String, n_obs UInt32, n_outliers UInt32, avg_price Float64, median_price Float64, "
-        "min_price Float64, max_price Float64, version UInt64, is_deleted UInt8",
+        "don_vi_tinh String, n_obs UInt32, n_outliers UInt32, n_valid UInt32, sum_price Float64, avg_price Float64, "
+        "median_price Float64, min_price Float64, max_price Float64, version UInt64, is_deleted UInt8",
         "ENGINE = ReplacingMergeTree(version, is_deleted) ORDER BY (product_id, market_id, date_id, loai_gia, don_vi_tinh)",
     ),
     # Nhật ký thay đổi: mỗi dòng là 1 khoá (mặt hàng, tỉnh, tháng, loại giá, đơn vị) bị thêm / sửa / xoá ở nguồn
@@ -49,9 +55,9 @@ TABLES = {
 VIEWS = {
     "v_price_monthly": f"""CREATE VIEW {DB}.v_price_monthly AS
 SELECT d.first_day AS month, d.year, d.quarter, d.month AS month_no,
-       p.nhom_san_pham, p.san_pham, p.mat_hang, m.tinh_cu, m.tinh_moi,
+       p.nhom_san_pham, p.san_pham, p.mat_hang, m.tinh_cu, m.tinh_moi, m.vung,
        f.loai_gia, f.cap_gia, f.don_vi_tinh,
-       f.avg_price, f.median_price, f.min_price, f.max_price, f.n_obs, f.n_outliers
+       f.avg_price, f.median_price, f.min_price, f.max_price, f.n_obs, f.n_outliers, f.n_valid, f.sum_price
 FROM {DB}.fact_price_monthly AS f FINAL
 LEFT JOIN (SELECT * FROM {DB}.dim_product FINAL) AS p ON f.product_id = p.product_id
 LEFT JOIN (SELECT * FROM {DB}.dim_market FINAL) AS m ON f.market_id = m.market_id
@@ -69,7 +75,7 @@ LEFT JOIN (SELECT * FROM {DB}.dim_date FINAL) AS d ON c.date_id = d.date_id""",
 }
 
 # Nguồn trả toàn bộ lịch sử nên các bảng dữ liệu nạp lại được hết; riêng cdc_log là lịch sử do mình tạo ra
-REBUILDABLE = ("dim_product", "dim_market", "dim_date", "price_clean", "fact_price_monthly")
+REBUILDABLE = ("dim_product", "dim_market", "dim_price_type", "dim_date", "price_clean", "fact_price_monthly")
 
 
 def columns(table: str, with_cdc: bool = True) -> list[str]:

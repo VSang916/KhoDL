@@ -49,3 +49,24 @@ def test_ids_stable_between_runs():
     a, _ = clean(_raw(ROWS), "a.xlsx")
     b, _ = clean(_raw(list(reversed(ROWS))), "b.xlsx")
     assert set(a["product_id"]) == set(b["product_id"])
+
+
+def test_new_dimensions_and_additive_measures():
+    df, _ = clean(_raw(ROWS), "test.xlsx")
+    frames = build_tables(df)
+    pt = frames["dim_price_type"].set_index("loai_gia")
+    assert pt.loc["Thương lái thu mua", "cap_gia"] == "Thu mua"          # phân cấp loai_gia -> cap_gia
+    assert set(frames["dim_market"]["vung"]) == {"Đồng bằng sông Cửu Long", "Đồng bằng sông Hồng"}
+    f = frames["fact_price_monthly"]
+    assert ((f["sum_price"] / f["n_valid"]).round(1) == f["avg_price"]).all()   # avg cuộn lên được từ sum / n
+
+
+def test_olap_cuboid_sql():
+    from pipelines.ttns import olap
+    assert len(olap.CUBOIDS) == 3
+    for name, spec in olap.CUBOIDS.items():
+        drop, create, insert = olap.build_sql(name, spec)
+        assert "AggregatingMergeTree" in create and "quantileExactState(0.5)" in insert
+        # mỗi khối giữ cả các mức cha để cuộn lên không cần join
+        cols = olap.cuboid_columns(spec["levels"])
+        assert "cap_gia" in cols and "vung" in cols and "year" in cols

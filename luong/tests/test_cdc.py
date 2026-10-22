@@ -74,8 +74,8 @@ def test_winmart_partial_fetch_does_not_delete():
 # ================================================================ ttns
 def _monthly(rows):
     cols = ["product_id", "market_id", "date_id", "loai_gia", "cap_gia", "don_vi_tinh", "n_obs", "n_outliers",
-            "avg_price", "median_price", "min_price", "max_price"]
-    return pd.DataFrame([r[:6] + (r[6], 0, r[7], r[7], r[7], r[7]) for r in rows], columns=cols)
+            "n_valid", "sum_price", "avg_price", "median_price", "min_price", "max_price"]
+    return pd.DataFrame([r[:6] + (r[6], 0, r[6], r[6] * r[7], r[7], r[7], r[7], r[7]) for r in rows], columns=cols)
 
 
 def test_ttns_change_kinds_and_upserts():
@@ -119,3 +119,12 @@ def test_ttns_price_clean_groups_include_outlier_only_groups():
     assert len(keys2) == 1 and set(upsert2["san_pham"]) == {"Dưa chuột"}
     keys3, upsert3, _ = ttns_cdc.clean_changes(groups, df.sample(frac=1, random_state=1))  # đảo thứ tự dòng
     assert len(keys3) == 0 and len(upsert3) == 0
+
+
+def test_ttns_old_schema_snapshot_is_accepted():
+    """Snapshot mốc ghi trước khi bảng fact có thêm cột (n_valid, sum_price) vẫn so được, kể cả khi có khoá bị xoá."""
+    rows = [(1, 9, 202506, "Bán lẻ", "Bán lẻ", "VNĐ/kg", 4, 20000), (2, 9, 202506, "Bán lẻ", "Bán lẻ", "VNĐ/kg", 2, 9000)]
+    _, _, snap, _ = ttns_cdc.compute(None, _monthly(rows), "2026-10-01", "all", 1)
+    old = snap.drop(columns=["n_valid", "sum_price"])                     # snapshot định dạng cũ
+    log, upsert, _, st = ttns_cdc.compute(old, _monthly(rows[:1]), "2026-10-08", "all", 2)
+    assert list(log["change_kind"]) == ["removed"] and upsert["is_deleted"].tolist() == [1]

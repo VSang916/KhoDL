@@ -1,7 +1,8 @@
 """
 DAG: ttns_price_pipeline
 Luồng:
-  ensure_buckets -> extract -> check_changed -> transform -> prepare_clickhouse -> cdc -> validate -> load_clickhouse -> commit_cdc
+  ensure_buckets -> extract -> check_changed -> transform -> prepare_clickhouse -> cdc -> validate -> load_clickhouse
+  -> build_olap_cubes -> commit_cdc
 
   extract        : tải file Excel gốc (hoặc dùng lại raw đã lưu nếu có replay_dt) -> raw-data/ttns/dt=.../*.xlsx, tính md5 dữ liệu
   check_changed  : md5 dữ liệu giống lần commit gần nhất -> nguồn chưa cập nhật -> DỪNG, các task sau bị skip
@@ -11,6 +12,7 @@ Luồng:
                    -> cdc_log.csv, fact_upsert.csv, price_clean_upsert.csv
                    -> processed-data/ttns/_cdc/<scope>/dt=.../snapshot.csv
   load           : chỉ INSERT phần thay đổi (ReplacingMergeTree version/is_deleted), price_clean xoá + ghi theo khoá đổi
+  build_cubes    : dựng lại 3 khối con OLAP (AggregatingMergeTree) chọn bằng thuật toán tham lam
   commit_cdc     : ghi _meta.json (kèm md5) -> mốc cho lần sau
 
 ClickHouse (database ttns): dim_product, dim_market, dim_date, price_clean, fact_price_monthly (đọc bằng FINAL),
@@ -37,13 +39,13 @@ from pipelines.common import clickhouse_helper as ch
 from pipelines.common import minio_helper as mh
 from pipelines.common.config import MINIO_ACCESS_KEY, MINIO_ENDPOINT, MINIO_SECRET_KEY, PROCESSED_BUCKET, RAW_BUCKET, TZ
 from pipelines.ttns import cdc as ttns_cdc
-from pipelines.ttns import schema, scraper
+from pipelines.ttns import olap, schema, scraper
 from pipelines.ttns.cleaning import BUILD_TABLES, build_tables, clean
 
 log = logging.getLogger(__name__)
 
 SOURCE_PREFIX = "ttns"
-DIM_TABLES = ["dim_product", "dim_market", "dim_date"]
+DIM_TABLES = ["dim_product", "dim_market", "dim_price_type", "dim_date"]
 KEY_TUPLE = "(" + ", ".join(ttns_cdc.KEYS) + ")"
 
 
@@ -249,6 +251,19 @@ def ttns_price_pipeline():
         log.info("✅ ClickHouse OK: %s", {t: v[0] for t, v in checks.items()})
 
     @task
+    def build_olap_cubes() -> dict:
+        """Dựng lại các khối con vật chất hoá (pipelines/ttns/olap.py) từ dữ liệu vừa nạp."""
+        sizes = {}
+        for name, spec in olap.CUBOIDS.items():
+            for sql in olap.build_sql(name, spec):
+                ch.query(sql)
+            sizes[name] = ch.count(schema.DB, name)
+            if sizes[name] == 0:
+                raise ValueError(f"Khối con {name} rỗng")
+        log.info("Khối con OLAP: %s", sizes)
+        return sizes
+
+    @task
     def commit_cdc(result: dict) -> None:
         cdc_store.commit(mh.client(), SOURCE_PREFIX, result["scope"], result["date"], {
             "committed_at": pendulum.now(TZ).isoformat(), "content_md5": result["content_md5"],
@@ -265,7 +280,7 @@ def ttns_price_pipeline():
     gate >> prepared
     changed = cdc(transformed, prepared)
     loaded = load_clickhouse(changed)
-    validate(changed) >> loaded >> commit_cdc(changed)
+    validate(changed) >> loaded >> build_olap_cubes() >> commit_cdc(changed)
 
 
 ttns_price_pipeline()

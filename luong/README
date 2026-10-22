@@ -32,6 +32,18 @@ ml/
   outputs/                    # bảng kết quả CSV (backtest, mùa vụ, cụm, khoảng giá, giá bất thường, chênh lệch)
   data/ttns_v_price_monthly.csv # dữ liệu chụp từ ClickHouse để chạy lại cho cùng kết quả
   forecast_lgbm.py            # thử nghiệm đầu tiên (chỉ h = 1)
+  publish_ml.py               # huấn luyện mô hình cuối, ghi ttns.ml_forecast / ml_cluster / ml_metrics vào kho
+olap/
+  OLAP_GiaNongSan.ipynb       # ★ thiết kế kho, chọn khối con (thuật toán tham lam), 5 thao tác OLAP, câu hỏi nghiệp vụ
+app/
+  app.py                      # ★ ứng dụng Streamlit: OLAP tương tác (tự chọn khối con), dự báo, phân cụm & dị biệt
+superset/                     # ★ Superset http://localhost:8088 (admin/admin) - công cụ OLAP phía người dùng
+  Dockerfile                  #   apache/superset:4.1.1 + driver clickhouse-connect
+  superset_config.py          #   bật native filter, cross filter, Drill by, Drill to detail
+  bootstrap.py                #   tạo kết nối kho, 7 dataset (độ đo đại số/toàn thể trên khối con), 15 biểu đồ, 2 dashboard:
+                              #   docker compose exec superset python /app/bootstrap.py   (chạy lại được, không nhân đôi)
+run_all.sh                   # ★ chạy lại toàn bộ từ đầu bằng 1 lệnh
+requirements-analysis.txt     # thư viện cho phần chạy trên máy (notebook, ML, app)
 
 
 ================================================================ LUỒNG WINMART (winmart_api_pipeline, 7h hằng ngày)
@@ -99,9 +111,18 @@ v_price_monthly  ★   1 mặt hàng × 1 tỉnh × 1 tháng × 1 loại giá ×
 fact_price_monthly   như trên, dạng khoá id (đọc bằng FINAL WHERE is_deleted = 0)    7.337    join tự viết
 price_clean          1 lần báo giá (không có ngày cụ thể, chỉ có tháng)             40.575    xem phân bố trong tháng
 dim_product          1 mặt hàng (nhom_san_pham, san_pham, mat_hang)                   209
-dim_market           1 tỉnh cũ (tinh_cu → tinh_moi)                                    15
+dim_market           1 tỉnh cũ (tinh_cu → tinh_moi → vung)                             15
+dim_price_type       1 loại giá (loai_gia → cap_gia, mo_ta)                             7
 dim_date             1 tháng (date_id = YYYYMM)                                        57
 cdc_log / v_changes  1 khoá tháng bị thêm / sửa / xoá ở nguồn trong 1 lần chạy           -    theo dõi nguồn sửa số liệu
+cube_quy_mathang_tinh_loaigia   khối con (quý, mặt hàng, tỉnh cũ, loại giá)           2.767    OLAP
+cube_thang_nhom_tinh_loaigia    khối con (tháng, nhóm, tỉnh cũ, loại giá)               762    OLAP
+cube_nam_mathang_tinh_loaigia   khối con (năm, mặt hàng, tỉnh cũ, loại giá)           1.111    OLAP
+    độ đo khối: so_bao_gia, tong_gia, gia_min, gia_max (SimpleAggregateFunction) + gia_tv = quantileExactState(0.5)
+    -> giá TB = sum(tong_gia)/sum(so_bao_gia); trung vị = quantileExactMerge(0.5)(gia_tv) (cuộn lên chính xác)
+ml_forecast          dự báo tháng kế tiếp mỗi chuỗi còn hoạt động + khoảng 80%            ~200    ứng dụng
+ml_cluster           đặc trưng hành vi + cụm K-Means + cờ dị biệt DBSCAN mỗi chuỗi        122    ứng dụng
+ml_metrics           sai số năm kiểm tra của mô hình và mô hình cơ sở                       2    ứng dụng
 
 Cột của v_price_monthly
   month           Date     ngày đầu tháng (2025-07-01)        year, quarter, month_no: tách từ month
@@ -117,6 +138,8 @@ Cột của v_price_monthly
   avg_price, min_price, max_price   Float64   trung bình / thấp nhất / cao nhất trong tháng
   n_obs           UInt32   số lần báo giá trong tháng (độ tin cậy của giá tháng)
   n_outliers      UInt32   số lần báo giá bị loại vì lệch > 5 lần trung vị (không tính vào giá ở trên)
+  n_valid, sum_price       số lần báo giá hợp lệ và tổng giá (độ đo PHÂN PHỐI ĐƯỢC -> cuộn lên: avg = sum_price / n_valid)
+  vung            String   vùng kinh tế - xã hội (mức trên cùng của chiều Địa điểm)
 
 LƯU Ý KHI DÙNG
   • Không bao giờ trộn đơn vị hay cấp giá: luôn lọc  don_vi_tinh = 'VNĐ/kg' AND cap_gia = '...'

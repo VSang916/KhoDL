@@ -32,6 +32,10 @@ def compute(prev: pd.DataFrame | None, fact: pd.DataFrame, run_date: str, scope:
     fact_upsert: dòng I/U lấy từ bản mới (is_deleted=0), dòng D lấy từ snapshot cũ (is_deleted=1)."""
     snapshot = fact[FACT_COLS].copy()
     snapshot["row_hash"] = row_hash(snapshot, TRACKED)
+    if prev is not None:
+        # Snapshot mốc có thể được ghi bằng schema cũ (vd trước khi thêm n_valid, sum_price): bổ sung cột thiếu.
+        # row_hash chỉ tính trên TRACKED (không đổi) nên so sánh vẫn đúng.
+        prev = prev.reindex(columns=SNAPSHOT_COLS)
     d = diff_snapshots(prev, snapshot, KEYS, TRACKED)
 
     initial = prev is None or prev.empty
@@ -58,6 +62,8 @@ def compute(prev: pd.DataFrame | None, fact: pd.DataFrame, run_date: str, scope:
     )
     fact_upsert = pd.concat([upserts, deletes], ignore_index=True).assign(version=version)
     fact_upsert = fact_upsert[columns("fact_price_monthly")]
+    for c in ("n_obs", "n_outliers", "n_valid", "date_id", "product_id", "market_id"):
+        fact_upsert[c] = pd.to_numeric(fact_upsert[c]).astype("Int64")   # CSV ghi "4" chứ không "4.0" (cột UInt32)
 
     stats = {
         "base_rows": 0 if initial else len(prev),

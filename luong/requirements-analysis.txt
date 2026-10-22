@@ -1,0 +1,16 @@
+# Thư viện cho phần chạy trên máy (notebook, ML, ứng dụng) - khác requirements.txt (image Airflow)
+pandas>=2.0
+numpy>=1.24
+requests>=2.31
+openpyxl>=3.1
+minio>=7.2
+scikit-learn>=1.4
+lightgbm>=4.0
+statsforecast>=1.7
+matplotlib>=3.8
+altair>=5.0
+streamlit>=1.40
+jupytext>=1.16
+nbconvert>=7.0
+ipykernel>=6.0
+pytest>=8.0
