@@ -235,7 +235,7 @@ with tab_fc:
             st.dataframe(met.style.format({"rmse": "{:,.0f}", "mae": "{:,.0f}", "r2": "{:.3f}", "mape": "{:.1%}"}),
                          hide_index=True, width="stretch")
             st.caption("Mô hình giảm sai số lớn (RMSE) so với 'giữ nguyên giá', nhưng sai số điển hình (MAE) tương đương — "
-                       "giá rau quả theo tháng có quán tính lớn. Chi tiết: ml/DeThucHanh01_GiaNongSan.ipynb.")
+                       "giá rau quả theo tháng có quán tính lớn. Chi tiết: ml/KhaiPha_GiaNongSan.ipynb.")
 
 # =====================================================================================================================
 with tab_cl:

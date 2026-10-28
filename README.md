@@ -37,7 +37,7 @@ ClickHouse http://localhost:8123 (default/mypassword) · **Superset http://local
 | 2. Thiết kế kho (CLO1.TC1) | lược đồ hình sao, 4 chiều đều có phân cấp, độ mịn và lý do | notebook OLAP mục 2 · `luong/dags/pipelines/ttns/schema.py` |
 | 3. Cài đặt & tính khối (CLO1.TC2) | ETL nạp kho; 3 khối con chọn bằng thuật toán tham lam, đo lợi ích bằng `query_log` | DAG `luong/dags/ttns_price_pipeline.py` · `luong/dags/pipelines/ttns/olap.py` · notebook OLAP mục 3 |
 | 4. Dịch vụ OLAP | cuộn lên, khoan xuống, cắt lát, cắt khối, xoay trục, `CUBE`/`ROLLUP` trên dữ liệu thật | notebook OLAP mục 4 · tab **OLAP** của ứng dụng · dashboard Superset (mỗi biểu đồ đọc khối con nhỏ nhất trả lời được) |
-| 5. Khai phá (CLO2.TC1) | hồi quy (LR, Decision Tree, Random Forest, 2 mô hình cơ sở, CV theo thời gian), K-Means (Elbow + Silhouette), DBSCAN | `luong/ml/DeThucHanh01_GiaNongSan.ipynb` |
+| 5. Khai phá (CLO2.TC1) | hồi quy (LR, Decision Tree, Random Forest, 2 mô hình cơ sở, CV theo thời gian), K-Means (Elbow + Silhouette), DBSCAN, đọc dữ liệu đã xử lý trong kho | `luong/ml/KhaiPha_GiaNongSan.ipynb` |
 | Ứng dụng khai phá (CLO2.TC2) | ứng dụng web: OLAP tương tác, dự báo giá kèm khoảng 80%, phân cụm & dị biệt; kết quả khai phá lưu trong kho | `luong/app/app.py` · `luong/ml/publish_ml.py` · `luong/superset/` |
 | Chất lượng mã | kiểm thử tự động (15 test), CDC, chạy lại một lệnh | `luong/tests/` · `luong/run_all.sh` |
 
@@ -48,8 +48,8 @@ luong/
   run_all.sh                         chạy lại toàn bộ
   dags/                              2 DAG + package pipelines/ (common, winmart, ttns: scraper, cleaning, cdc, schema, olap)
   olap/OLAP_GiaNongSan.ipynb         thiết kế kho, chọn khối con, 5 thao tác OLAP, trả lời câu hỏi nghiệp vụ
-  ml/DeThucHanh01_GiaNongSan.ipynb   khai phá: EDA, tiền xử lý, hồi quy, phân cụm (theo cấu trúc Đề thực hành 01)
-  ml/phan_tich_gia_nong_san.ipynb    phân tích chuỗi thời gian mở rộng (dự báo nhiều bước, khoảng giá, mùa vụ)
+  ml/KhaiPha_GiaNongSan.ipynb        khai phá của dự án: đọc kho -> dự báo giá, phân cụm, dị biệt -> ghi kho
+  ml/DeThucHanh01_GiaNongSan.ipynb   bài thực hành riêng theo cấu trúc Đề thực hành 01
   ml/publish_ml.py                   ghi kết quả khai phá vào kho
   app/app.py                         ứng dụng Streamlit
   superset/                          Superset (Docker) + bootstrap.py dựng sẵn dataset, biểu đồ, dashboard

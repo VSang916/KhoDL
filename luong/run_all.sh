@@ -56,7 +56,7 @@ docker compose exec -T superset python /app/bootstrap.py
 
 if [[ -z ${SKIP_NOTEBOOKS:-} ]]; then
   step "6/7 Chạy lại các notebook báo cáo"
-  for nb in olap/OLAP_GiaNongSan ml/DeThucHanh01_GiaNongSan; do
+  for nb in olap/OLAP_GiaNongSan ml/KhaiPha_GiaNongSan; do
     ( cd "$(dirname "$nb")" && jupytext --to notebook "$(basename "$nb").py" >/dev/null \
       && jupyter nbconvert --execute --to notebook --inplace --ExecutePreprocessor.timeout=3600 "$(basename "$nb").ipynb" \
       && echo "OK $nb.ipynb" )

@@ -3,7 +3,7 @@
 #   jupytext:
 #     formats: ipynb,py:percent
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: .venv
 #     language: python
 #     name: python3
 # ---
@@ -16,8 +16,7 @@
 #
 # **Dữ liệu:** giá rau quả trong nước do cộng tác viên địa phương báo về cổng *thitruongnongsan.gov.vn*
 # (mục "Giá rau quả trong nước"), 04/2021 → 12/2025. Dữ liệu được thu thập và làm sạch bởi luồng ETL của nhóm
-# (Airflow → MinIO → ClickHouse) và đọc từ **kho dữ liệu** (view `ttns.v_price_monthly`) — tức là khai phá trên kho
-# (OLAM, Bài 6) chứ không phải trên file thô.
+# (Airflow → MinIO → ClickHouse) và đọc từ **kho dữ liệu** (view `ttns.v_price_monthly`) 
 #
 # **Hai nhiệm vụ** (tương ứng Đề 01)
 # 1. **Học có giám sát:** dự đoán giá trung vị tháng (VNĐ/kg) của một mặt hàng tại một tỉnh, theo một loại giá.

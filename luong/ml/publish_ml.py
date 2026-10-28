@@ -1,7 +1,7 @@
 """
 Huấn luyện mô hình cuối cùng và ĐƯA KẾT QUẢ KHAI PHÁ VÀO KHO (OLAM - Bài 6), để ứng dụng và Superset dùng chung.
 
-Logic giống notebook DeThucHanh01_GiaNongSan.ipynb (nơi so sánh, chọn mô hình và tham số):
+Logic giống notebook KhaiPha_GiaNongSan.ipynb (nơi so sánh, chọn mô hình và tham số):
   - Dự báo: Random Forest học độ thay đổi log(giá) - log(giá lần trước), max_features = 0.5, min_samples_leaf = 1
   - Khoảng 80%: phân vị 10% / 90% sai số log trên tập kiểm tra 2025 (mô hình train đến 2024), theo cấp giá
   - Phân cụm: K-Means K = 4 trên 6 đặc trưng hành vi đã chuẩn hoá; DBSCAN (min_samples = 7, eps tại điểm gãy
