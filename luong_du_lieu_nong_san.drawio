@@ -28,7 +28,7 @@
         <mxCell id="c11" edge="1" parent="1" source="c4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeWidth=2;fontSize=11;" target="c8" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&lt;b&gt;Raw data&lt;/b&gt;&lt;br&gt;xlsx, JSON&lt;br&gt;(giữ nguyên)" vertex="1">
+        <mxCell id="c13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&lt;b&gt;Raw data&lt;/b&gt;&lt;br&gt;xls, JSON&lt;br&gt;(giữ nguyên)" vertex="1">
           <mxGeometry height="110" width="130" x="464" y="185" as="geometry" />
         </mxCell>
         <mxCell id="c15" edge="1" parent="1" source="c6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeWidth=2;fontSize=11;exitX=1;exitY=0.69;exitDx=0;exitDy=0;" target="c13" value="">

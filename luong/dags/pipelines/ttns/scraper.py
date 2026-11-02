@@ -1,47 +1,55 @@
-"""Cào thitruongnongsan.gov.vn/vn/dulieu_groups.aspx (ASP.NET WebForms).
+"""Cào thitruongnongsan.gov.vn/vn/nguonwmy.aspx ("Cơ sở dữ liệu giá nông sản", ASP.NET WebForms).
 
 Trang không có API: mỗi lần chọn bộ lọc là một postback kèm __VIEWSTATE, nên giả lập đúng thao tác trên trình duyệt:
-GET trang -> click mục dữ liệu bên trái -> chọn lần lượt 5 ô lọc -> bấm "Xuất excel".
+GET trang -> chọn Ngành hàng "Rau, quả" -> chọn Nhóm sản phẩm -> điền khoảng ngày, Xem theo "Tháng", tick đủ 4 ô
+"Nhóm theo các trường" (loại giá, đơn vị, loại tiền, nguồn) -> Xem -> "Xuất ra excel".
+Xuất từng nhóm sản phẩm một vì file xuất không có cột nhóm. Danh sách Sản phẩm của nhóm lấy từ ô lọc Sản_phẩm
+(file xuất chỉ có tên mặt hàng) để dựng lại phân cấp sản phẩm -> mặt hàng.
+
+Trước 11/2026 luồng cào trang dulieu_groups.aspx?cat_id=102 (file .xlsx, dữ liệu chỉ đến 12/2025); raw cũ vẫn nằm
+trên MinIO và vẫn replay được (xem export.py).
 """
 from __future__ import annotations
 
-import re
 from html.parser import HTMLParser
 
 import requests
 
 from pipelines.common.http_helper import new_session
 
-CAT_ID = 102  # cat_id trên URL (Rau quả)
-ITEM_NO = 6  # mục thứ 6 ở cột trái: "Giá rau quả trong nước (Việt Nam)"
-PAGE_URL = f"https://thitruongnongsan.gov.vn/vn/dulieu_groups.aspx?cat_id={CAT_ID}"
-LISTBOX = "ctl00$maincontent$Repeater1$ctl{:02d}$Tên_ListBox"
-EXPORT_BTN = "ctl00$maincontent$export_excel"
-N_FILTERS = 5  # Nhóm SP -> Sản phẩm -> Tên mặt hàng -> Năm -> Tháng: chọn đủ 5 ô thì bảng mới có dữ liệu
-XLSX_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+PAGE_URL = "https://thitruongnongsan.gov.vn/vn/nguonwmy.aspx"
+NGANH = "Rau, quả"
+GROUPS = ["Rau củ quả", "Trái cây"]
+FROM_DATE = "01/01/2015"  # trang lọc theo khoảng ngày; lấy toàn bộ lịch sử vì CDC so trên toàn bộ
+XLS_TYPE = "application/vnd.ms-excel"
+
+F = "ctl00$maincontent$"
+FIELDS = {
+    "nganh": F + "Ngành_hàng", "nhom": F + "Nhóm_sản_phẩm", "san_pham": F + "Sản_phẩm",
+    "tu_ngay": F + "tu_ngay", "den_ngay": F + "den_ngay", "theo": F + "Theo_thời_gian",
+}
+GROUP_BY = [F + f"hiện_các_trường${i}" for i in range(4)]
 
 
 class _FormParser(HTMLParser):
-    """Lấy các input hidden (__VIEWSTATE...), giá trị option của từng <select>, và các ô danh mục bên trái."""
+    """Lấy các input hidden (__VIEWSTATE...), giá trị option của từng <select> và tên các checkbox."""
 
     def __init__(self):
         super().__init__()
-        self.hidden, self.selects, self.menu = {}, {}, []
+        self.hidden, self.selects, self.checks = {}, {}, []
         self._select = None
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == "input" and a.get("type") == "hidden" and a.get("name"):
             self.hidden[a["name"]] = a.get("value") or ""
+        elif tag == "input" and a.get("type") == "checkbox":
+            self.checks.append(a.get("name"))
         elif tag == "select":
             self._select = a.get("name")
             self.selects[self._select] = []
         elif tag == "option" and self._select:
             self.selects[self._select].append(a.get("value") or "")
-        elif tag == "a":
-            m = re.search(r"(ctl00\$maincontent\$danhmuc\$ctl\d+\$Lbtn_ten)", a.get("href") or "")
-            if m:
-                self.menu.append(m.group(1))
 
     def handle_endtag(self, tag):
         if tag == "select":
@@ -59,44 +67,32 @@ def session() -> requests.Session:
     return new_session(retry_statuses=(502, 503, 504), methods=("GET", "POST"), backoff=2)
 
 
-def _postback(s: requests.Session, form: _FormParser, target: str, extra: dict | None = None) -> _FormParser:
-    data = dict(form.hidden)
-    data.update(extra or {})
-    data["__EVENTTARGET"], data["__EVENTARGUMENT"] = target, ""
-    resp = s.post(PAGE_URL, data=data, timeout=120)
+def _post(s: requests.Session, form: _FormParser, target: str, data: dict) -> requests.Response:
+    body = {**form.hidden, **data, "__EVENTTARGET": target, "__EVENTARGUMENT": ""}
+    resp = s.post(PAGE_URL, data=body, timeout=300)
     resp.raise_for_status()
-    return _parse(resp.text)
+    return resp
 
 
-def scrape_excel(s: requests.Session, product: str = "") -> bytes:
-    """Trả về file .xlsx gốc do nút "Xuất excel" sinh ra. product="" nghĩa là tất cả sản phẩm."""
+def scrape_group(s: requests.Session, group: str, to_date: str) -> tuple[bytes, list[str]]:
+    """Trả về (file "excel" gốc của nhóm, danh sách tên Sản phẩm của nhóm). to_date dạng dd/mm/yyyy."""
     resp = s.get(PAGE_URL, timeout=60)
     resp.raise_for_status()
     form = _parse(resp.text)
-    if len(form.menu) < ITEM_NO:
-        raise ValueError(f"Không tìm thấy mục dữ liệu thứ {ITEM_NO} (trang chỉ có {len(form.menu)} mục) - giao diện đã đổi?")
-    form = _postback(s, form, form.menu[ITEM_NO - 1])
+    data = {FIELDS["tu_ngay"]: FROM_DATE, FIELDS["den_ngay"]: to_date, FIELDS["theo"]: "thang", FIELDS["nganh"]: NGANH}
+    form = _parse(_post(s, form, FIELDS["nganh"], data).text)
+    if group not in form.selects.get(FIELDS["nhom"], []):
+        raise ValueError(f"Không có nhóm '{group}' trong ô lọc - giao diện đã đổi?")
+    data[FIELDS["nhom"]] = group
+    form = _parse(_post(s, form, FIELDS["nhom"], data).text)
+    products = [v for v in form.selects.get(FIELDS["san_pham"], []) if v]
+    if sorted(form.checks) != sorted(GROUP_BY):
+        raise ValueError(f"Ô 'Nhóm theo các trường' khác mong đợi: {form.checks}")
+    data.update({c: "on" for c in GROUP_BY})
 
-    # Chọn từng ô lọc một, mỗi ô một postback như trên trình duyệt (gửi cả 5 ô một lúc server trả 500).
-    # Option "Tất cả" có value rỗng.
-    chosen = {}
-    for k in range(N_FILTERS):
-        name = LISTBOX.format(k)
-        opts = form.selects.get(name)
-        if not opts:
-            continue
-        value = product if k == 1 else ""
-        if value not in opts:
-            raise ValueError(f"Không có '{value}' trong ô lọc {name}")
-        chosen[name] = value
-        form = _postback(s, form, name, chosen)
-
-    data = dict(form.hidden)
-    data.update(chosen)
-    data["__EVENTTARGET"], data["__EVENTARGUMENT"] = "", ""
-    data[EXPORT_BTN] = "Xuất excel"
-    resp = s.post(PAGE_URL, data=data, timeout=300)
-    resp.raise_for_status()
-    if resp.content[:2] != b"PK":  # xlsx là file zip
-        raise ValueError(f"Không nhận được file Excel (content-type={resp.headers.get('content-type')})")
-    return resp.content
+    # Bấm Xem trước rồi mới Xuất (như trên trình duyệt); xuất thẳng thì có lúc mất các cột nhóm theo trường
+    form = _parse(_post(s, form, "", {**data, F + "Xem": "Xem"}).text)
+    resp = _post(s, form, "", {**data, F + "tai_excel": "Xuất ra excel"})
+    if not resp.content.startswith(b"\xff\xfe"):  # file .xls thực chất là bảng HTML mã hoá UTF-16
+        raise ValueError(f"Không nhận được file xuất (content-type={resp.headers.get('content-type')})")
+    return resp.content, products

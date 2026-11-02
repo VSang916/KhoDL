@@ -77,22 +77,43 @@ print(q("SELECT version() AS clickhouse, now() AS luc_chay").to_string(index=Fal
 
 # %% [markdown]
 # ## 1. Dữ liệu nguồn và chất lượng dữ liệu
-# **Nguồn:** cổng *thitruongnongsan.gov.vn* (cơ sở dữ liệu "Giá rau quả trong nước", do cộng tác viên địa phương báo
-# giá), thu bằng script giả lập thao tác "Xuất excel" trên trang ASP.NET. File gốc được lưu **nguyên vẹn** trong
-# Data Lake MinIO (`raw-data/ttns/dt=…/`). Dữ liệu công khai trên cổng thông tin nhà nước, dùng cho mục đích học tập;
-# không chứa dữ liệu cá nhân.
+# **Nguồn:** cổng *thitruongnongsan.gov.vn*, trang "Cơ sở dữ liệu giá nông sản" (`nguonwmy.aspx`), ngành hàng Rau, quả,
+# xem theo tháng; giá do cộng tác viên địa phương báo. Trang không có API nên script giả lập thao tác "Xuất ra excel"
+# trên trang ASP.NET, mỗi nhóm sản phẩm (Rau củ quả, Trái cây) một file. File gốc được lưu **nguyên vẹn** trong Data
+# Lake MinIO (`raw-data/ttns/dt=…/`), kèm danh sách Sản phẩm của nhóm. Dữ liệu công khai trên cổng thông tin nhà nước,
+# dùng cho mục đích học tập; không chứa dữ liệu cá nhân.
+#
+# *Lịch sử:* trước 11/2026 luồng lấy từ trang "Giá rau quả trong nước" (`dulieu_groups.aspx`), chỉ có số liệu đến
+# 12/2025. Trang mới cùng nguồn cộng tác viên nhưng cập nhật tới 09/2026; lần đổi nguồn được CDC ghi lại trong `cdc_log`.
 
 # %%
+import sys
+
 from minio import Minio
 
+sys.path.insert(0, "../dags")
+from pipelines.ttns.export import parse_export  # noqa: E402  (cùng hàm đọc file mà DAG dùng)
+
 mc = Minio(os.getenv("MINIO_HOST", "localhost:9000"), access_key="minioadmin", secret_key="minioadmin", secure=False)
-raw_keys = sorted(o.object_name for o in mc.list_objects("raw-data", prefix="ttns/", recursive=True)
-                  if o.object_name.endswith("_all.xlsx"))
-latest = raw_keys[-1]
-resp = mc.get_object("raw-data", latest)
-raw = pd.read_excel(io.BytesIO(resp.read()))
-resp.close()
-print(f"File gốc mới nhất: raw-data/{latest}")
+
+
+def get_raw(key: str) -> bytes:
+    resp = mc.get_object("raw-data", key)
+    try:
+        return resp.read()
+    finally:
+        resp.close()
+
+
+xls = sorted(o.object_name for o in mc.list_objects("raw-data", prefix="ttns/", recursive=True)
+             if o.object_name.endswith(".xls"))
+latest_dt = xls[-1].split("/")[1]
+files = [k for k in xls if k.split("/")[1] == latest_dt]
+raw = pd.concat([parse_export(get_raw(k)).assign(**{"Nhóm (theo file)": k.rsplit("/", 1)[-1][:-4].replace("_", " ")})
+                 for k in files], ignore_index=True)
+for c in ("Năm", "Tháng", "Giá"):
+    raw[c] = pd.to_numeric(raw[c])
+print("File gốc mới nhất:", ", ".join(f"raw-data/{k}" for k in files))
 ym = raw["Năm"] * 100 + raw["Tháng"]
 print(f"{len(raw):,} bản ghi × {raw.shape[1]} thuộc tính; thời gian {ym.min() % 100:02d}/{ym.min() // 100} → "
       f"{ym.max() % 100:02d}/{ym.max() // 100} (theo tháng, {ym.nunique()} tháng)")
@@ -101,29 +122,28 @@ print(f"{len(raw):,} bản ghi × {raw.shape[1]} thuộc tính; thời gian {ym.
 quality = pd.DataFrame({
     "kiểu": raw.dtypes.astype(str),
     "số giá trị khác nhau": raw.nunique(),
-    "số ô thiếu": raw.isna().sum(),
-    "tỷ lệ thiếu": (raw.isna().mean() * 100).round(2).astype(str) + "%",
+    "số ô thiếu": raw.isna().sum() + (raw == "").sum(),
 })
-quality["xử lý trong ETL (pipelines/ttns/cleaning.py)"] = [
-    "chuẩn hoá Unicode NFC, bỏ khoảng trắng thừa",
-    "gộp biến thể hoa thường (\"Sầu Riêng\"/\"Sầu riêng\") + bảng NAME_ALIASES",
-    "gộp biến thể hoa thường + alias",
-    "kiểm tra 2000-2100; dòng lỗi bị loại",
-    "kiểm tra 1-12; dòng lỗi bị loại",
-    "bỏ dòng ≤ 0; đánh dấu is_outlier nếu lệch > 5 lần trung vị cùng mặt hàng/đơn vị/cấp giá",
-    "chuẩn hoá chuỗi",
-    "THIẾU → suy ra từ các dòng khác cùng tỉnh cũ (phân cấp tỉnh cũ → tỉnh mới)",
-    "chỉ 1 giá trị (CTV địa phương) - giữ làm siêu dữ liệu",
-    "gộp 7 loại giá → 3 cấp giá (chiều Loại giá)",
-    "15 cách viết → 6 đơn vị chuẩn (VNĐ/kg, VNĐ/chục quả…)",
-]
+quality["tỷ lệ thiếu"] = (quality["số ô thiếu"] / len(raw) * 100).round(2).astype(str) + "%"
+quality["xử lý trong ETL (pipelines/ttns/export.py, cleaning.py)"] = quality.index.map({
+    "Tên_mặt_hàng": "NFC, gộp biến thể hoa thường + alias; suy ra Sản phẩm = tên sản phẩm dài nhất là phần đầu tên mặt hàng",
+    "Thị_trường": "chuẩn hoá chuỗi; tỉnh cũ → tỉnh mới theo bảng sáp nhập 2025 (TINH_MOI) → vùng",
+    "Loại_giá": "gộp loại giá → cấp giá (Bán lẻ / Bán buôn / Thu mua) - chiều Loại giá",
+    "Đơn_vị_tính": f"{raw['Đơn_vị_tính'].nunique()} cách viết → 6 đơn vị chuẩn (VNĐ/kg, VNĐ/chục quả…)",
+    "Loại_tiền": "chỉ 1 giá trị (VNĐ) - không đưa vào kho",
+    "Nguồn": "chỉ 1 giá trị (CTV địa phương) - giữ làm siêu dữ liệu",
+    "Năm": "kiểm tra 2000-2100; dòng lỗi bị loại",
+    "Tháng": "kiểm tra 1-12; dòng lỗi bị loại",
+    "Giá": "giá TB tháng do trang tính; bỏ dòng ≤ 0; is_outlier nếu lệch > 5 lần trung vị cùng mặt hàng/đơn vị/cấp giá",
+    "Nhóm (theo file)": "file xuất không có cột nhóm → xuất riêng từng nhóm, gắn nhóm theo file",
+})
 quality
 
 # %% [markdown]
-# **Nhận xét:** cột duy nhất bị thiếu là *Thị trường (tên mới)* (tỉnh sau sáp nhập 2025) — điền bằng phụ thuộc hàm
-# tỉnh cũ → tỉnh mới lấy từ chính dữ liệu, không đoán. Ngoài ô thiếu, chất lượng dữ liệu còn bị ảnh hưởng bởi
-# **thiếu nhất quán** (cùng sản phẩm viết nhiều kiểu, đơn vị viết 15 kiểu) và **nhiễu** (giá nhập thừa / thiếu số 0) —
-# hai vấn đề này đều được xử lý ở bước ETL trước khi vào kho.
+# **Nhận xét:** file xuất không có ô thiếu, nhưng **thiếu thuộc tính**: không có nhóm, sản phẩm và tỉnh mới — ba thuộc
+# tính này được dựng lại ở bước ETL (xuất theo nhóm; suy sản phẩm từ danh sách của trang; bảng sáp nhập tỉnh). Chất
+# lượng dữ liệu còn bị ảnh hưởng bởi **thiếu nhất quán** (cùng mặt hàng viết nhiều kiểu hoa thường, đơn vị nhiều cách
+# viết) và **nhiễu** (giá nhập thừa / thiếu số 0) — đều được xử lý ở bước ETL trước khi vào kho.
 
 # %% [markdown]
 # ## 2. Thiết kế kho dữ liệu
@@ -172,7 +192,7 @@ def draw_star():
         fx = fact[0] if cx < fact[0] else fact[0] + fact[2]
         ax.annotate("", xy=(fx, fact[1] + fact[3] / 2 + (0.8 if cy > 3.6 else -0.8)), xytext=(x + (w if cx < fx else 0), cy),
                     arrowprops=dict(arrowstyle="-", color=INK2, linewidth=1.2))
-    ax.text(6.5, 6.55, "price_clean: từng lần báo giá (độ mịn nguyên tử)\nnguồn để tính khối con và trung vị",
+    ax.text(6.5, 6.55, "price_clean: từng dòng giá của nguồn (độ mịn nguyên tử)\nnguồn để tính khối con và trung vị",
             ha="center", va="center", fontsize=9, color=INK2, style="italic")
     ax.text(6.5, 1.3, "cube_*: 3 khối con vật chất hoá\n(AggregatingMergeTree) — mục 3", ha="center", va="center",
             fontsize=9, color=INK2, style="italic")
@@ -190,24 +210,26 @@ draw_star()
 # - *Vì sao mặt hàng chứ không phải sản phẩm:* giá "Bưởi năm roi" và "Bưởi da xanh" khác nhau tới 2 lần; gộp sớm sẽ
 #   mất thông tin. Mức sản phẩm vẫn có được nhờ cuộn lên.
 # - *Vì sao giữ loại giá ở độ mịn:* giá bán lẻ và giá thu mua là hai đại lượng khác bản chất, cộng lẫn là sai.
-# - *Vì sao có thêm bảng `price_clean` (từng lần báo giá):* trung vị là độ đo toàn thể — muốn có trung vị ở mức quý /
+# - *Vì sao có thêm bảng `price_clean` (từng dòng giá của nguồn, chưa gộp):* trung vị là độ đo toàn thể — muốn có trung vị ở mức quý /
 #   năm phải tính từ dữ liệu nguyên tử, không tính được từ trung vị tháng.
 #
 # | Chiều | Phân cấp (mịn → thô) | Số giá trị mỗi mức |
 # |---|---|---|
-# | Thời gian | tháng → quý → năm | 57 → 19 → 5 |
-# | Sản phẩm | mặt hàng → sản phẩm → nhóm | 209 → 78 (73 tên, vài tên nằm ở cả 2 nhóm) → 2 |
-# | Địa điểm | tỉnh cũ → tỉnh mới → vùng | 15 → 9 → 4 |
-# | Loại giá | loại giá → cấp giá | 7 → 3 |
+# | Thời gian | tháng → quý → năm | 67 → 23 → 6 |
+# | Sản phẩm | mặt hàng → sản phẩm → nhóm | 218 → 86 (vài tên nằm ở cả 2 nhóm) → 2 |
+# | Địa điểm | tỉnh cũ → tỉnh mới → vùng | 14 → 9 → 4 |
+# | Loại giá | loại giá → cấp giá | 7 → 3 (+ 1 dòng "Khác") |
 
 # %%
+# Đếm trên view (chỉ thành viên đang có dữ liệu): bảng chiều còn giữ thành viên của nguồn cũ để v_changes hiện được
+# tên các khoá đã bị xoá
 levels = q("""
-SELECT 'Thời gian' AS chieu, uniqExact(date_id) AS muc_1, uniqExact((year, quarter)) AS muc_2, uniqExact(year) AS muc_3
-FROM ttns.dim_date FINAL
-UNION ALL SELECT 'Sản phẩm', uniqExact(product_id), uniqExact((nhom_san_pham, san_pham)), uniqExact(nhom_san_pham)
-FROM ttns.dim_product FINAL
-UNION ALL SELECT 'Địa điểm', uniqExact(tinh_cu), uniqExact(tinh_moi), uniqExact(vung) FROM ttns.dim_market FINAL
-UNION ALL SELECT 'Loại giá', uniqExact(loai_gia), uniqExact(cap_gia), 0 FROM ttns.dim_price_type FINAL""")
+SELECT 'Thời gian' AS chieu, uniqExact(month) AS muc_1, uniqExact((year, quarter)) AS muc_2, uniqExact(year) AS muc_3
+FROM ttns.v_price_monthly
+UNION ALL SELECT 'Sản phẩm', uniqExact((nhom_san_pham, mat_hang)), uniqExact((nhom_san_pham, san_pham)),
+       uniqExact(nhom_san_pham) FROM ttns.v_price_monthly
+UNION ALL SELECT 'Địa điểm', uniqExact(tinh_cu), uniqExact(tinh_moi), uniqExact(vung) FROM ttns.v_price_monthly
+UNION ALL SELECT 'Loại giá', uniqExact(loai_gia), uniqExact(cap_gia), 0 FROM ttns.v_price_monthly""")
 levels
 
 # %% [markdown]
@@ -294,7 +316,7 @@ fig.savefig("figures/02_tham_lam.png")
 plt.show()
 
 # %% [markdown]
-# **Quyết định:** vật chất hoá **3 khối con đầu** (giảm ~73% tổng chi phí). Từ vòng 4, lợi ích cận biên giảm
+# **Quyết định:** vật chất hoá **3 khối con đầu** (giảm ~72% tổng chi phí). Từ vòng 4, lợi ích cận biên giảm
 # mạnh trong khi mỗi khối thêm tốn dung lượng và thời gian dựng lại sau mỗi lần nạp. Ba khối này được DAG dựng lại sau
 # mỗi lần nạp dữ liệu (task `build_olap_cubes`, định nghĩa trong `dags/pipelines/ttns/olap.py`):
 
@@ -572,5 +594,5 @@ plt.show()
 # | Cài đặt kho trên một hệ quản trị | ClickHouse; DDL trong `dags/pipelines/ttns/schema.py` |
 # | Mã ETL nạp dữ liệu từ nguồn vào kho | Airflow DAG `ttns_price_pipeline` (Extract → MinIO → Transform → CDC → Load) |
 # | Tính trước ít nhất hai khối con và nêu lý do | **3 khối con** chọn bằng thuật toán tham lam trên kích thước thật (mục 3), lợi ích đo bằng `query_log` (3.1) |
-# | Trình diễn đủ năm thao tác OLAP trên dữ liệu thật | Mục 4.1–4.6 + `CUBE` / `ROLLUP` (4.7), giao diện tương tác trong ứng dụng `app/` |
+# | Trình diễn đủ năm thao tác OLAP trên dữ liệu thật | Mục 4.1–4.6 + `CUBE` / `ROLLUP` (4.7), giao diện tương tác trong dashboard Superset |
 # | Chạy lại được từ đầu bằng một lệnh | `run_all.sh` |

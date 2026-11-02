@@ -1,16 +1,16 @@
 """
-Huấn luyện mô hình cuối cùng và ĐƯA KẾT QUẢ KHAI PHÁ VÀO KHO (OLAM - Bài 6), để ứng dụng và Superset dùng chung.
+Huấn luyện mô hình cuối cùng và ĐƯA KẾT QUẢ KHAI PHÁ VÀO KHO (OLAM - Bài 6), để Superset hiển thị.
 
 Logic giống notebook KhaiPha_GiaNongSan.ipynb (nơi so sánh, chọn mô hình và tham số):
-  - Dự báo: Random Forest học độ thay đổi log(giá) - log(giá lần trước), max_features = 0.5, min_samples_leaf = 1
-  - Khoảng 80%: phân vị 10% / 90% sai số log trên tập kiểm tra 2025 (mô hình train đến 2024), theo cấp giá
+  - Dự báo: Random Forest học độ thay đổi log(giá) - log(giá lần trước), max_features = 1.0, min_samples_leaf = 10
+  - Khoảng 80%: phân vị 10% / 90% sai số log trên năm kiểm tra (năm cuối có dữ liệu, mô hình train đến năm trước), theo cấp giá
   - Phân cụm: K-Means K = 4 trên 6 đặc trưng hành vi đã chuẩn hoá; DBSCAN (min_samples = 7, eps tại điểm gãy
     của đồ thị k-khoảng cách) đánh dấu chuỗi dị biệt
 
 Bảng ghi vào ClickHouse (ghi đè mỗi lần chạy):
   ttns.ml_forecast  : dự báo tháng kế tiếp cho từng chuỗi còn hoạt động (+ khoảng 80%)
   ttns.ml_cluster   : đặc trưng hành vi + nhãn cụm K-Means + cờ dị biệt DBSCAN của từng chuỗi ≥ 24 tháng
-  ttns.ml_metrics   : sai số trên tập kiểm tra 2025 của mô hình và các mô hình cơ sở
+  ttns.ml_metrics   : sai số trên năm kiểm tra của mô hình và các mô hình cơ sở
 
 Chạy:  python ml/publish_ml.py     (ClickHouse ở localhost:8123)
 """
@@ -129,7 +129,7 @@ class DeltaRF:
                               ("scale", StandardScaler())]), NUM),
             ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), CAT)])
         self.pipe = Pipeline([("pre", pre), ("rf", RandomForestRegressor(
-            n_estimators=300, max_features=0.5, min_samples_leaf=1, random_state=SEED, n_jobs=-1))])
+            n_estimators=300, max_features=1.0, min_samples_leaf=10, random_state=SEED, n_jobs=-1))])
 
     def _base(self, X):
         return X["log_gia_lan_truoc"].fillna(self.fill_).to_numpy()

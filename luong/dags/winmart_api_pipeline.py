@@ -1,23 +1,3 @@
-"""
-DAG: winmart_api_pipeline
-Luồng:
-  ensure_buckets -> extract -> transform -> cdc -> validate -> load_clickhouse -> commit_cdc
-
-  extract   : gọi API (hoặc dùng lại raw đã lưu nếu có replay_dt) -> raw-data/winmart_api/dt=.../*.json
-  transform : JSON -> 4 bảng CSV            -> processed-data/winmart_api/dt=.../*.csv
-  cdc       : so trạng thái giá hôm nay với snapshot ngày trước (khoá item_no + store_code)
-              -> processed-data/winmart_api/dt=.../price_changes.csv
-              -> processed-data/winmart_api/_cdc/all/dt=.../snapshot.csv
-  load      : fact_price (snapshot theo ngày) + price_changes (chỉ thay đổi) vào ClickHouse
-  commit_cdc: ghi _meta.json -> snapshot hôm nay thành mốc cho lần sau (chỉ khi load thành công)
-
-ClickHouse (database winmart):
-  dim_product, dim_market, dim_date, fact_price  : giá của từng ngày chạy
-  price_changes                                  : nhật ký thay đổi (new_item, price_up/down, promo_start/end, removed)
-  v_price_daily, v_price_history (SCD2: mỗi mức giá có valid_from/valid_to)
-
-Code xử lý: pipelines/winmart (api, transform, cdc, schema) + pipelines/common.
-"""
 from __future__ import annotations
 
 import json
@@ -38,12 +18,10 @@ from pipelines.winmart.transform import build_tables
 
 log = logging.getLogger(__name__)
 
-# ================================================================ CẤU HÌNH
 STORES = [
     {"store_code": "1535", "store_group_code": "1998", "market_name": "WinMart 1535"},
 ]
 
-# slug danh mục: copy từ tham số slug=... trong URL API ở F12. Thêm các danh mục khác vào đây
 CATEGORY_SLUGS = [
     "rau-cu-trai-cay--c02",
 ]
@@ -52,12 +30,11 @@ SOURCE_PREFIX = "winmart_api"
 CDC_SCOPE = "all"
 
 
-# ================================================================ DAG
 @dag(
     dag_id="winmart_api_pipeline",
     description="Winmart API -> MinIO raw/processed -> CDC -> ClickHouse",
     start_date=pendulum.datetime(2026, 10, 1, tz=TZ),
-    schedule="0 7 * * *",  # 7h sáng mỗi ngày
+    schedule="0 7 * * *",
     catchup=False,
     params={
         "page_size": Param(18, type="integer", minimum=1, maximum=100, description="Số sản phẩm mỗi trang"),

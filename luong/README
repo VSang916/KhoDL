@@ -15,7 +15,8 @@ dags/
       cdc.py                  # CDC trạng thái giá theo item_no (grace period khi biến mất, chống lấy thiếu)
       schema.py               # bảng và view ClickHouse của database winmart
     ttns/
-      scraper.py              # postback ASP.NET -> file xlsx
+      scraper.py              # postback ASP.NET trang nguonwmy -> file xuất .xls + danh sách Sản phẩm, mỗi nhóm
+      export.py               # read_raw: đọc raw (.xls mới / .xlsx cũ) về 1 khuôn; product_of, TINH_MOI
       cleaning.py             # clean, build_tables, NAME_ALIASES, PRICE_LEVEL, OUTLIER_RATIO
       cdc.py                  # CDC fact theo khoá tháng (new_month/backfill/revision/removed) + CDC nhóm price_clean
       schema.py               # bảng và view ClickHouse của database ttns
@@ -23,24 +24,24 @@ tests/                        # pytest, không cần Airflow:  python -m pytest 
   test_ttns_cleaning.py
   test_winmart_transform.py
   test_cdc.py
+  test_ttns_export.py
 ml/
   KhaiPha_GiaNongSan.ipynb    # ★ khai phá của dự án: đọc kho -> dự báo giá (LR/DT/RF), K-Means, DBSCAN -> ghi kho
   DeThucHanh01_GiaNongSan.ipynb # bài thực hành theo cấu trúc Đề 01 (EDA, tiền xử lý, hồi quy LR/DT/RF, K-Means, DBSCAN)
                                 #   mã nguồn dạng .py cùng tên; biểu đồ ở figures/dt01/
   figures/khai_pha/           # biểu đồ của notebook dự án
-  data/ttns_v_price_monthly.csv # dữ liệu chụp từ ClickHouse để chạy lại khi kho không chạy
+  data/kho_v_price_monthly.csv  # bản chụp view ttns.v_price_monthly để chạy notebook khi kho không chạy
+  data/ttns_v_price_monthly.csv # bản chụp nguồn cũ (đến 12/2025), dùng cho bài thực hành Đề 01
   publish_ml.py               # huấn luyện mô hình cuối, ghi ttns.ml_forecast / ml_cluster / ml_metrics vào kho
 olap/
   OLAP_GiaNongSan.ipynb       # ★ thiết kế kho, chọn khối con (thuật toán tham lam), 5 thao tác OLAP, câu hỏi nghiệp vụ
-app/
-  app.py                      # ★ ứng dụng Streamlit: OLAP tương tác (tự chọn khối con), dự báo, phân cụm & dị biệt
 superset/                     # ★ Superset http://localhost:8088 (admin/admin) - công cụ OLAP phía người dùng
   Dockerfile                  #   apache/superset:4.1.1 + driver clickhouse-connect
   superset_config.py          #   bật native filter, cross filter, Drill by, Drill to detail
   bootstrap.py                #   tạo kết nối kho, 7 dataset (độ đo đại số/toàn thể trên khối con), 15 biểu đồ, 2 dashboard:
                               #   docker compose exec superset python /app/bootstrap.py   (chạy lại được, không nhân đôi)
 run_all.sh                   # ★ chạy lại toàn bộ từ đầu bằng 1 lệnh
-requirements-analysis.txt     # thư viện cho phần chạy trên máy (notebook, ML, app)
+requirements-analysis.txt     # thư viện cho phần chạy trên máy (notebook, ML)
 
 
 ================================================================ LUỒNG WINMART (winmart_api_pipeline, 7h hằng ngày)
@@ -64,24 +65,40 @@ ClickHouse winmart: dim_product, dim_market, dim_date, fact_price, price_changes
 
 
 ================================================================ LUỒNG TTNS (ttns_price_pipeline, 6h thứ Hai)
-Nguồn: mỗi lần xuất là TOÀN BỘ lịch sử, không có khoá, dòng trùng hợp lệ, số liệu tháng cũ có thể bị sửa.
+Nguồn: thitruongnongsan.gov.vn/vn/nguonwmy.aspx ("Cơ sở dữ liệu giá nông sản"), ngành hàng Rau, quả, xem theo tháng.
+Trên web: Ngành hàng -> Nhóm sản phẩm -> khoảng ngày -> Xem theo Tháng -> tick 4 ô "Nhóm theo các trường" -> Xem -> Xuất ra excel.
+Mỗi lần xuất là TOÀN BỘ lịch sử, không có khoá, số liệu tháng cũ có thể bị sửa. Giá đã là trung bình tháng do web tính.
+File xuất thiếu 3 thuộc tính, bù trong pipelines/ttns/export.py:
+  - Nhóm sản phẩm -> xuất riêng từng nhóm (Rau củ quả, Trái cây), gắn nhóm theo file
+  - Sản phẩm      -> lấy danh sách Sản phẩm từ ô lọc của nhóm; gán sản phẩm có tên dài nhất là phần đầu tên mặt hàng
+                     ("Chanh leo tím" -> "Chanh leo"); không khớp (8 mặt hàng) -> dùng chính tên mặt hàng
+  - Tỉnh mới      -> bảng TINH_MOI (sáp nhập 2025)
+File .xls thực chất là bảng HTML mã hoá UTF-16 (đọc bằng HTMLParser, không cần lxml).
+
+LỊCH SỬ: đến 10/2026 luồng cào trang dulieu_groups.aspx?cat_id=102 (file .xlsx, dữ liệu chỉ đến 12/2025). Ngày 02/11/2026
+đổi sang trang nguonwmy (cập nhật tới 09/2026), GIỮ NGUYÊN dag_id, database ttns, mốc CDC và raw cũ trên MinIO:
+  - lần chạy đổi nguồn so với mốc 20/10 (nguồn cũ): 504 new_month, 3.834 backfill, 2.687 revision, 4.543 removed
+    (phân cấp sản phẩm và tên loại giá của 2 trang khác nhau) -> validate chặn (> 20% khoá biến mất), chạy force=true
+  - replay_dt cho ngày cũ vẫn đọc được file .xlsx của trang cũ (export.read_raw)
 
 ensure_buckets -> extract -> check_changed -> transform -> prepare_clickhouse -> cdc -> validate -> load_clickhouse -> commit_cdc
 
-extract        web (hoặc replay_dt) -> raw-data/ttns/dt=D/cat102_item6_<all|sp>.xlsx ; tính md5 DỮ LIỆU
-               (không md5 file: web nén zip lại mỗi lần nên byte luôn khác)
+extract        web (hoặc replay_dt) -> raw-data/ttns/dt=D/{Rau_củ_quả,Trái_cây}.{xls,json} ; tính md5 DỮ LIỆU
+               (đọc ra rồi sắp xếp, không md5 file -> không phụ thuộc thứ tự dòng / cách web đóng gói)
 check_changed  md5 bằng lần commit gần nhất -> dừng, mọi task sau bị skip (force=true để chạy tiếp)
 transform      làm sạch -> processed-data/ttns/dt=D/{dim_*,price_clean,fact_price_monthly}.csv
 prepare_ch     tạo/migrate bảng; kho trống -> lần này nạp lại toàn bộ
 cdc            1) fact_price_monthly: khoá (product_id, market_id, date_id, loai_gia, don_vi_tinh),
-                  hash (n_obs, n_outliers, avg/median/min/max) -> cdc_log.csv + fact_upsert.csv
+                  hash (n_obs, n_outliers, avg/median/min/max)
+                  cdc_log.csv: so với snapshot mốc (ngày trước) ; fact_upsert.csv: so với TRẠNG THÁI THẬT trong kho
+                  (đọc fact FINAL) -> chạy lại trong ngày / sau lần nạp hỏng vẫn đưa kho về đúng snapshot mới
                   change_kind: initial | new_month | backfill | revision (sửa quá khứ) | removed
-               2) price_clean: hash theo NHÓM khoá -> price_clean_changed_keys.csv + price_clean_upsert.csv
+               2) price_clean: hash theo NHÓM khoá, so với kho -> price_clean_changed_keys.csv + price_clean_upsert.csv
                snapshot -> processed-data/ttns/_cdc/<scope>/dt=D/{snapshot,snapshot_clean}.csv
 validate       > 20% khoá biến mất -> dừng (nghi export lỗi / đổi tên), force=true để chấp nhận
 load           fact: INSERT dòng đổi vào ReplacingMergeTree(version, is_deleted) - D có is_deleted=1
                price_clean: DELETE nhóm đổi rồi INSERT lại ; cdc_log: DELETE (ngày D, scope) rồi INSERT
-               đối soát: số dòng trong kho == snapshot mới (trong phạm vi sản phẩm của lần chạy)
+               đối soát: số dòng trong kho == snapshot mới
 commit_cdc     ghi _meta.json (kèm md5) -> mốc cho lần sau
 
 ClickHouse ttns: dim_product, dim_market, dim_date, price_clean, fact_price_monthly (đọc FINAL), cdc_log,
@@ -89,37 +106,39 @@ ClickHouse ttns: dim_product, dim_market, dim_date, price_clean, fact_price_mont
 
 
 ================================================================ NGUYÊN TẮC CDC CHUNG (pipelines/common/cdc.py)
-- So với snapshot ĐÃ COMMIT gần nhất có dt < D (không phải lần chạy trước) -> chạy lại cùng ngày cho cùng kết quả.
+- Nhật ký so với snapshot ĐÃ COMMIT gần nhất có dt < D (không phải lần chạy trước) -> chạy lại cùng ngày cho cùng log.
+- TTNS: dòng cần ghi tính theo trạng thái thật của kho (bảng nhỏ) -> kho luôn về đúng snapshot mới.
 - Chỉ commit sau khi load thành công -> lần lỗi không làm mất thay đổi, lần sau tự so với mốc cũ hơn.
 - replay_dt: xử lý lại raw đã lưu trên MinIO mà không gọi nguồn (backfill, sửa lỗi code rồi chạy lại).
 
 
 ================================================================ DỮ LIỆU TRONG CLICKHOUSE
-Số liệu dưới đây đo ngày 19/10/2026. Kết nối: http://localhost:8123 (user default / mypassword),
+Số liệu ttns đo ngày 02/11/2026, winmart ngày 19/10/2026. Kết nối: http://localhost:8123 (user default / mypassword),
 hoặc  docker exec -it clickhouse clickhouse-client --password mypassword
 
 ---------------------------------------------------------------- database ttns  (thitruongnongsan.gov.vn)
-Nội dung : giá rau quả trong nước do cộng tác viên địa phương báo, THEO THÁNG.
-Thời gian: 04/2021 → 12/2025 = 57 tháng (2021 chỉ có 9 tháng; 2022-2025 đủ 12 tháng).
-Quy mô   : 73 sản phẩm / 209 mặt hàng / 15 tỉnh cũ (= 9 tỉnh mới sau sáp nhập 2025) / 40.575 lần báo giá.
+Nội dung : giá rau quả do cộng tác viên địa phương báo, giá TRUNG BÌNH THÁNG (trang nguonwmy).
+Thời gian: 01/2021 → 09/2026 = 67 tháng có dữ liệu (2026 có 9 tháng).
+Quy mô   : 2 nhóm / 86 sản phẩm / 218 mặt hàng / 14 tỉnh cũ (= 9 tỉnh mới sau sáp nhập 2025) / 7.474 dòng giá.
 
 Bảng / view          Độ chi tiết (1 dòng = ...)                                    Số dòng   Dùng cho
-v_price_monthly  ★   1 mặt hàng × 1 tỉnh × 1 tháng × 1 loại giá × 1 đơn vị          7.337    PHÂN TÍCH, HỌC MÁY
-fact_price_monthly   như trên, dạng khoá id (đọc bằng FINAL WHERE is_deleted = 0)    7.337    join tự viết
-price_clean          1 lần báo giá (không có ngày cụ thể, chỉ có tháng)             40.575    xem phân bố trong tháng
-dim_product          1 mặt hàng (nhom_san_pham, san_pham, mat_hang)                   209
-dim_market           1 tỉnh cũ (tinh_cu → tinh_moi → vung)                             15
-dim_price_type       1 loại giá (loai_gia → cap_gia, mo_ta)                             7
-dim_date             1 tháng (date_id = YYYYMM)                                        57
+v_price_monthly  ★   1 mặt hàng × 1 tỉnh × 1 tháng × 1 loại giá × 1 đơn vị          7.132    PHÂN TÍCH, HỌC MÁY
+fact_price_monthly   như trên, dạng khoá id (đọc bằng FINAL WHERE is_deleted = 0)    7.132    join tự viết
+price_clean          1 dòng giá của nguồn (giá TB tháng, chưa gộp)                 7.474    xem phân bố trong tháng
+dim_product          1 mặt hàng (nhom_san_pham, san_pham, mat_hang)                  262*
+dim_market           1 tỉnh cũ (tinh_cu → tinh_moi → vung)                             15*
+dim_price_type       1 loại giá (loai_gia → cap_gia, mo_ta)                            10*
+dim_date             1 tháng (date_id = YYYYMM)                                        68
 cdc_log / v_changes  1 khoá tháng bị thêm / sửa / xoá ở nguồn trong 1 lần chạy           -    theo dõi nguồn sửa số liệu
-cube_quy_mathang_tinh_loaigia   khối con (quý, mặt hàng, tỉnh cũ, loại giá)           2.767    OLAP
-cube_thang_nhom_tinh_loaigia    khối con (tháng, nhóm, tỉnh cũ, loại giá)               762    OLAP
-cube_nam_mathang_tinh_loaigia   khối con (năm, mặt hàng, tỉnh cũ, loại giá)           1.111    OLAP
+cube_quy_mathang_tinh_loaigia   khối con (quý, mặt hàng, tỉnh cũ, loại giá)           2.908    OLAP
+cube_thang_nhom_tinh_loaigia    khối con (tháng, nhóm, tỉnh cũ, loại giá)               728    OLAP
+cube_nam_mathang_tinh_loaigia   khối con (năm, mặt hàng, tỉnh cũ, loại giá)           1.177    OLAP
     độ đo khối: so_bao_gia, tong_gia, gia_min, gia_max (SimpleAggregateFunction) + gia_tv = quantileExactState(0.5)
     -> giá TB = sum(tong_gia)/sum(so_bao_gia); trung vị = quantileExactMerge(0.5)(gia_tv) (cuộn lên chính xác)
-ml_forecast          dự báo tháng kế tiếp mỗi chuỗi còn hoạt động + khoảng 80%            ~200    ứng dụng
-ml_cluster           đặc trưng hành vi + cụm K-Means + cờ dị biệt DBSCAN mỗi chuỗi        122    ứng dụng
-ml_metrics           sai số năm kiểm tra của mô hình và mô hình cơ sở                       2    ứng dụng
+ml_forecast          dự báo tháng kế tiếp mỗi chuỗi còn hoạt động + khoảng 80%              82    Superset
+ml_cluster           đặc trưng hành vi + cụm K-Means + cờ dị biệt DBSCAN mỗi chuỗi         93    Superset
+ml_metrics           sai số năm kiểm tra của mô hình và mô hình cơ sở                       2    Superset
+* bảng chiều giữ cả thành viên của nguồn cũ để v_changes hiện được tên các khoá đã bị xoá; phân tích đọc qua view.
 
 Cột của v_price_monthly
   month           Date     ngày đầu tháng (2025-07-01)        year, quarter, month_no: tách từ month
@@ -182,13 +201,14 @@ Giá bán: 3.500đ → 259.000đ, trung vị 34.900đ; ~6% sản phẩm đang kh
 
 ================================================================ HỌC MÁY
 Đầu vào: chỉ dữ liệu đã xử lý trong kho - view ttns.v_price_monthly, lọc don_vi_tinh = 'VNĐ/kg'
-(6.925 bản ghi, 429 chuỗi giá; chuỗi = mặt hàng × tỉnh × loại giá).
+(6.704 bản ghi, 508 chuỗi giá; chuỗi = mặt hàng × tỉnh × loại giá).
 Notebook: ml/KhaiPha_GiaNongSan.ipynb (so sánh, chọn mô hình). Ghi kho: ml/publish_ml.py.
 
 1. Dự báo giá tháng tới: 2 mô hình cơ sở (Dummy, giữ nguyên giá), Linear Regression, Decision Tree, Random Forest,
-   Random Forest học độ thay đổi log(giá) - log(giá lần trước). Train đến 12/2024, kiểm tra 2025, CV theo khối tháng.
-   Kết quả 2025: RF học độ thay đổi RMSE 7.700 đ/kg, R² 0,877; giữ nguyên giá 8.202 (mô hình tốt hơn 6,1%).
-   Khoảng 80% = phân vị 10% / 90% sai số log trên năm 2025, theo cấp giá.
-2. Phân cụm: 122 chuỗi ≥ 24 tháng, 6 đặc trưng hành vi (không dùng mức giá); K-Means K = 4 (Elbow + Silhouette 0,22).
-3. Dị biệt: DBSCAN min_samples = 7, eps tại điểm gãy đồ thị k-khoảng cách (≈ 2,0) -> 6 chuỗi dị biệt.
-Kết quả trong kho: ttns.ml_forecast, ttns.ml_cluster, ttns.ml_metrics (dashboard "Khai phá" trên Superset, ứng dụng).
+   Random Forest học độ thay đổi log(giá) - log(giá lần trước). Kiểm tra trên năm cuối (01-09/2026), train mọi năm
+   trước đó, CV theo khối tháng; chọn mô hình theo RMSE CV.
+   Kết quả 2026: RF học độ thay đổi RMSE 7.563 đ/kg, MAE 3.990, R² 0,694; giữ nguyên giá RMSE 8.197, MAE 4.136
+   (RMSE tốt hơn 7,7%, MAE tốt hơn 3,5%). Khoảng 80% = phân vị 10% / 90% sai số log trên năm kiểm tra, theo cấp giá.
+2. Phân cụm: 93 chuỗi ≥ 24 tháng, 6 đặc trưng hành vi (không dùng mức giá); K-Means K = 4 (Elbow + Silhouette 0,21).
+3. Dị biệt: DBSCAN min_samples = 7, eps tại điểm gãy đồ thị k-khoảng cách (≈ 2,2) -> 8 chuỗi dị biệt.
+Kết quả trong kho: ttns.ml_forecast, ttns.ml_cluster, ttns.ml_metrics (dashboard "Khai phá" trên Superset).

@@ -45,13 +45,13 @@ COL_EXPR = {
 
 # 3 khối con được thuật toán tham lam chọn (thứ tự = thứ tự chọn), kèm lý do nghiệp vụ
 CUBOIDS = {
-    "cube_quy_mathang_tinh_loaigia": {
-        "levels": {"thoi_gian": "quy", "san_pham": "mat_hang", "dia_diem": "tinh_cu", "loai_gia": "loai_gia"},
-        "ly_do": "vòng 1, lợi ích lớn nhất: gom 3 tháng -> phục vụ mọi báo cáo theo quý / năm ở mọi mức sản phẩm, địa điểm",
-    },
     "cube_thang_nhom_tinh_loaigia": {
         "levels": {"thoi_gian": "thang", "san_pham": "nhom", "dia_diem": "tinh_cu", "loai_gia": "loai_gia"},
-        "ly_do": "vòng 2: giữ độ mịn tháng (xu hướng, mùa vụ) nhưng gộp sản phẩm về 2 nhóm -> rất nhỏ (~760 dòng)",
+        "ly_do": "vòng 1, lợi ích lớn nhất: giữ độ mịn tháng (xu hướng, mùa vụ) nhưng gộp sản phẩm về 2 nhóm -> rất nhỏ (~730 dòng)",
+    },
+    "cube_quy_mathang_tinh_loaigia": {
+        "levels": {"thoi_gian": "quy", "san_pham": "mat_hang", "dia_diem": "tinh_cu", "loai_gia": "loai_gia"},
+        "ly_do": "vòng 2: gom 3 tháng -> phục vụ mọi báo cáo theo quý / năm ở mọi mức sản phẩm, địa điểm",
     },
     "cube_nam_mathang_tinh_loaigia": {
         "levels": {"thoi_gian": "nam", "san_pham": "mat_hang", "dia_diem": "tinh_cu", "loai_gia": "loai_gia"},

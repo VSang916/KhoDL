@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Chạy lại TOÀN BỘ dự án từ đầu bằng một lệnh (yêu cầu bắt buộc - Bài 12):
-#   hạ tầng (Docker) -> ETL + CDC + khối OLAP (Airflow) -> khai phá (ML) -> dashboard Superset -> notebook -> kiểm thử -> ứng dụng
+#   hạ tầng (Docker) -> ETL + CDC + khối OLAP (Airflow) -> khai phá (ML) -> dashboard Superset -> notebook -> kiểm thử
 #
 # Cách dùng (Git Bash / Linux / macOS, trong thư mục luong/):
-#   ./run_all.sh                 # chạy hết, cuối cùng mở ứng dụng ở http://localhost:8501
-#   NO_APP=1 ./run_all.sh        # không mở ứng dụng
+#   ./run_all.sh                 # chạy hết; xem kết quả trên Superset http://localhost:8088
 #   SKIP_WINMART=1 ./run_all.sh  # bỏ qua nguồn Winmart (gọi API thật)
 #   SKIP_NOTEBOOKS=1 ./run_all.sh
 # Yêu cầu: Docker Desktop đang chạy; Python 3.10+ (nên dùng virtualenv).
@@ -66,7 +65,3 @@ fi
 step "7/7 Kiểm thử"
 python -m pytest tests -q -p no:cacheprovider
 
-if [[ -z ${NO_APP:-} ]]; then
-  step "Mở ứng dụng: http://localhost:8501  (Ctrl+C để dừng)"
-  python -m streamlit run app/app.py --server.headless true
-fi

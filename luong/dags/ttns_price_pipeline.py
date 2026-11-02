@@ -1,31 +1,9 @@
-"""
-DAG: ttns_price_pipeline
-Luồng:
-  ensure_buckets -> extract -> check_changed -> transform -> prepare_clickhouse -> cdc -> validate -> load_clickhouse
-  -> build_olap_cubes -> commit_cdc
-
-  extract        : tải file Excel gốc (hoặc dùng lại raw đã lưu nếu có replay_dt) -> raw-data/ttns/dt=.../*.xlsx, tính md5 dữ liệu
-  check_changed  : md5 dữ liệu giống lần commit gần nhất -> nguồn chưa cập nhật -> DỪNG, các task sau bị skip
-  transform      : làm sạch -> processed-data/ttns/dt=.../*.csv
-  prepare_ch     : tạo/migrate bảng ClickHouse; nếu bảng vừa tạo lại hoặc rỗng -> nạp lại toàn bộ (full)
-  cdc            : so fact_price_monthly với snapshot ngày trước theo khoá (mặt hàng, tỉnh, tháng, loại giá, đơn vị)
-                   -> cdc_log.csv, fact_upsert.csv, price_clean_upsert.csv
-                   -> processed-data/ttns/_cdc/<scope>/dt=.../snapshot.csv
-  load           : chỉ INSERT phần thay đổi (ReplacingMergeTree version/is_deleted), price_clean xoá + ghi theo khoá đổi
-  build_cubes    : dựng lại 3 khối con OLAP (AggregatingMergeTree) chọn bằng thuật toán tham lam
-  commit_cdc     : ghi _meta.json (kèm md5) -> mốc cho lần sau
-
-ClickHouse (database ttns): dim_product, dim_market, dim_date, price_clean, fact_price_monthly (đọc bằng FINAL),
-  cdc_log (initial/new_month/backfill/revision/removed), view v_price_monthly, v_changes
-
-Code xử lý: pipelines/ttns (scraper, cleaning, cdc, schema) + pipelines/common.
-"""
 from __future__ import annotations
 
 import hashlib
 import io
+import json
 import logging
-import re
 import time
 from datetime import timedelta
 
@@ -37,10 +15,12 @@ from airflow.models.param import Param
 from pipelines.common import cdc as cdc_store
 from pipelines.common import clickhouse_helper as ch
 from pipelines.common import minio_helper as mh
+from pipelines.common.cdc import row_hash
 from pipelines.common.config import MINIO_ACCESS_KEY, MINIO_ENDPOINT, MINIO_SECRET_KEY, PROCESSED_BUCKET, RAW_BUCKET, TZ
 from pipelines.ttns import cdc as ttns_cdc
 from pipelines.ttns import olap, schema, scraper
 from pipelines.ttns.cleaning import BUILD_TABLES, build_tables, clean
+from pipelines.ttns.export import read_raw
 
 log = logging.getLogger(__name__)
 
@@ -58,18 +38,19 @@ def _s3(key: str, structure: str) -> str:
 KEY_STRUCTURE = "product_id UInt32, market_id UInt32, date_id UInt32, loai_gia String, don_vi_tinh String"
 
 
+def _warehouse(sql: str) -> pd.DataFrame:
+    """Đọc 1 bảng nhỏ của kho về DataFrame, cùng cách đọc như CSV trên MinIO để hash so sánh được."""
+    text = ch.query(sql + " FORMAT CSVWithNames")
+    return pd.read_csv(io.StringIO(text), dtype=ttns_cdc.SNAPSHOT_DTYPE, keep_default_na=False, na_values=[""])
+
+
 @dag(
     dag_id="ttns_price_pipeline",
-    description="thitruongnongsan.gov.vn (giá rau quả trong nước) -> MinIO raw/processed -> CDC -> ClickHouse",
+    description="thitruongnongsan.gov.vn/nguonwmy (giá rau quả theo tháng) -> MinIO raw/processed -> CDC -> ClickHouse",
     start_date=pendulum.datetime(2026, 10, 1, tz=TZ),
-    schedule="0 6 * * 1",  # 6h sáng thứ Hai hằng tuần (dữ liệu nguồn cập nhật theo tháng)
+    schedule="0 6 * * 1",
     catchup=False,
     params={
-        "products": Param(
-            [],
-            type="array",
-            description="Tên sản phẩm đúng như trên web (vd Vải, Xoài). Để trống = tải tất cả trong 1 file",
-        ),
         "force": Param(False, type="boolean", description="Chạy tiếp dù file không đổi / dù xoá nhiều bất thường"),
         "replay_dt": Param(
             None, type=["null", "string"],
@@ -86,29 +67,37 @@ def ttns_price_pipeline():
 
     @task
     def extract(**context) -> dict:
-        """Tải file Excel gốc từ web, ghi nguyên vẹn vào raw-data. Trả về md5 dữ liệu để phát hiện nguồn có đổi không."""
-        params = context["params"]
-        products = sorted(p for p in (params["products"] or []) if p)
-        replay_dt = params.get("replay_dt")
-        today = replay_dt or pendulum.now(TZ).format("YYYY-MM-DD")
+        """Mỗi nhóm sản phẩm: ghi nguyên vẹn file xuất (.xls) và danh sách Sản phẩm (.json) vào raw-data.
+        Trả về md5 dữ liệu để phát hiện nguồn có đổi không."""
+        replay_dt = context["params"].get("replay_dt")
+        now = pendulum.parse(replay_dt, tz=TZ) if replay_dt else pendulum.now(TZ)
+        today = now.format("YYYY-MM-DD")
         client = mh.client()
-        session = None if replay_dt else scraper.session()
-        keys, md5s = [], []
-        for product in products or [""]:
-            name = re.sub(r"\s+", "_", product) if product else "all"
-            key = f"{SOURCE_PREFIX}/dt={today}/cat{scraper.CAT_ID}_item{scraper.ITEM_NO}_{name}.xlsx"
-            if replay_dt:
-                content = mh.get_bytes(client, RAW_BUCKET, key)
-            else:
-                content = scraper.scrape_excel(session, product)
-                mh.put_bytes(client, RAW_BUCKET, key, content, scraper.XLSX_TYPE)
+        prefix = f"{SOURCE_PREFIX}/dt={today}/"
+        if replay_dt:
+            keys = mh.list_keys(client, RAW_BUCKET, prefix)
+            # raw trước 11/2026 là file .xlsx của trang cũ; cùng ngày có cả 2 loại thì dùng trang mới
+            files = [{"key": k, "group": k[len(prefix):-4].replace("_", " "), "products": k[:-4] + ".json"}
+                     for k in keys if k.endswith(".xls")] or [{"key": k} for k in keys if k.endswith(".xlsx")]
+            if not files:
+                raise ValueError(f"Không có raw nào cho dt={replay_dt}")
+        else:
+            session, files = scraper.session(), []
+            for group in scraper.GROUPS:
+                key = prefix + group.replace(" ", "_") + ".xls"
+                content, products = scraper.scrape_group(session, group, now.format("DD/MM/YYYY"))
+                mh.put_bytes(client, RAW_BUCKET, key, content, scraper.XLS_TYPE)
+                mh.put_bytes(client, RAW_BUCKET, key[:-4] + ".json",
+                             json.dumps(products, ensure_ascii=False).encode("utf-8"), "application/json")
+                files.append({"key": key, "group": group, "products": key[:-4] + ".json"})
                 time.sleep(1)  # lịch sự với server
-            keys.append(key)
-            # Hash DỮ LIỆU chứ không hash file: mỗi lần xuất, web nén zip lại với thời gian mới nên byte luôn khác
-            data_csv = pd.read_excel(io.BytesIO(content)).to_csv(index=False)
-            md5s.append(hashlib.md5(data_csv.encode("utf-8")).hexdigest())
+        # Hash DỮ LIỆU đã đọc ra (sắp xếp) chứ không hash file, để không phụ thuộc thứ tự dòng hay cách web đóng gói
+        md5s = []
+        for f in files:
+            raw = read_raw(f, lambda k: mh.get_bytes(client, RAW_BUCKET, k))
+            md5s.append(hashlib.md5(raw.sort_values(by=list(raw.columns)).to_csv(index=False).encode("utf-8")).hexdigest())
         return {
-            "date": today, "keys": keys, "scope": cdc_store.scope_name(products),
+            "date": today, "files": files, "scope": cdc_store.scope_name([]),
             "content_md5": hashlib.md5("".join(md5s).encode()).hexdigest(),
         }
 
@@ -131,10 +120,10 @@ def ttns_price_pipeline():
     def transform(extracted: dict) -> dict:
         client = mh.client()
         parts, all_stats = [], []
-        for key in extracted["keys"]:
-            raw = pd.read_excel(io.BytesIO(mh.get_bytes(client, RAW_BUCKET, key)))
-            df, stats = clean(raw, key.rsplit("/", 1)[-1])
-            log.info("%s: %s", key, stats)
+        for f in extracted["files"]:
+            raw = read_raw(f, lambda k: mh.get_bytes(client, RAW_BUCKET, k))
+            df, stats = clean(raw, f["key"].rsplit("/", 1)[-1])
+            log.info("%s: %s", f["key"], stats)
             parts.append(df)
             all_stats.append(stats)
         if not parts or sum(len(p) for p in parts) == 0:
@@ -144,7 +133,8 @@ def ttns_price_pipeline():
         prefix = f"{SOURCE_PREFIX}/dt={extracted['date']}"
         rows = {t: mh.put_csv(client, PROCESSED_BUCKET, f"{prefix}/{t}.csv", df) for t, df in frames.items()}
         log.info("Số dòng mỗi bảng: %s", rows)
-        return {**extracted, "prefix": prefix, "rows": rows, "raw_keys": extracted["keys"], "stats": all_stats}
+        raw_keys = [k for f in extracted["files"] for k in (f["key"], f.get("products")) if k]
+        return {**extracted, "prefix": prefix, "rows": rows, "raw_keys": raw_keys, "stats": all_stats}
 
     @task
     def prepare_clickhouse() -> bool:
@@ -166,12 +156,19 @@ def ttns_price_pipeline():
         prev = cdc_store.load_snapshot(client, SOURCE_PREFIX, scope, base, dtype=ttns_cdc.SNAPSHOT_DTYPE)
 
         version = int(pendulum.now(TZ).format("YYYYMMDDHHmmss"))
-        cdc_log, fact_upsert, snapshot, stats = ttns_cdc.compute(prev, fact, result["date"], scope, version)
+        # Nhật ký (cdc_log) so với mốc hôm trước; còn dòng cần ghi thì so với TRẠNG THÁI THẬT của kho. Hai thứ khác
+        # nhau khi chạy lại trong ngày (kho đã chứa lần chạy trước) hoặc sau một lần nạp hỏng giữa chừng.
+        cdc_log, _, snapshot, stats = ttns_cdc.compute(prev, fact, result["date"], scope, version)
         log.info("CDC scope=%s so với mốc %s: %s", scope, base, stats)
+        wh_fact = None if full else _warehouse(f"SELECT {', '.join(ttns_cdc.FACT_COLS)} FROM {schema.DB}.fact_price_monthly "
+                                               "FINAL WHERE is_deleted = 0")
+        if wh_fact is not None:
+            wh_fact["row_hash"] = row_hash(wh_fact, ttns_cdc.TRACKED)
+        _, fact_upsert, _, _ = ttns_cdc.compute(wh_fact, fact, result["date"], scope, version)
 
         clean_df = mh.get_csv(client, PROCESSED_BUCKET, f"{prefix}/price_clean.csv", dtype=ttns_cdc.SNAPSHOT_DTYPE)
-        prev_groups = cdc_store.load_snapshot(client, SOURCE_PREFIX, scope, base, ttns_cdc.SNAPSHOT_DTYPE, name="snapshot_clean")
-        clean_keys, clean_upsert, groups = ttns_cdc.clean_changes(prev_groups, clean_df)
+        wh_groups = None if full else ttns_cdc.clean_groups(_warehouse(f"SELECT * FROM {schema.DB}.price_clean"))
+        clean_keys, clean_upsert, groups = ttns_cdc.clean_changes(wh_groups, clean_df)
 
         mh.put_csv(client, PROCESSED_BUCKET, f"{prefix}/cdc_log.csv", cdc_log)
         mh.put_csv(client, PROCESSED_BUCKET, f"{prefix}/fact_upsert.csv", fact_upsert)

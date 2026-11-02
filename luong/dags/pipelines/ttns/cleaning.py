@@ -48,6 +48,10 @@ NAME_ALIASES = {
     "trái dứa/thơm": "Dứa",
     "quả mơ": "Mơ",
     "quả bầu": "Bầu",
+    "dưa chuột/dưa chuội": "Dưa chuột",  # 4 dòng sau gặp ở trang nguonwmy
+    "quả mắc cọp": "Mắc cọp",
+    "trái cóc thái": "Cóc Thái",
+    "quả đào": "Đào",
 }
 
 # Gom loại giá thành 3 cấp để so sánh: giá tới tay người tiêu dùng / giá sỉ / giá tại nơi sản xuất
@@ -59,6 +63,8 @@ PRICE_LEVEL = {
     "Thu mua": "Thu mua",
     "Thương lái thu mua": "Thu mua",
     "Tại vườn": "Thu mua",
+    "Thu mua tại vườn": "Thu mua",  # 2 loại sau chỉ có ở trang nguonwmy (luồng ttns_thang)
+    "Vựa thu mua": "Thu mua",
 }
 
 # Giá lệch quá OUTLIER_RATIO lần so với trung vị của (mặt hàng, đơn vị, cấp giá) -> nghi nhập sai (thừa/thiếu số 0)

@@ -13,7 +13,7 @@
 #
 # Dữ liệu đã được luồng ETL (Airflow → MinIO → ClickHouse) làm sạch và nạp vào kho. Notebook này **chỉ đọc kho**
 # (view `ttns.v_price_monthly` = bảng sự kiện nối các bảng chiều), học máy, rồi ghi kết quả ngược lại kho để
-# Superset và ứng dụng dùng.
+# Superset dùng.
 #
 # | Bài toán | Câu hỏi nghiệp vụ | Kỹ thuật |
 # |---|---|---|
@@ -65,20 +65,17 @@ def show(fig, name):
 
 # %% [markdown]
 # ## 1. Đọc dữ liệu từ kho
-# Nếu ClickHouse không chạy thì đọc bản chụp `data/ttns_v_price_monthly.csv` (xuất từ chính view này).
+# Nếu ClickHouse không chạy thì đọc bản chụp `data/kho_v_price_monthly.csv` (xuất từ chính view này).
 
 # %%
 SQL = "SELECT * FROM ttns.v_price_monthly WHERE don_vi_tinh = 'VNĐ/kg' FORMAT CSVWithNames"
-VUNG = {"Sơn La": "Trung du và miền núi phía Bắc", "TP. Hà Nội": "Đồng bằng sông Hồng",
-        "Hưng Yên": "Đồng bằng sông Hồng", "Tây Ninh": "Đông Nam Bộ"}
 try:
     r = requests.post(os.getenv("CLICKHOUSE_URL", "http://localhost:8123"), data=SQL.encode("utf-8"),
                       auth=("default", os.getenv("CLICKHOUSE_PASSWORD", "mypassword")), timeout=30)
     r.raise_for_status()
     raw, source = pd.read_csv(io.StringIO(r.text)), "ClickHouse"
 except Exception as exc:
-    raw = pd.read_csv("data/ttns_v_price_monthly.csv").query("don_vi_tinh == 'VNĐ/kg'")
-    raw["vung"] = raw["tinh_moi"].map(VUNG).fillna("Đồng bằng sông Cửu Long")
+    raw = pd.read_csv("data/kho_v_price_monthly.csv").query("don_vi_tinh == 'VNĐ/kg'")
     source = f"bản chụp CSV ({type(exc).__name__})"
 raw["month"] = pd.to_datetime(raw["month"])
 raw["sid"] = raw.groupby(KEY, sort=True).ngroup()
@@ -95,12 +92,14 @@ d[KEY + ["cap_gia", "month", "median_price", "n_obs"]].head()
 # - số tháng cách lần trước, biên độ max/min lần trước, số lần báo giá, thứ tự trong chuỗi, năm, tháng (sin/cos);
 # - biến phân loại: nhóm, sản phẩm, cấp giá, vùng (one-hot).
 #
-# Chia **theo thời gian**: huấn luyện đến 12/2024, kiểm tra cả năm 2025. Cross-validation cũng theo khối tháng
+# Chia **theo thời gian**: kiểm tra trên năm cuối có dữ liệu (2026: tháng 1-9), huấn luyện trên mọi năm trước đó
+# (giống `publish_ml.py`). Cross-validation cũng theo khối tháng
 # (train luôn nằm trước validation). Chia ngẫu nhiên sẽ cho mô hình nhìn thấy tương lai.
 
 # %%
 TARGET = "median_price"
-CUT = pd.Timestamp("2025-01-01")
+TEST_YEAR = d["month"].max().year
+CUT = pd.Timestamp(TEST_YEAR, 1, 1)
 train, test = d[d["month"] < CUT].reset_index(drop=True), d[d["month"] >= CUT].reset_index(drop=True)
 X_train, y_train, X_test, y_test = train[NUM + CAT], train[TARGET], test[NUM + CAT], test[TARGET]
 
@@ -194,8 +193,8 @@ delta_params = grid(DeltaRegressor(RandomForestRegressor(n_estimators=300, rando
 print("Decision Tree:", dt_params, "\nRandom Forest:", rf_params, "\nRF học độ thay đổi:", delta_params)
 
 # %% [markdown]
-# ### 2.3 Đánh giá trên năm 2025
-# Mô hình được chọn theo RMSE của cross-validation; năm 2025 chỉ dùng để báo cáo kết quả cuối.
+# ### 2.3 Đánh giá trên năm kiểm tra
+# Mô hình được chọn theo RMSE của cross-validation; năm kiểm tra chỉ dùng để báo cáo kết quả cuối.
 
 # %%
 models = {
@@ -222,14 +221,15 @@ vals = result["RMSE"].iloc[::-1]
 ax.barh(vals.index, vals / 1000, color=[GRAY if n.startswith("Cơ sở") else BLUE for n in vals.index])
 for i, v in enumerate(vals):
     ax.text(v / 1000, i, f" {v:,.0f}", va="center", fontsize=9)
-ax.set(xlabel="RMSE 2025 (nghìn đ/kg)", title="Sai số trên năm 2025 (xám = mô hình cơ sở)")
+ax.set(xlabel=f"RMSE {TEST_YEAR} (nghìn đ/kg)", title=f"Sai số trên năm {TEST_YEAR} (xám = mô hình cơ sở)")
 ax.grid(axis="y", visible=False)
 show(fig, "02_so_sanh_mo_hinh")
 
 # %% [markdown]
-# **Nhận xét.** Giá có quán tính lớn: chỉ "giữ nguyên giá" đã đạt R² ≈ 0,86, và các mô hình học mức giá chỉ ngang
-# mốc này. Học **độ thay đổi** giúp Random Forest giảm RMSE khoảng 6,5% so với giữ nguyên giá. MAE vẫn thua nhẹ:
-# mô hình giảm được các lần đoán trật lớn (khi giá biến động theo mùa) chứ không cải thiện các tháng giá đứng yên.
+# **Nhận xét.** Giá có quán tính lớn: chỉ "giữ nguyên giá" đã đạt R² ≈ 0,64 trên 9 tháng 2026. Mô hình được chọn theo
+# **RMSE CV** là Random Forest học **độ thay đổi** (CV thấp nhất); trên năm kiểm tra nó giảm RMSE 7,7% và MAE 3,5% so
+# với giữ nguyên giá. Random Forest học mức giá nhỉnh hơn một chút trên riêng năm 2026 nhưng CV kém hơn — không đổi
+# lựa chọn theo tập kiểm tra, vì như vậy là dùng tập kiểm tra để chọn mô hình.
 
 # %% [markdown]
 # ## 3. Phân cụm chuỗi giá theo hành vi
@@ -284,8 +284,8 @@ axes[0].set_ylabel("% so với TB năm")
 show(fig, "04_hinh_dang_cum")
 
 # %% [markdown]
-# Silhouette chỉ khoảng 0,22: cụm có chồng lấn, nên đọc như **xu hướng** chứ không phải nhóm tách bạch. Các cụm vẫn có
-# ý nghĩa nghiệp vụ rõ, ví dụ rau vụ đông đỉnh giá tháng 12, cây có múi đỉnh tháng 4.
+# Silhouette chỉ khoảng 0,21: cụm có chồng lấn, nên đọc như **xu hướng** chứ không phải nhóm tách bạch. Các cụm vẫn có
+# ý nghĩa nghiệp vụ rõ, ví dụ bưởi, cam, nhãn đỉnh giá quanh tháng 6; xoài, dưa hấu, rau cải đỉnh quanh tháng 10.
 
 # %% [markdown]
 # ### 3.3 DBSCAN: tìm chuỗi dị biệt
@@ -326,9 +326,10 @@ if source == "ClickHouse":
 
 # %% [markdown]
 # ## 5. Kết luận
-# - **Dự báo giá:** Random Forest học độ thay đổi tốt nhất (RMSE 2025 thấp hơn "giữ nguyên giá" khoảng 6,5%). Giá
-#   nông sản có quán tính lớn nên mốc "giữ nguyên giá" rất khó vượt.
-# - **Phân cụm:** 4 nhịp giá (ổn định; biến động mạnh; đỉnh tháng 4; đỉnh tháng 12). Cụm yếu (silhouette ≈ 0,22).
-# - **Dị biệt:** DBSCAN tách 6 chuỗi, phần lớn là giá thu mua trái cây biến động rất mạnh.
-# - **Hạn chế:** chuỗi ngắn (tối đa 57 tháng) và thưa; giá bán lẻ và thu mua đo ở hai miền khác nhau. Hướng tiếp:
-#   thêm thời tiết, lịch Tết; dự báo nhiều tháng; đưa huấn luyện thành DAG Airflow.
+# - **Dự báo giá:** Random Forest học độ thay đổi được chọn theo CV; trên 01-09/2026 RMSE thấp hơn "giữ nguyên giá"
+#   7,7%, MAE thấp hơn 3,5%. Giá nông sản có quán tính lớn nên mốc "giữ nguyên giá" rất khó vượt.
+# - **Phân cụm:** 4 nhịp giá (ổn định; biến động mạnh; đỉnh tháng 6; đỉnh tháng 10). Cụm yếu (silhouette ≈ 0,21).
+# - **Dị biệt:** DBSCAN tách 8 / 93 chuỗi, phần lớn là giá thu mua ở ĐBSCL biến động rất mạnh (mướp, bầu, dứa ở Cần Thơ).
+# - **Hạn chế:** chuỗi ngắn (tối đa 69 tháng) và thưa; nguồn chỉ cho giá trung bình tháng nên không còn số lần báo giá
+#   thật; giá bán lẻ và thu mua đo ở hai miền khác nhau. Hướng tiếp: thêm thời tiết, lịch Tết; dự báo nhiều tháng; đưa
+#   huấn luyện thành DAG Airflow.

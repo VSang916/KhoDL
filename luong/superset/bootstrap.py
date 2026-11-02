@@ -33,7 +33,7 @@ BAN_LE = "Bán lẻ"
 CUBE_METRICS = [
     ("gia_tb", "Giá TB (VNĐ/kg)", "sum(tong_gia) / nullIf(sum(so_bao_gia), 0)", ",.0f"),
     ("gia_trung_vi", "Giá trung vị (VNĐ/kg)", "quantileExactMerge(0.5)(gia_tv)", ",.0f"),
-    ("so_bao_gia", "Số lần báo giá", "sum(so_bao_gia)", ",d"),
+    ("so_bao_gia", "Số dòng giá", "sum(so_bao_gia)", ",d"),
     ("gia_thap_nhat", "Giá thấp nhất", "min(gia_min)", ",.0f"),
     ("gia_cao_nhat", "Giá cao nhất", "max(gia_max)", ",.0f"),
 ]
@@ -62,7 +62,7 @@ DATASETS = {
         "calc": {},
         "metrics": [
             ("gia_tb", "Giá TB (VNĐ/kg)", "sum(sum_price) / nullIf(sum(n_valid), 0)", ",.0f"),
-            ("so_bao_gia", "Số lần báo giá", "sum(n_valid)", ",d"),
+            ("so_bao_gia", "Số dòng giá", "sum(n_valid)", ",d"),
             ("gia_thap_nhat", "Giá thấp nhất", "min(min_price)", ",.0f"),
             ("gia_cao_nhat", "Giá cao nhất", "max(max_price)", ",.0f"),
         ],
@@ -135,7 +135,7 @@ CHARTS = [
     ("bn_delta", OLAP, "cube_nam", "So với 2024 · khối năm", "big_number_total",
      {"metric": "tang_2025_vs_2024", "subheader": "giá bán lẻ TB 2025 / 2024 − 1", "y_axis_format": "+.1%",
       "adhoc_filters": RETAIL}),
-    ("bn_n", OLAP, "cube_nam", "Số lần báo giá hợp lệ · khối năm", "big_number_total",
+    ("bn_n", OLAP, "cube_nam", "Số dòng giá hợp lệ · khối năm", "big_number_total",
      {"metric": "so_bao_gia", "subheader": "đơn vị VNĐ/kg, đã loại giá bất thường", "y_axis_format": ",d",
       "adhoc_filters": []}),
     ("rollup_vung", OLAP, "cube_nam", "Cuộn lên: giá bán lẻ TB theo năm × vùng · khối năm", "echarts_timeseries_bar",
@@ -165,7 +165,7 @@ CHARTS = [
       "order_desc": True, "row_limit": 500, "adhoc_filters": [NO_TIME("month"), flt("don_vi_tinh", "VNĐ/kg")],
       "include_search": True, "time_grain_sqla": "P1M", "table_timestamp_format": "%m/%Y"}),
     # ---------------------------------------------------------------- khai phá
-    ("ml_sai_so", ML, "metrics", "Sai số mô hình dự báo (năm kiểm tra 2025)", "table",
+    ("ml_sai_so", ML, "metrics", "Sai số mô hình dự báo (kiểm tra 01–09/2026)", "table",
      {"query_mode": "raw", "all_columns": ["model", "rmse", "mae", "mape", "r2"], "row_limit": 20,
       "adhoc_filters": [], "column_config": fmt(rmse=",.0f", mae=",.0f", mape=".1%", r2=".3f")}),
     ("ml_du_bao", ML, "forecast", "Dự báo giá tháng tới kèm khoảng 80%", "table",
@@ -197,7 +197,7 @@ DASHBOARDS = {
         "title": "Kho giá nông sản — OLAP",
         "intro": (
             "**Máy chủ OLAP:** ClickHouse (ROLAP, lược đồ hình sao 4 chiều). Mỗi biểu đồ đọc **khối con nhỏ nhất** trả lời "
-            "được nó (ghi sau dấu ·), không đọc 40.575 dòng gốc.  \n"
+            "được nó (ghi sau dấu ·), không đọc bảng nguyên tử price_clean.  \n"
             "**Cuộn lên / khoan xuống:** trong Explore đổi *Time grain* (tháng ↔ quý ↔ năm) hoặc chuột phải › *Drill by* "
             "(nhóm → sản phẩm → mặt hàng, vùng → tỉnh). **Cắt lát / cắt khối:** bộ lọc bên trái, bấm vào cột để lọc chéo. "
             "**Xoay trục:** bảng pivot."),
